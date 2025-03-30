@@ -121,14 +121,18 @@ button {
     background-color: #005a9c;
     color: white;
     border: none;
-    padding: 0.6rem 1.2rem;
-    cursor: pointer;
-    border-radius: 3px;
+    height: 2.5rem;
+    font-size: 0.95rem;
+    padding: 0.5rem 1rem;
+    cursor: pointer; /* une main apparait lorqu'on remet le curseur sur un bouton*/
+    border-radius: 0.5rem;
+    font-weight: 500;
     margin-right: 0.5rem;
+    transition: transform 0.2s ease, background-color 0.3s ease;
 }
 
-button:hover {
-    background-color: #004a7c;
+button:hover{
+    transform: scale(1.05);
 }
 
 .form-actions {
@@ -292,11 +296,20 @@ button:hover {
     }
 }
 
-/* couleur verte pour le bouton "Voir l'emploi du temps complet : */
+/* couleur verte pour le bouton "Voir l'emploi du temps complet" et le bouton "Lancer le solveur"*/
       
 #view-full-timetable,#start-solver{
     background-color: #22c55e;
 }
+
+/* couleur gray pour le bouton "Réinitialiser" et le bouton "exporter"*/
+#export-solution , button[type="reset"]{
+    background-color: #6b7280;
+}
+
+
+
+
 
 
 /* Footer */
