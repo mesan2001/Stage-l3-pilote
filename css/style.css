@@ -170,6 +170,11 @@ button:hover{
     margin-top: 0.5rem;
 }
 
+.constraint-list.show {
+    display: none; /* Caché lorsqu'on ajoute la classe 'show' */
+}
+
+
 .constraint-item {
     display: flex;
     align-items: center;
@@ -183,9 +188,9 @@ button:hover{
     margin-right: 0.5rem;
 }
 
-.constraint-list.show {
-    display: grid; 
-}
+
+
+
 
 /* Styles pour les stratégies de variables */
 .strategy-container {
@@ -307,11 +312,6 @@ button:hover{
     background-color: #6b7280;
 }
 
-
-
-
-
-
 /* Footer */
 footer {
     text-align: center;
@@ -320,3 +320,5 @@ footer {
     background-color: #f8f9fa;
     border-top: 1px solid #ddd;
 }
+
+  
