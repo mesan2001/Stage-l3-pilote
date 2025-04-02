@@ -1,0 +1,902 @@
+[
+    {
+        "annee": "2024",
+        "noSalle": "143399",
+        "codeSalle": "A014 Salle syndicale et Réunion 14p",
+        "nomSalle": "A014 Salle syndicale et Réunion 14p",
+        "departement": "UFR SCIENCES",
+        "site": "Angers - Belle-Beille",
+        "typeSalle": "Salle de réunion",
+        "capacite": "14"
+    },
+    {
+        "annee": "2024",
+        "noSalle": "143400",
+        "codeSalle": "A019 (avec vidéoprojecteur) - CELFE",
+        "nomSalle": "A019 (avec vidéoprojecteur) - CELFE",
+        "departement": "UFR SCIENCES",
+        "site": "Angers - Belle-Beille",
+        "typeSalle": "Salle de réunion",
+        "capacite": "20"
+    },
+    {
+        "annee": "2024",
+        "noSalle": "143401",
+        "codeSalle": "A020 Salle de Visioconférence & Réunion",
+        "nomSalle": "A020 Salle de Visioconférence & Réunion ",
+        "departement": "UFR SCIENCES",
+        "site": "Angers - Belle-Beille",
+        "typeSalle": "Salle de conférences",
+        "capacite": "30"
+    },
+    {
+        "annee": "2024",
+        "noSalle": "143401",
+        "codeSalle": "A020 Salle de Visioconférence & Réunion",
+        "nomSalle": "A020 Salle de Visioconférence & Réunion ",
+        "departement": "UFR SCIENCES",
+        "site": "Angers - Belle-Beille",
+        "typeSalle": "Salle de réunion",
+        "capacite": "30"
+    },
+    {
+        "annee": "2024",
+        "noSalle": "143402",
+        "codeSalle": "A115 Informatique 20",
+        "nomSalle": "A115 Informatique 20",
+        "departement": "UFR SCIENCES",
+        "site": "Angers - Belle-Beille",
+        "typeSalle": "Salle d'informatique",
+        "capacite": "20"
+    },
+    {
+        "annee": "2024",
+        "noSalle": "143403",
+        "codeSalle": "A116 Multimédia",
+        "nomSalle": "A116 Multimédia",
+        "departement": "UFR SCIENCES",
+        "site": "Angers - Belle-Beille",
+        "typeSalle": "Salle multi-médias",
+        "capacite": "40"
+    },
+    {
+        "annee": "2024",
+        "noSalle": "143404",
+        "codeSalle": "A117 Multimédia",
+        "nomSalle": "A117 Multimédia",
+        "departement": "UFR SCIENCES",
+        "site": "Angers - Belle-Beille",
+        "typeSalle": "Salle multi-médias",
+        "capacite": "40"
+    },
+    {
+        "annee": "2024",
+        "noSalle": "143405",
+        "codeSalle": "A118 Multimédia",
+        "nomSalle": "A118 Multimédia",
+        "departement": "UFR SCIENCES",
+        "site": "Angers - Belle-Beille",
+        "typeSalle": "Salle multi-médias",
+        "capacite": "32"
+    },
+    {
+        "annee": "2024",
+        "noSalle": "143406",
+        "codeSalle": "A119 Multimédia",
+        "nomSalle": "A119 Multimédia",
+        "departement": "UFR SCIENCES",
+        "site": "Angers - Belle-Beille",
+        "typeSalle": "Salle multi-médias",
+        "capacite": "30"
+    },
+    {
+        "annee": "2024",
+        "noSalle": "143407",
+        "codeSalle": "A120 Multimédia",
+        "nomSalle": "A120 Multimédia",
+        "departement": "UFR SCIENCES",
+        "site": "Angers - Belle-Beille",
+        "typeSalle": "Salle multi-médias",
+        "capacite": "36"
+    },
+    {
+        "annee": "2024",
+        "noSalle": "143434",
+        "codeSalle": "G001",
+        "nomSalle": "G001",
+        "departement": "UFR SCIENCES",
+        "site": "Angers - Belle-Beille",
+        "typeSalle": "Salle de TP",
+        "capacite": "20"
+    },
+    {
+        "annee": "2024",
+        "noSalle": "143435",
+        "codeSalle": "G002",
+        "nomSalle": "G002",
+        "departement": "UFR SCIENCES",
+        "site": "Angers - Belle-Beille",
+        "typeSalle": "Salle de TP",
+        "capacite": "20"
+    },
+    {
+        "annee": "2024",
+        "noSalle": "143436",
+        "codeSalle": "G003",
+        "nomSalle": "G003",
+        "departement": "UFR SCIENCES",
+        "site": "Angers - Belle-Beille",
+        "typeSalle": "Salle de TP",
+        "capacite": "25"
+    },
+    {
+        "annee": "2024",
+        "noSalle": "143437",
+        "codeSalle": "G101 Informatique 20",
+        "nomSalle": "G101 Informatique 20",
+        "departement": "UFR SCIENCES",
+        "site": "Angers - Belle-Beille",
+        "typeSalle": "Salle d'informatique",
+        "capacite": "20"
+    },
+    {
+        "annee": "2024",
+        "noSalle": "143438",
+        "codeSalle": "G102 Informatique 20",
+        "nomSalle": "G102 Informatique 20",
+        "departement": "UFR SCIENCES",
+        "site": "Angers - Belle-Beille",
+        "typeSalle": "Salle d'informatique",
+        "capacite": "20"
+    },
+    {
+        "annee": "2024",
+        "noSalle": "143439",
+        "codeSalle": "G103 Informatique 20",
+        "nomSalle": "G103 Informatique 20",
+        "departement": "UFR SCIENCES",
+        "site": "Angers - Belle-Beille",
+        "typeSalle": "Salle d'informatique",
+        "capacite": "20"
+    },
+    {
+        "annee": "2024",
+        "noSalle": "143440",
+        "codeSalle": "G104 Informatique 20",
+        "nomSalle": "G104 Informatique 20",
+        "departement": "UFR SCIENCES",
+        "site": "Angers - Belle-Beille",
+        "typeSalle": "Salle d'informatique",
+        "capacite": "20"
+    },
+    {
+        "annee": "2024",
+        "noSalle": "143441",
+        "codeSalle": "G105 Informatique 10",
+        "nomSalle": "G105 Informatique 10",
+        "departement": "UFR SCIENCES",
+        "site": "Angers - Belle-Beille",
+        "typeSalle": "Salle d'informatique",
+        "capacite": "20"
+    },
+    {
+        "annee": "2024",
+        "noSalle": "143442",
+        "codeSalle": "G204 Informatique 20",
+        "nomSalle": "G204 Informatique 20",
+        "departement": "UFR SCIENCES",
+        "site": "Angers - Belle-Beille",
+        "typeSalle": "Salle d'informatique",
+        "capacite": "20"
+    },
+    {
+        "annee": "2024",
+        "noSalle": "143443",
+        "codeSalle": "G205",
+        "nomSalle": "G205",
+        "departement": "UFR SCIENCES",
+        "site": "Angers - Belle-Beille",
+        "typeSalle": "Salle de TP",
+        "capacite": "24"
+    },
+    {
+        "annee": "2024",
+        "noSalle": "143445",
+        "codeSalle": "H001",
+        "nomSalle": "H001",
+        "departement": "UFR SCIENCES",
+        "site": "Angers - Belle-Beille",
+        "typeSalle": "Salle de TP",
+        "capacite": "20"
+    },
+    {
+        "annee": "2024",
+        "noSalle": "143446",
+        "codeSalle": "H002 Informatique 20",
+        "nomSalle": "H002 Informatique 20",
+        "departement": "UFR SCIENCES",
+        "site": "Angers - Belle-Beille",
+        "typeSalle": "Salle d'informatique",
+        "capacite": "40"
+    },
+    {
+        "annee": "2024",
+        "noSalle": "143447",
+        "codeSalle": "H003 Informatique 20",
+        "nomSalle": "H003 Informatique 20",
+        "departement": "UFR SCIENCES",
+        "site": "Angers - Belle-Beille",
+        "typeSalle": "Salle d'informatique",
+        "capacite": "40"
+    },
+    {
+        "annee": "2024",
+        "noSalle": "143450",
+        "codeSalle": "H217 Informatique 20",
+        "nomSalle": "H217 Informatique 20",
+        "departement": "UFR SCIENCES",
+        "site": "Angers - Belle-Beille",
+        "typeSalle": "Salle d'informatique",
+        "capacite": "20"
+    },
+    {
+        "annee": "2024",
+        "noSalle": "143451",
+        "codeSalle": "I002",
+        "nomSalle": "I002",
+        "departement": "UFR SCIENCES",
+        "site": "Angers - Belle-Beille",
+        "typeSalle": "Salle de cours",
+        "capacite": "44"
+    },
+    {
+        "annee": "2024",
+        "noSalle": "143452",
+        "codeSalle": "I003",
+        "nomSalle": "I003",
+        "departement": "UFR SCIENCES",
+        "site": "Angers - Belle-Beille",
+        "typeSalle": "Salle de cours",
+        "capacite": "44"
+    },
+    {
+        "annee": "2024",
+        "noSalle": "143453",
+        "codeSalle": "I004",
+        "nomSalle": "I004",
+        "departement": "UFR SCIENCES",
+        "site": "Angers - Belle-Beille",
+        "typeSalle": "Salle de cours",
+        "capacite": "48"
+    },
+    {
+        "annee": "2024",
+        "noSalle": "143454",
+        "codeSalle": "I005",
+        "nomSalle": "I005",
+        "departement": "UFR SCIENCES",
+        "site": "Angers - Belle-Beille",
+        "typeSalle": "Salle de cours",
+        "capacite": "44"
+    },
+    {
+        "annee": "2024",
+        "noSalle": "143455",
+        "codeSalle": "I006 - M1 MFA",
+        "nomSalle": "I006",
+        "departement": "UFR SCIENCES",
+        "site": "Angers - Belle-Beille",
+        "typeSalle": "Salle de cours",
+        "capacite": "40"
+    },
+    {
+        "annee": "2024",
+        "noSalle": "143456",
+        "codeSalle": "I008 Informatique 21 - Mathématiques",
+        "nomSalle": "I008 Informatique 21",
+        "departement": "UFR SCIENCES",
+        "site": "Angers - Belle-Beille",
+        "typeSalle": "Salle d'informatique",
+        "capacite": "21"
+    },
+    {
+        "annee": "2024",
+        "noSalle": "143458",
+        "codeSalle": "AMPHI L001",
+        "nomSalle": "AMPHI L001",
+        "departement": "UFR SCIENCES",
+        "site": "Angers - Belle-Beille",
+        "typeSalle": "Amphithéâtre",
+        "capacite": "100"
+    },
+    {
+        "annee": "2024",
+        "noSalle": "143458",
+        "codeSalle": "AMPHI L001",
+        "nomSalle": "AMPHI L001",
+        "departement": "UFR SCIENCES",
+        "site": "Angers - Belle-Beille",
+        "typeSalle": "Salle d'examen",
+        "capacite": "40"
+    },
+    {
+        "annee": "2024",
+        "noSalle": "143459",
+        "codeSalle": "AMPHI L002",
+        "nomSalle": "AMPHI L002  ",
+        "departement": "UFR SCIENCES",
+        "site": "Angers - Belle-Beille",
+        "typeSalle": "Amphithéâtre",
+        "capacite": "200"
+    },
+    {
+        "annee": "2024",
+        "noSalle": "143459",
+        "codeSalle": "AMPHI L002",
+        "nomSalle": "AMPHI L002  ",
+        "departement": "UFR SCIENCES",
+        "site": "Angers - Belle-Beille",
+        "typeSalle": "Salle d'examen",
+        "capacite": "73"
+    },
+    {
+        "annee": "2024",
+        "noSalle": "143460",
+        "codeSalle": "AMPHI L003",
+        "nomSalle": "AMPHI L003 ",
+        "departement": "UFR SCIENCES",
+        "site": "Angers - Belle-Beille",
+        "typeSalle": "Amphithéâtre",
+        "capacite": "100"
+    },
+    {
+        "annee": "2024",
+        "noSalle": "143460",
+        "codeSalle": "AMPHI L003",
+        "nomSalle": "AMPHI L003 ",
+        "departement": "UFR SCIENCES",
+        "site": "Angers - Belle-Beille",
+        "typeSalle": "Salle d'examen",
+        "capacite": "40"
+    },
+    {
+        "annee": "2024",
+        "noSalle": "143461",
+        "codeSalle": "AMPHI L004",
+        "nomSalle": "AMPHI L004 ",
+        "departement": "UFR SCIENCES",
+        "site": "Angers - Belle-Beille",
+        "typeSalle": "Amphithéâtre",
+        "capacite": "150"
+    },
+    {
+        "annee": "2024",
+        "noSalle": "143461",
+        "codeSalle": "AMPHI L004",
+        "nomSalle": "AMPHI L004 ",
+        "departement": "UFR SCIENCES",
+        "site": "Angers - Belle-Beille",
+        "typeSalle": "Salle d'examen",
+        "capacite": "58"
+    },
+    {
+        "annee": "2024",
+        "noSalle": "143462",
+        "codeSalle": "AMPHI L005",
+        "nomSalle": "AMPHI L005",
+        "departement": "UFR SCIENCES",
+        "site": "Angers - Belle-Beille",
+        "typeSalle": "Amphithéâtre",
+        "capacite": "150"
+    },
+    {
+        "annee": "2024",
+        "noSalle": "143462",
+        "codeSalle": "AMPHI L005",
+        "nomSalle": "AMPHI L005",
+        "departement": "UFR SCIENCES",
+        "site": "Angers - Belle-Beille",
+        "typeSalle": "Salle d'examen",
+        "capacite": "58"
+    },
+    {
+        "annee": "2024",
+        "noSalle": "143463",
+        "codeSalle": "AMPHI L006",
+        "nomSalle": "AMPHI L006",
+        "departement": "UFR SCIENCES",
+        "site": "Angers - Belle-Beille",
+        "typeSalle": "Amphithéâtre",
+        "capacite": "200"
+    },
+    {
+        "annee": "2024",
+        "noSalle": "143463",
+        "codeSalle": "AMPHI L006",
+        "nomSalle": "AMPHI L006",
+        "departement": "UFR SCIENCES",
+        "site": "Angers - Belle-Beille",
+        "typeSalle": "Salle d'examen",
+        "capacite": "76"
+    },
+    {
+        "annee": "2024",
+        "noSalle": "143464",
+        "codeSalle": "L101 Multimédia",
+        "nomSalle": "L101 Multimédia",
+        "departement": "UFR SCIENCES",
+        "site": "Angers - Belle-Beille",
+        "typeSalle": "Salle multi-médias",
+        "capacite": "46"
+    },
+    {
+        "annee": "2024",
+        "noSalle": "143465",
+        "codeSalle": "L102 Multimédia",
+        "nomSalle": "L102 Multimédia",
+        "departement": "UFR SCIENCES",
+        "site": "Angers - Belle-Beille",
+        "typeSalle": "Salle multi-médias",
+        "capacite": "46"
+    },
+    {
+        "annee": "2024",
+        "noSalle": "143466",
+        "codeSalle": "L103 Multimédia",
+        "nomSalle": "L103 Multimédia",
+        "departement": "UFR SCIENCES",
+        "site": "Angers - Belle-Beille",
+        "typeSalle": "Salle multi-médias",
+        "capacite": "48"
+    },
+    {
+        "annee": "2024",
+        "noSalle": "143467",
+        "codeSalle": "L104 Multimédia",
+        "nomSalle": "L104 Multimédia",
+        "departement": "UFR SCIENCES",
+        "site": "Angers - Belle-Beille",
+        "typeSalle": "Salle multi-médias",
+        "capacite": "46"
+    },
+    {
+        "annee": "2024",
+        "noSalle": "143468",
+        "codeSalle": "L105 Multimédia",
+        "nomSalle": "L105 Multimédia",
+        "departement": "UFR SCIENCES",
+        "site": "Angers - Belle-Beille",
+        "typeSalle": "Salle multi-médias",
+        "capacite": "44"
+    },
+    {
+        "annee": "2024",
+        "noSalle": "143469",
+        "codeSalle": "L106 Multimédia",
+        "nomSalle": "L106 Multimédia",
+        "departement": "UFR SCIENCES",
+        "site": "Angers - Belle-Beille",
+        "typeSalle": "Salle multi-médias",
+        "capacite": "40"
+    },
+    {
+        "annee": "2024",
+        "noSalle": "143470",
+        "codeSalle": "L107 Multimédia & Visioconférence - M2 TEH (clef à l'Accueil)",
+        "nomSalle": "L107 Multimédia",
+        "departement": "UFR SCIENCES",
+        "site": "Angers - Belle-Beille",
+        "typeSalle": "Salle de conférences",
+        "capacite": "20"
+    },
+    {
+        "annee": "2024",
+        "noSalle": "143470",
+        "codeSalle": "L107 Multimédia & Visioconférence - M2 TEH (clef à l'Accueil)",
+        "nomSalle": "L107 Multimédia",
+        "departement": "UFR SCIENCES",
+        "site": "Angers - Belle-Beille",
+        "typeSalle": "Salle multi-médias",
+        "capacite": "48"
+    },
+    {
+        "annee": "2024",
+        "noSalle": "143471",
+        "codeSalle": "L108 Informatique 20 - Bioinformatique",
+        "nomSalle": "L108 Informatique 20",
+        "departement": "UFR SCIENCES",
+        "site": "Angers - Belle-Beille",
+        "typeSalle": "Salle d'informatique",
+        "capacite": "40"
+    },
+    {
+        "annee": "2024",
+        "noSalle": "143474",
+        "codeSalle": "L201 Multimédia",
+        "nomSalle": "L201 Multimédia",
+        "departement": "UFR SCIENCES",
+        "site": "Angers - Belle-Beille",
+        "typeSalle": "Salle multi-médias",
+        "capacite": "48"
+    },
+    {
+        "annee": "2024",
+        "noSalle": "143475",
+        "codeSalle": "L202 Multimédia",
+        "nomSalle": "L202 Multimédia",
+        "departement": "UFR SCIENCES",
+        "site": "Angers - Belle-Beille",
+        "typeSalle": "Salle multi-médias",
+        "capacite": "46"
+    },
+    {
+        "annee": "2024",
+        "noSalle": "143476",
+        "codeSalle": "L203 Multimédia",
+        "nomSalle": "L203 Multimédia",
+        "departement": "UFR SCIENCES",
+        "site": "Angers - Belle-Beille",
+        "typeSalle": "Salle multi-médias",
+        "capacite": "48"
+    },
+    {
+        "annee": "2024",
+        "noSalle": "143477",
+        "codeSalle": "L204 Multimédia",
+        "nomSalle": "L204 Multimédia",
+        "departement": "UFR SCIENCES",
+        "site": "Angers - Belle-Beille",
+        "typeSalle": "Salle multi-médias",
+        "capacite": "46"
+    },
+    {
+        "annee": "2024",
+        "noSalle": "143478",
+        "codeSalle": "L205 Multimédia & Visioconférence",
+        "nomSalle": "L205 Multimédia",
+        "departement": "UFR SCIENCES",
+        "site": "Angers - Belle-Beille",
+        "typeSalle": "Salle de conférences",
+        "capacite": "48"
+    },
+    {
+        "annee": "2024",
+        "noSalle": "143478",
+        "codeSalle": "L205 Multimédia & Visioconférence",
+        "nomSalle": "L205 Multimédia",
+        "departement": "UFR SCIENCES",
+        "site": "Angers - Belle-Beille",
+        "typeSalle": "Salle multi-médias",
+        "capacite": "48"
+    },
+    {
+        "annee": "2024",
+        "noSalle": "143479",
+        "codeSalle": "L206 Multimédia",
+        "nomSalle": "L206 Multimédia",
+        "departement": "UFR SCIENCES",
+        "site": "Angers - Belle-Beille",
+        "typeSalle": "Salle multi-médias",
+        "capacite": "28"
+    },
+    {
+        "annee": "2024",
+        "noSalle": "143480",
+        "codeSalle": "L207 Multimédia",
+        "nomSalle": "L207 Multimédia",
+        "departement": "UFR SCIENCES",
+        "site": "Angers - Belle-Beille",
+        "typeSalle": "Salle multi-médias",
+        "capacite": "24"
+    },
+    {
+        "annee": "2024",
+        "noSalle": "143481",
+        "codeSalle": "L208 Multimédia",
+        "nomSalle": "L208 Multimédia",
+        "departement": "UFR SCIENCES",
+        "site": "Angers - Belle-Beille",
+        "typeSalle": "Salle multi-médias",
+        "capacite": "24"
+    },
+    {
+        "annee": "2024",
+        "noSalle": "143482",
+        "codeSalle": "L209 Multimédia - CELFE",
+        "nomSalle": "L209 Multimédia",
+        "departement": "UFR SCIENCES",
+        "site": "Angers - Belle-Beille",
+        "typeSalle": "Salle multi-médias",
+        "capacite": "24"
+    },
+    {
+        "annee": "2024",
+        "noSalle": "143483",
+        "codeSalle": "L210 Multimédia - M1 MEEF Mathématiques",
+        "nomSalle": "L210 Multimédia",
+        "departement": "UFR SCIENCES",
+        "site": "Angers - Belle-Beille",
+        "typeSalle": "Salle multi-médias",
+        "capacite": "48"
+    },
+    {
+        "annee": "2024",
+        "noSalle": "143484",
+        "codeSalle": "L211 Informatique 20",
+        "nomSalle": "L211 Informatique 20",
+        "departement": "UFR SCIENCES",
+        "site": "Angers - Belle-Beille",
+        "typeSalle": "Salle d'informatique",
+        "capacite": "20"
+    },
+    {
+        "annee": "2024",
+        "noSalle": "143485",
+        "codeSalle": "L212 Informatique 15",
+        "nomSalle": "L212 Informatique 15",
+        "departement": "UFR SCIENCES",
+        "site": "Angers - Belle-Beille",
+        "typeSalle": "Salle d'informatique",
+        "capacite": "15"
+    },
+    {
+        "annee": "2024",
+        "noSalle": "143487",
+        "codeSalle": "L219 Multimédia",
+        "nomSalle": "L219 Multimédia",
+        "departement": "UFR SCIENCES",
+        "site": "Angers - Belle-Beille",
+        "typeSalle": "Salle multi-médias",
+        "capacite": "16"
+    },
+    {
+        "annee": "2024",
+        "noSalle": "143488",
+        "codeSalle": "L220 Multimédia",
+        "nomSalle": "L220 Multimédia",
+        "departement": "UFR SCIENCES",
+        "site": "Angers - Belle-Beille",
+        "typeSalle": "Salle multi-médias",
+        "capacite": "16"
+    },
+    {
+        "annee": "2024",
+        "noSalle": "143489",
+        "codeSalle": "L229 Multimédia A",
+        "nomSalle": "L229 Multimédia A",
+        "departement": "UFR SCIENCES",
+        "site": "Angers - Belle-Beille",
+        "typeSalle": "Salle multi-médias",
+        "capacite": "18"
+    },
+    {
+        "annee": "2024",
+        "noSalle": "143490",
+        "codeSalle": "L230 Multimédia A",
+        "nomSalle": "L230 Multimédia A",
+        "departement": "UFR SCIENCES",
+        "site": "Angers - Belle-Beille",
+        "typeSalle": "Salle multi-médias",
+        "capacite": "18"
+    },
+    {
+        "annee": "2024",
+        "noSalle": "143491",
+        "codeSalle": "L231 Multimédia A",
+        "nomSalle": "L231 Multimédia A",
+        "departement": "UFR SCIENCES",
+        "site": "Angers - Belle-Beille",
+        "typeSalle": "Salle multi-médias",
+        "capacite": "18"
+    },
+    {
+        "annee": "2024",
+        "noSalle": "143492",
+        "codeSalle": "L232 Informatique 16 A",
+        "nomSalle": "L232 Informatique 16 A",
+        "departement": "UFR SCIENCES",
+        "site": "Angers - Belle-Beille",
+        "typeSalle": "Salle d'informatique",
+        "capacite": "16"
+    },
+    {
+        "annee": "2024",
+        "noSalle": "143493",
+        "codeSalle": "Salle de conférences - Bât. K",
+        "nomSalle": "Salle de conférences - Bât. K",
+        "departement": "UFR SCIENCES",
+        "site": "Angers - Belle-Beille",
+        "typeSalle": "Salle de conférences",
+        "capacite": "36"
+    },
+    {
+        "annee": "2024",
+        "noSalle": "143493",
+        "codeSalle": "Salle de conférences - Bât. K",
+        "nomSalle": "Salle de conférences - Bât. K",
+        "departement": "UFR SCIENCES",
+        "site": "Angers - Belle-Beille",
+        "typeSalle": "Salle de réunion",
+        "capacite": "36"
+    },
+    {
+        "annee": "2024",
+        "noSalle": "143495",
+        "codeSalle": "Salle du conseil",
+        "nomSalle": "Salle du conseil",
+        "departement": "UFR SCIENCES",
+        "site": "Angers - Belle-Beille",
+        "typeSalle": "Salle de réunion",
+        "capacite": "30"
+    },
+    {
+        "annee": "2024",
+        "noSalle": "143496",
+        "codeSalle": "Rez-de-Jardin",
+        "nomSalle": "Rez-de-Jardin",
+        "departement": "UFR SCIENCES",
+        "site": "Angers - Belle-Beille",
+        "typeSalle": "Salle d'examen",
+        "capacite": "171"
+    },
+    {
+        "annee": "2024",
+        "noSalle": "149832",
+        "codeSalle": "AMPHI A Sciences",
+        "nomSalle": "AMPHI A Sciences",
+        "departement": "UFR SCIENCES",
+        "site": "Angers - Belle-Beille",
+        "typeSalle": "Amphithéâtre",
+        "capacite": "90"
+    },
+    {
+        "annee": "2024",
+        "noSalle": "149832",
+        "codeSalle": "AMPHI A Sciences",
+        "nomSalle": "AMPHI A Sciences",
+        "departement": "UFR SCIENCES",
+        "site": "Angers - Belle-Beille",
+        "typeSalle": "Salle d'examen",
+        "capacite": "38"
+    },
+    {
+        "annee": "2024",
+        "noSalle": "149833",
+        "codeSalle": "AMPHI B Sciences",
+        "nomSalle": "AMPHI B Sciences",
+        "departement": "UFR SCIENCES",
+        "site": "Angers - Belle-Beille",
+        "typeSalle": "Amphithéâtre",
+        "capacite": "302"
+    },
+    {
+        "annee": "2024",
+        "noSalle": "149833",
+        "codeSalle": "AMPHI B Sciences",
+        "nomSalle": "AMPHI B Sciences",
+        "departement": "UFR SCIENCES",
+        "site": "Angers - Belle-Beille",
+        "typeSalle": "Salle d'examen",
+        "capacite": "116"
+    },
+    {
+        "annee": "2024",
+        "noSalle": "149834",
+        "codeSalle": "AMPHI D Sciences",
+        "nomSalle": "AMPHI D Sciences",
+        "departement": "UFR SCIENCES",
+        "site": "Angers - Belle-Beille",
+        "typeSalle": "Amphithéâtre",
+        "capacite": "296"
+    },
+    {
+        "annee": "2024",
+        "noSalle": "149834",
+        "codeSalle": "AMPHI D Sciences",
+        "nomSalle": "AMPHI D Sciences",
+        "departement": "UFR SCIENCES",
+        "site": "Angers - Belle-Beille",
+        "typeSalle": "Salle d'examen",
+        "capacite": "106"
+    },
+    {
+        "annee": "2024",
+        "noSalle": "149835",
+        "codeSalle": "AMPHI E Sciences",
+        "nomSalle": "AMPHI E Sciences",
+        "departement": "UFR SCIENCES",
+        "site": "Angers - Belle-Beille",
+        "typeSalle": "Amphithéâtre",
+        "capacite": "182"
+    },
+    {
+        "annee": "2024",
+        "noSalle": "149835",
+        "codeSalle": "AMPHI E Sciences",
+        "nomSalle": "AMPHI E Sciences",
+        "departement": "UFR SCIENCES",
+        "site": "Angers - Belle-Beille",
+        "typeSalle": "Salle d'examen",
+        "capacite": "66"
+    },
+    {
+        "annee": "2024",
+        "noSalle": "317405",
+        "codeSalle": "L221 Informatique 24 A",
+        "nomSalle": "L221 Informatique 24 A",
+        "departement": "UFR SCIENCES",
+        "site": "Angers - Belle-Beille",
+        "typeSalle": "Salle d'informatique",
+        "capacite": "24"
+    },
+    {
+        "annee": "2024",
+        "noSalle": "317410",
+        "codeSalle": "L222 Multimédia",
+        "nomSalle": "L222 Multimédia",
+        "departement": "UFR SCIENCES",
+        "site": "Angers - Belle-Beille",
+        "typeSalle": "Salle multi-médias",
+        "capacite": "32"
+    },
+    {
+        "annee": "2024",
+        "noSalle": "318392",
+        "codeSalle": "A018 - CELFE",
+        "nomSalle": "A018 - CELFE",
+        "departement": "UFR SCIENCES",
+        "site": "Angers - Belle-Beille",
+        "typeSalle": "Salle de réunion",
+        "capacite": "25"
+    },
+    {
+        "annee": "2024",
+        "noSalle": "324214",
+        "codeSalle": "A203 examen 1/3 tps",
+        "nomSalle": "A203 examen 1/3 tps",
+        "departement": "UFR SCIENCES",
+        "site": "Angers - Belle-Beille",
+        "typeSalle": "Salle d'examen",
+        "capacite": "2"
+    },
+    {
+        "annee": "2024",
+        "noSalle": "324217",
+        "codeSalle": "A212 examen 1/3 tps",
+        "nomSalle": "A212 examen 1/3 tps",
+        "departement": "UFR SCIENCES",
+        "site": "Angers - Belle-Beille",
+        "typeSalle": "Salle d'examen",
+        "capacite": "2"
+    },
+    {
+        "annee": "2024",
+        "noSalle": "449917",
+        "codeSalle": "H113 Informatique",
+        "nomSalle": "H113 Informatique",
+        "departement": "UFR SCIENCES",
+        "site": "Angers - Belle-Beille",
+        "typeSalle": "Salle d'informatique",
+        "capacite": "20"
+    },
+    {
+        "annee": "2024",
+        "noSalle": "1515824",
+        "codeSalle": "C'004",
+        "nomSalle": "C'004",
+        "departement": "UFR SCIENCES",
+        "site": "Angers - Belle-Beille",
+        "typeSalle": "Salle de TP",
+        "capacite": "20"
+    },
+    {
+        "annee": "2024",
+        "noSalle": "1583428",
+        "codeSalle": "A108",
+        "nomSalle": "A108",
+        "departement": "UFR SCIENCES",
+        "site": "Angers - Belle-Beille",
+        "typeSalle": "Bureau",
+        "capacite": "1"
+    }
+]

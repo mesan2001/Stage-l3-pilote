@@ -1,0 +1,10 @@
+[MAIN]
+name = "Room staging"
+workdir = "."
+
+[IO]
+datasources = ["raw_room"]
+datamarts = ["stage_room_1 as classrooms"]
+
+[STAGING]
+files = ['csv/stage_room_1.csv']

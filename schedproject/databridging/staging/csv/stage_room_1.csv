@@ -1,0 +1,9 @@
+raw_room.nomsalle,RENAME.name,raw_room.typesalle,type,raw_room.departement,departement,raw_room.nomsalle,NEW.building
+Salle de conférences - Bât. K,K_SDC,Salle de TP,TP,UFR SCIENCES,UFR_S,.*([A-Z]){1}[0-9]{3}.*,$1
+Salle du conseil,A_SDC,Salle de TD,TD,,,.*([A-Z])'[0-9]{3}.*,$1
+Rez-de-Jardin,L_RDJ,Amphi.*,AMPHI,,,,
+AMPHI A Sciences,A_A,Bureau,BUREAU,,,,
+AMPHI B Sciences,A_B,Salle de r(é|e)union,REUNION,,,,
+AMPHI D Sciences,A_D,,,,,,
+AMPHI E Sciences,A_E,,,,,,
+.*([A-Z]{1}[0-9]{3}).*,$1,,,,,,

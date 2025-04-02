@@ -1,0 +1,32 @@
+[
+    {
+        "annee": "2024",
+        "codeStructureEtape": "AES",
+        "libStructureEtape": "Faculté des Sciences",
+        "codeEtape": "TM2PSE1",
+        "libEtape": "M2 Maths appli / Préparation Supérieure à l'Enseignement",
+        "noElement": "TMA5W4",
+        "libElement": "Charges - M2 Math Préparation Supérieure à l'Enseignement",
+        "codeNatureElp": "CHAR",
+        "libNatureElp": "Charges d'Enseignement",
+        "codeCNU": null,
+        "libCNU": null,
+        "codePeriode": null,
+        "libPeriode": null,
+        "nbHeureCM": "0",
+        "nbHeureTD": "0",
+        "nbHeureTP": "0",
+        "nbHeureCMTD": "0",
+        "nbGroupeCM": "0",
+        "nbGroupeTD": "0",
+        "nbGroupeTP": "0",
+        "nbGroupeCMTD": "0",
+        "nbEtuInscritElpEtape": "0",
+        "nbEtuInscritElpTotal": "0",
+        "volumeHoraireElpPondereEtape": "0",
+        "volumeHoraireElpTotal": "0",
+        "nbEtuInscritPrevisionnelElpEtape": "6",
+        "nbEtuInscritPrevisionnelElpTotal": "6",
+        "nbEtape": "1"
+    }
+]

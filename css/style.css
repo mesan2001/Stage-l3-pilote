@@ -4,14 +4,6 @@
     padding: 0;
     box-sizing: border-box;
 }
-/*
-body {
-    font-family: Arial, sans-serif;
-    line-height: 1.6;
-    color: #333;
-    background-color: #f8f9fa;
-}*/
-
 
 body {
   font-family: 'Segoe UI', sans-serif;
@@ -322,3 +314,29 @@ footer {
 }
 
   
+/*nouveau code*/
+
+.search-filter {
+    position: relative; 
+}
+
+.suggestions-box {
+    position: absolute;
+    top: 100%;  
+    left: 0;
+    background: white;
+    border: 1px solid #ccc;
+    width: 44%; 
+    max-height: 150px;
+    overflow-y: auto;
+    display: none;
+}
+
+.suggestion {
+    padding: 5px;
+    cursor: pointer;
+}
+
+.suggestion:hover {
+    background: #f0f0f0;
+}

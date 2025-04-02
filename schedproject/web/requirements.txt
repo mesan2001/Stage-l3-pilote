@@ -1,0 +1,7 @@
+flask
+requests
+colorama
+pyyaml
+faker
+watchdog
+flask-cors

@@ -1,0 +1,18 @@
+services:
+    db-api-controller:
+        build:
+            context: .
+        volumes:
+            - ./databridging:/schedproject/databridging
+            - ./core:/schedproject/core
+
+    db:
+        image: postgres:latest
+        environment:
+            POSTGRES_USER: postgres
+            POSTGRES_PASSWORD: mysecretpassword
+            POSTGRES_DB: postgres
+    adminer:
+        image: adminer
+        ports:
+            - 8081:8080

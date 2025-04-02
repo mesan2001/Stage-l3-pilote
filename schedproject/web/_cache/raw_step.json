@@ -1,0 +1,978 @@
+[
+    {
+        "codeEtape": "SHDCH1",
+        "libelleEtape": "HDR CHIMIE"
+    },
+    {
+        "codeEtape": "SHDEL1",
+        "libelleEtape": "HDR ELECTRONIQUE"
+    },
+    {
+        "codeEtape": "SHDIN1",
+        "libelleEtape": "HDR INFORMATIQUE"
+    },
+    {
+        "codeEtape": "SHDMA1",
+        "libelleEtape": "HDR MATHEMATIQUE"
+    },
+    {
+        "codeEtape": "SHDMS1",
+        "libelleEtape": "HDR MASS"
+    },
+    {
+        "codeEtape": "SHDPH1",
+        "libelleEtape": "HDR PHYSIQUE"
+    },
+    {
+        "codeEtape": "SHDSI1",
+        "libelleEtape": "HDR SCIENCES ET TECHNOLOGIE DE L'INDUSTRIE"
+    },
+    {
+        "codeEtape": "SHDSV1",
+        "libelleEtape": "HDR SCIENCES DE LA VIE"
+    },
+    {
+        "codeEtape": "SHDST1",
+        "libelleEtape": "HDR SCIENCES DE LA TERRE"
+    },
+    {
+        "codeEtape": "TL1MI11",
+        "libelleEtape": "L1 Sc, techno, santé / Portail MI"
+    },
+    {
+        "codeEtape": "SACCUE1",
+        "libelleEtape": "Accueil étudiants"
+    },
+    {
+        "codeEtape": "JL3EDD1",
+        "libelleEtape": "L3-UCO SVT / Environnement et développement durable"
+    },
+    {
+        "codeEtape": "JM1MA1",
+        "libelleEtape": "M1-UCO MEEF 2nd degré / Mathématiques"
+    },
+    {
+        "codeEtape": "TM2MAG1",
+        "libelleEtape": "M2 Maths appli / MFA - Algèbre & géométrie"
+    },
+    {
+        "codeEtape": "JM2MA1",
+        "libelleEtape": "M2-UCO MEEF 2nd degré / Mathématiques"
+    },
+    {
+        "codeEtape": "JLPTSE1",
+        "libelleEtape": "LP-UCO Gestion et traitement des sols et des eaux"
+    },
+    {
+        "codeEtape": "JLPGEU1",
+        "libelleEtape": "LP-UCO Gestion des milieux naturels"
+    },
+    {
+        "codeEtape": "JM2BD1",
+        "libelleEtape": "M2-UCO MIASHS / Ingénierie de la décision & Big Data"
+    },
+    {
+        "codeEtape": "TLPMEH1",
+        "libelleEtape": "LP Management en entreprises d'horticulture & du paysage"
+    },
+    {
+        "codeEtape": "JM1SPC1",
+        "libelleEtape": "M1-UCO MEEF 2nd degré / Sciences Physiques et Chimiques"
+    },
+    {
+        "codeEtape": "JM1SVT1",
+        "libelleEtape": "M1-UCO MEEF 2nd degré / Sciences de la Vie et de la Terre"
+    },
+    {
+        "codeEtape": "JM1EPS1",
+        "libelleEtape": "M1-UCO MEEF 2nd degré / Education Physique et Sportive"
+    },
+    {
+        "codeEtape": "JL3ME1",
+        "libelleEtape": "L3-UCO SVT / Métiers de l'enseignement"
+    },
+    {
+        "codeEtape": "TLPMCV1",
+        "libelleEtape": "LP-ESA Marketing et commerce internat° des vins de terroir"
+    },
+    {
+        "codeEtape": "TM2MA1",
+        "libelleEtape": "M2 MEEF 2nd degré / Mathématiques"
+    },
+    {
+        "codeEtape": "JM2SPC1",
+        "libelleEtape": "M2-UCO MEEF 2nd degré / Sciences Physiques et Chimiques"
+    },
+    {
+        "codeEtape": "JM2SVT1",
+        "libelleEtape": "M2-UCO MEEF 2nd degré / Sciences de la Vie et de la Terre"
+    },
+    {
+        "codeEtape": "JM2EPS1",
+        "libelleEtape": "M2-UCO MEEF 2nd degré / Education Physique et Sportive"
+    },
+    {
+        "codeEtape": "TLPTTV1",
+        "libelleEtape": "LP-ESA Agronomie / Techniques et technologies du végétal"
+    },
+    {
+        "codeEtape": "TLPGS1",
+        "libelleEtape": "LP Productions végétales / Gestion de la santé des plantes"
+    },
+    {
+        "codeEtape": "JL1BOP1",
+        "libelleEtape": "L1-UCO SVT"
+    },
+    {
+        "codeEtape": "JM1BD1",
+        "libelleEtape": "M1-UCO MIASHS / Ingénierie de la décision & Big Data"
+    },
+    {
+        "codeEtape": "JL3BOP1",
+        "libelleEtape": "L3-UCO SVT / Biologie organismes, populations, écosystèmes"
+    },
+    {
+        "codeEtape": "JLPTRG1",
+        "libelleEtape": "LP-UCO Gestion, traitement et revalorisation des déchets"
+    },
+    {
+        "codeEtape": "TM2MAP1",
+        "libelleEtape": "M2 Maths appli / MFA - Analyse & probabilités"
+    },
+    {
+        "codeEtape": "TM2PSE1",
+        "libelleEtape": "M2 Maths appli / Préparation Supérieure à l'Enseignement"
+    },
+    {
+        "codeEtape": "TLPMEG1",
+        "libelleEtape": "LP Maîtrise énergie, électricité / Génie thermique"
+    },
+    {
+        "codeEtape": "JL3BCP1",
+        "libelleEtape": "L3-UCO SVT / Bio moléculaire cellulaire et physio"
+    },
+    {
+        "codeEtape": "TM1MA1",
+        "libelleEtape": "M1 MEEF 2nd degré / Mathématiques"
+    },
+    {
+        "codeEtape": "JL2BOP1",
+        "libelleEtape": "L2-UCO SVT"
+    },
+    {
+        "codeEtape": "TM2BSV1",
+        "libelleEtape": "M2 Biologie Végétale / Biologie systémique du végétal (BSV)"
+    },
+    {
+        "codeEtape": "TL1MP13",
+        "libelleEtape": "L1 Sc, techno, santé / Portail MPC"
+    },
+    {
+        "codeEtape": "TL1SV12",
+        "libelleEtape": "L1 Sciences de la Vie et de la Terre / Chimie"
+    },
+    {
+        "codeEtape": "TL0SV11",
+        "libelleEtape": "Mise à niveau Scientifique - SVTC"
+    },
+    {
+        "codeEtape": "TL1MP12",
+        "libelleEtape": "L1 Sc, techno, santé / Portail MPC"
+    },
+    {
+        "codeEtape": "TL1SV13",
+        "libelleEtape": "L1 Sciences de la Vie et de la Terre / Chimie"
+    },
+    {
+        "codeEtape": "TL1PP11",
+        "libelleEtape": "L1 Mathématiques / Parc. Prép. Professorat des Ecoles"
+    },
+    {
+        "codeEtape": "TL0MP11",
+        "libelleEtape": "Mise à niveau Scientifique - MPC"
+    },
+    {
+        "codeEtape": "TL1SVS11",
+        "libelleEtape": "L1 Sciences de la Vie et de la Terre / Chimie - Accès Santé"
+    },
+    {
+        "codeEtape": "TDOMIC1",
+        "libelleEtape": "DOCTORAT MICROBIOLOGIE - IMMUNULOGIE"
+    },
+    {
+        "codeEtape": "TDOOBS1",
+        "libelleEtape": "DOCTORAT OBSERVATION DE L'ENVIRONNEMENT MARIN ET TRAITEMENT"
+    },
+    {
+        "codeEtape": "TDOOM1",
+        "libelleEtape": "DOCTORAT ONDES ET MATÉRIAUX"
+    },
+    {
+        "codeEtape": "TDOPHO1",
+        "libelleEtape": "DOCTORAT PHOTONIQUE"
+    },
+    {
+        "codeEtape": "TDOPHY1",
+        "libelleEtape": "DOCTORAT PHYSIQUE SCIENCES"
+    },
+    {
+        "codeEtape": "TDOPAL1",
+        "libelleEtape": "DOCTORAT PALÉONTOLOGIE"
+    },
+    {
+        "codeEtape": "TDOPAM1",
+        "libelleEtape": "DOCTORAT PHYSIQUE : ATOMES, MOLÉCULES ET PLASMAS"
+    },
+    {
+        "codeEtape": "TDOOPE1",
+        "libelleEtape": "DOCTORAT OCÉANOGRAPHIE PHYSIQUE ET ENVIRONNEMENT"
+    },
+    {
+        "codeEtape": "TDOPPT1",
+        "libelleEtape": "DOCTORAT PHARMACOLOGIE, PHYCHIMIE,  TOXICOLOGIE"
+    },
+    {
+        "codeEtape": "TDOMI1",
+        "libelleEtape": "DOCTORAT MATHÉMATIQUES ET LEURS INTERACTIONS"
+    },
+    {
+        "codeEtape": "TDOSTE1",
+        "libelleEtape": "DOCTORAT SCIENCES DE LA TERRE ET DE L'ENVIRONNEMENT"
+    },
+    {
+        "codeEtape": "TDOSTP1",
+        "libelleEtape": "DOCTORAT SCIENCES DE LA TERRE ET DES PLANÈTES"
+    },
+    {
+        "codeEtape": "TDOSA1",
+        "libelleEtape": "DOCTORAT SCIENCES DE L'ALIMENT - GÉNIE DES PROCÉDÉS AGROALIM"
+    },
+    {
+        "codeEtape": "TDOIMM1",
+        "libelleEtape": "DOCTORAT IMMUNOLOGIE SCIENCES"
+    },
+    {
+        "codeEtape": "TDOPSI1",
+        "libelleEtape": "DOCTORAT PHYSIQUE SUBATOMIQUE ET INSTRUMENTATION"
+    },
+    {
+        "codeEtape": "TDOSE1",
+        "libelleEtape": "DOCTORAT SCIENCES ÉCONOMIQUES SCIENCES"
+    },
+    {
+        "codeEtape": "TDOBBM1",
+        "libelleEtape": "DOCTORAT BIOCHIMIE, BIOLOGIE MOLÉCULAIRE ET CELLULAIRE"
+    },
+    {
+        "codeEtape": "TDOBPV1",
+        "libelleEtape": "DOCTORAT BIOLOGIE ET PHYSIOLOGIE VEGETALES"
+    },
+    {
+        "codeEtape": "TDOBMA1",
+        "libelleEtape": "DOCTORAT BIOLOGIE ET ÉCOLOGIE MARINE"
+    },
+    {
+        "codeEtape": "TDOBPA1",
+        "libelleEtape": "DOCTORAT BIOLOGIE ET PHYSIOLOGIE VÉGÉTALES ET ANIMALES"
+    },
+    {
+        "codeEtape": "TDODPR1",
+        "libelleEtape": "DOCTORAT DROIT PRIVÉ SCIENCES"
+    },
+    {
+        "codeEtape": "TDODPU1",
+        "libelleEtape": "DOCTORAT DROIT PUBLIC SCIENCES"
+    },
+    {
+        "codeEtape": "TDOGMA1",
+        "libelleEtape": "DOCTORAT GÉOSCIENCES MARINES"
+    },
+    {
+        "codeEtape": "TDOHAL1",
+        "libelleEtape": "DOCTORAT HALIEUTIQUE"
+    },
+    {
+        "codeEtape": "TDOCPC1",
+        "libelleEtape": "DOCTORAT CHIMIE PHYSIQUE,  CHIMIE THÉORIQUE"
+    },
+    {
+        "codeEtape": "TDOGGB1",
+        "libelleEtape": "DOCTORAT GÉNÉTIQUE, GÉNOMIQUE et BIOINFORMATIQUE SCIENCES"
+    },
+    {
+        "codeEtape": "TDOBOR14",
+        "libelleEtape": "DOCTORAT BIOLOGIE DES ORGANISMES SCIENCES SML"
+    },
+    {
+        "codeEtape": "TDOGPA1",
+        "libelleEtape": "DOCTORAT GÉNIE DES PROCÉCÉDÉS AGROALIMENTAIRES"
+    },
+    {
+        "codeEtape": "TDOBO1",
+        "libelleEtape": "DOCTORAT BIOLOGIE DES ORGANISMES SCIENCES EGAAL"
+    },
+    {
+        "codeEtape": "TDOGEO1",
+        "libelleEtape": "DOCTORAT GÉOGRAPHIE SCIENCES"
+    },
+    {
+        "codeEtape": "TDOGEE1",
+        "libelleEtape": "DOCTORAT GÉNIE ÉLECTRIQUE ET ÉLECTRONIQUE"
+    },
+    {
+        "codeEtape": "TDOGCO1",
+        "libelleEtape": "DOCTORAT GÉNIECÔTIER"
+    },
+    {
+        "codeEtape": "TDOMVP1",
+        "libelleEtape": "DOCTORAT MICROBIOLOGIE VIROLOGIE PARASITOLOGIE SCIENCES"
+    },
+    {
+        "codeEtape": "TDOINF1",
+        "libelleEtape": "DOCTORAT INFORMATIQUE SCIENCES"
+    },
+    {
+        "codeEtape": "TDOGOM1",
+        "libelleEtape": "DOCTORAT GÉOMATIQUE SCIENCES"
+    },
+    {
+        "codeEtape": "TDOPLA1",
+        "libelleEtape": "DOCTORAT PLANÉTOLOGIE"
+    },
+    {
+        "codeEtape": "TDOSME1",
+        "libelleEtape": "DOCTORAT Statistiques, modélisation, Intelligence artificiel"
+    },
+    {
+        "codeEtape": "TDOCMA1",
+        "libelleEtape": "DOCTORAT CHIMIE MARINE"
+    },
+    {
+        "codeEtape": "TDOCMM1",
+        "libelleEtape": "DOCTORAT CHIMIE MOLÉCULAIRE ET MACROMOLÉCULAIRE"
+    },
+    {
+        "codeEtape": "TDOCMO1",
+        "libelleEtape": "DOCTORAT CHIMIE MACRO MOLÉCULAIRE - BIOPOLYMÈRES  ET MATÉRIA"
+    },
+    {
+        "codeEtape": "HDOENV1",
+        "libelleEtape": "DOCTORAT ENVIRONNEMENT"
+    },
+    {
+        "codeEtape": "TDOEER1",
+        "libelleEtape": "DOCTORAT EPIDEMIOLOGIE EVALUATION DES RISQUES"
+    },
+    {
+        "codeEtape": "TDOCPE1",
+        "libelleEtape": "DOCTORAT CHIMIE PROCÉDÉS ET ENVIRONNEMENT"
+    },
+    {
+        "codeEtape": "TDOEMA1",
+        "libelleEtape": "DOCTORAT ÉCOLOGIE MARINE"
+    },
+    {
+        "codeEtape": "TDOEE1",
+        "libelleEtape": "DOCTORAT ÉCOLOGIE ÉVOLUTION"
+    },
+    {
+        "codeEtape": "TDOSAG1",
+        "libelleEtape": "DOCTORAT SCIENCES AGRONOM"
+    },
+    {
+        "codeEtape": "TDOPEB1",
+        "libelleEtape": "DOCTORAT PHYSIQUE :  ENVIRONNEMENT ET  BIOLOGIE"
+    },
+    {
+        "codeEtape": "TDOSM1",
+        "libelleEtape": "DOCTORAT SCIENCES DES MATÉRIAUX"
+    },
+    {
+        "codeEtape": "TDOCAR1",
+        "libelleEtape": "DOCTORAT Chimie Analytique et Radiochimie"
+    },
+    {
+        "codeEtape": "TDOCI1",
+        "libelleEtape": "DOCTORAT CHIMIE INORGANIQUE"
+    },
+    {
+        "codeEtape": "TDOBBC1",
+        "libelleEtape": "DOCTORAT BIOCHIMIE, BIOLOGIE CELLULAIRE ET MOLÉCULAIRE"
+    },
+    {
+        "codeEtape": "TDOASM1",
+        "libelleEtape": "DOCTORAT ACOUS SOUS MAR"
+    },
+    {
+        "codeEtape": "TL2SVP1",
+        "libelleEtape": "L2-Partenaire Sciences de la vie et de la terre"
+    },
+    {
+        "codeEtape": "TL2MPP1",
+        "libelleEtape": "L2-Partenaire Sciences, technologies, santé / MPC"
+    },
+    {
+        "codeEtape": "TL1SVP1",
+        "libelleEtape": "L1-Partenaire Sciences de la vie et de la terre"
+    },
+    {
+        "codeEtape": "TL1MPP1",
+        "libelleEtape": "L1-Partenaire Sciences, technologies, santé / MPC"
+    },
+    {
+        "codeEtape": "JM1ED1",
+        "libelleEtape": "M1-UCO Biodiversité, écologie, évolution / EDD"
+    },
+    {
+        "codeEtape": "JM2ED1",
+        "libelleEtape": "M2-UCO Biodiversité Ecologie Evolution / EDD"
+    },
+    {
+        "codeEtape": "TTLM1",
+        "libelleEtape": "THELEME SCIENCES"
+    },
+    {
+        "codeEtape": "TDOAEU1",
+        "libelleEtape": "DOCTORAT AMÉNAGEMENT DE L'ESPACE ET URBANISME SCIENCES"
+    },
+    {
+        "codeEtape": "TDOSPH1",
+        "libelleEtape": "DOCTORAT SCIENCES PHARMACEUTIQUES SCIENCES"
+    },
+    {
+        "codeEtape": "TDOBCB1",
+        "libelleEtape": "BIOLOGIE CELLULAIRE ,BIOLOGIE DU DÉVELOPPEMENT SCIENCES"
+    },
+    {
+        "codeEtape": "TDOCAN1",
+        "libelleEtape": "DOCTORAT CANCÉROLOGIE SCIENCES"
+    },
+    {
+        "codeEtape": "TDOSIV1",
+        "libelleEtape": "DOCTORAT SIGNAL IMAGE VIS"
+    },
+    {
+        "codeEtape": "TFC1",
+        "libelleEtape": "Etape Formation Continue Sciences"
+    },
+    {
+        "codeEtape": "JL3BCS1",
+        "libelleEtape": "L3-UCO SVT / Bio molécul cellulaire et physio - Accès Santé"
+    },
+    {
+        "codeEtape": "JL1SVS1",
+        "libelleEtape": "L1-UCO SVT - Accès Santé"
+    },
+    {
+        "codeEtape": "TL1MP11",
+        "libelleEtape": "L1 Sc, techno, santé / Portail MPC"
+    },
+    {
+        "codeEtape": "TL1MPS11",
+        "libelleEtape": "L1 Sc, techno, santé / Portail MPC - Accès Santé"
+    },
+    {
+        "codeEtape": "TL1SV11",
+        "libelleEtape": "L1 Sciences de la Vie et de la Terre / Chimie"
+    },
+    {
+        "codeEtape": "JL2SVS1",
+        "libelleEtape": "L2-UCO SVT - Accès Santé"
+    },
+    {
+        "codeEtape": "TL1ME11",
+        "libelleEtape": "L1 Double Licence Mathématiques / Math-Économie"
+    },
+    {
+        "codeEtape": "TLPPLC1",
+        "libelleEtape": "LP-ESA Produits Locaux et Circuits Courts"
+    },
+    {
+        "codeEtape": "TM1PSI4",
+        "libelleEtape": "M1 Photonique signal imagerie (PSI)"
+    },
+    {
+        "codeEtape": "TM1BV4",
+        "libelleEtape": "M1 Biologie Végétale"
+    },
+    {
+        "codeEtape": "TM2PSI4",
+        "libelleEtape": "M2 Photonique signal imagerie (PSI)"
+    },
+    {
+        "codeEtape": "TM1CE3",
+        "libelleEtape": "M1 Chimie / Chimie-environnement"
+    },
+    {
+        "codeEtape": "TM2CE3",
+        "libelleEtape": "M2 Chimie / Chimie-environnement"
+    },
+    {
+        "codeEtape": "TM2GBI1",
+        "libelleEtape": "M2 BEE / Gestion de la biodiversité dans socio-écosystèmes"
+    },
+    {
+        "codeEtape": "TM2MAD1",
+        "libelleEtape": "M2 BEE / Mer, anthropisation, diagnostic"
+    },
+    {
+        "codeEtape": "TM1GBI1",
+        "libelleEtape": "M1 BEE / Gestion de la biodiversité dans socio-écosystèmes"
+    },
+    {
+        "codeEtape": "TM1MAD1",
+        "libelleEtape": "M1 BEE / Mer, anthropisation, diagnostic"
+    },
+    {
+        "codeEtape": "TL2SV12",
+        "libelleEtape": "L2 SVT"
+    },
+    {
+        "codeEtape": "TL2PC11",
+        "libelleEtape": "L2 Physique Chimie"
+    },
+    {
+        "codeEtape": "TL2IN11",
+        "libelleEtape": "L2 Informatique"
+    },
+    {
+        "codeEtape": "TL2BI11",
+        "libelleEtape": "L2 SVT / Biologies et Chimie"
+    },
+    {
+        "codeEtape": "TL2BIS11",
+        "libelleEtape": "L2 SVT / Biologies et Chimie - Accès Santé"
+    },
+    {
+        "codeEtape": "TL2PCS11",
+        "libelleEtape": "L2 Physique-Chimie - Accès Santé"
+    },
+    {
+        "codeEtape": "TL2ME11",
+        "libelleEtape": "L2 Double Licence Mathématiques / Math-Économie"
+    },
+    {
+        "codeEtape": "TL2INS11",
+        "libelleEtape": "L2 Informatique - Accès Santé"
+    },
+    {
+        "codeEtape": "TL2MP13",
+        "libelleEtape": "Licence 2 Sciences, technologies, santé / Portail MPCIE"
+    },
+    {
+        "codeEtape": "TL2MA13",
+        "libelleEtape": "L2 Mathématiques"
+    },
+    {
+        "codeEtape": "TL2GES11",
+        "libelleEtape": "L2 SVT / Géosciences - Accès Santé"
+    },
+    {
+        "codeEtape": "TL2MP12",
+        "libelleEtape": "Licence 2 Sciences, technologies, santé / Portail MPCIE"
+    },
+    {
+        "codeEtape": "TL2SV13",
+        "libelleEtape": "L2 SVT"
+    },
+    {
+        "codeEtape": "TL2PP11",
+        "libelleEtape": "L2 Mathématiques / Parc. Prép. Professorat des Ecoles"
+    },
+    {
+        "codeEtape": "TL2GE11",
+        "libelleEtape": "L2 SVT / Géosciences"
+    },
+    {
+        "codeEtape": "JLP1EM1",
+        "libelleEtape": "LP1-UCO Eco-manager en développement durable et respon. soc."
+    },
+    {
+        "codeEtape": "TM2IA1",
+        "libelleEtape": "M2 Informatique / Intelligence Artificielle"
+    },
+    {
+        "codeEtape": "TM2SIE3",
+        "libelleEtape": "M2 Chimie / Sciences et ingénierie de l'environnement"
+    },
+    {
+        "codeEtape": "TM1THE1",
+        "libelleEtape": "M1 THE / Toxicologie Humaine et Environnementale"
+    },
+    {
+        "codeEtape": "TM2THE1",
+        "libelleEtape": "M2 THE / Toxicologie Humaine et Environnementale"
+    },
+    {
+        "codeEtape": "TM1INF3",
+        "libelleEtape": "M1 Informatique"
+    },
+    {
+        "codeEtape": "TM1PSI3",
+        "libelleEtape": "M1 Photonique signal imagerie (PSI)"
+    },
+    {
+        "codeEtape": "TM2CD1",
+        "libelleEtape": "M2 Informatique / Conception et Développement"
+    },
+    {
+        "codeEtape": "TM2PSI3",
+        "libelleEtape": "M2 Photonique signal imagerie (PSI)"
+    },
+    {
+        "codeEtape": "TM1SIE3",
+        "libelleEtape": "M1 Chimie / Sciences et ingénierie de l'environnement"
+    },
+    {
+        "codeEtape": "TM2ICA3",
+        "libelleEtape": "M2 Biologie Santé / Interactions Cellulaires App Théra"
+    },
+    {
+        "codeEtape": "TM1PPP1",
+        "libelleEtape": "M1 BG / Paléontologie, paléo-environnement & patrimoine"
+    },
+    {
+        "codeEtape": "TM2PPP1",
+        "libelleEtape": "M2 BG / Paléontologie, paléo-environnement & patrimoine"
+    },
+    {
+        "codeEtape": "TM1BS3",
+        "libelleEtape": "M1 Biologie Santé / Cursus Sciences"
+    },
+    {
+        "codeEtape": "TM2NCM3",
+        "libelleEtape": "M2 Biologie Santé / Neurobio Cellulaire Moléculaire"
+    },
+    {
+        "codeEtape": "TM2DBN3",
+        "libelleEtape": "M2 Maths appli / Data science & Données Bio & Numériques"
+    },
+    {
+        "codeEtape": "TM1MFA3",
+        "libelleEtape": "M1 Maths appli / Mathématiques fondamentales et appliquées"
+    },
+    {
+        "codeEtape": "TM1DBN3",
+        "libelleEtape": "M1 Maths appli / Data science & Données Bio & Numériques"
+    },
+    {
+        "codeEtape": "TDOPT1",
+        "libelleEtape": "DOCTORAT PYSIQUE THÉORIQUE"
+    },
+    {
+        "codeEtape": "TL3IN11",
+        "libelleEtape": "L3 Informatique"
+    },
+    {
+        "codeEtape": "TL3ME11",
+        "libelleEtape": "L3 Double Licence Mathématiques / Math-Économie"
+    },
+    {
+        "codeEtape": "TL3PP11",
+        "libelleEtape": "L3 Mathématiques / Parc. Prép. Professorat des Ecoles"
+    },
+    {
+        "codeEtape": "TL3CE11",
+        "libelleEtape": "L3 Physique Chimie / Chimie-environnement"
+    },
+    {
+        "codeEtape": "TL3PA11",
+        "libelleEtape": "L3 Physique Chimie / Physique applications"
+    },
+    {
+        "codeEtape": "TL2IMA11",
+        "libelleEtape": "L2 Double Licence Informatique / Math-Informatique"
+    },
+    {
+        "codeEtape": "TL3MAT11",
+        "libelleEtape": "L3 Mathématiques"
+    },
+    {
+        "codeEtape": "TL3MAT13",
+        "libelleEtape": "L3 Mathématiques"
+    },
+    {
+        "codeEtape": "TL3PA12",
+        "libelleEtape": "L3 Physique Chimie / Physique applications"
+    },
+    {
+        "codeEtape": "TL3CM11",
+        "libelleEtape": "L3 Physique Chimie / Chimie-médicaments"
+    },
+    {
+        "codeEtape": "TL3INS11",
+        "libelleEtape": "L3 Informatique - Accès Santé"
+    },
+    {
+        "codeEtape": "TL1MAI11",
+        "libelleEtape": "L1 Double Licence Mathématiques / Math-Informatique"
+    },
+    {
+        "codeEtape": "TL3MF11",
+        "libelleEtape": "L3 Mathématiques / Spécifique aux MEEF"
+    },
+    {
+        "codeEtape": "TL3MAI11",
+        "libelleEtape": "L3 Double Licence Mathématiques / Math-Informatique"
+    },
+    {
+        "codeEtape": "TL3CES11",
+        "libelleEtape": "L3 Physique Chimie / Chimie-environnement - Accès Santé"
+    },
+    {
+        "codeEtape": "TL3CE12",
+        "libelleEtape": "L3 Physique Chimie / Chimie-environnement"
+    },
+    {
+        "codeEtape": "TL3LMS11",
+        "libelleEtape": "L3 Physique Chimie / Lum., mol. et ph.-ch. - Accès Santé"
+    },
+    {
+        "codeEtape": "TL3IMA11",
+        "libelleEtape": "L3 Double Licence Informatique / Math-Informatique"
+    },
+    {
+        "codeEtape": "TL3PAS11",
+        "libelleEtape": "L3 Physique Chimie / Physique applications - Accès Santé"
+    },
+    {
+        "codeEtape": "TL3MTS11",
+        "libelleEtape": "L3 Mathématiques - Accès Santé"
+    },
+    {
+        "codeEtape": "TL2PC14",
+        "libelleEtape": "L2 Physique Chimie"
+    },
+    {
+        "codeEtape": "TL1IMA11",
+        "libelleEtape": "L1 Double Licence Informatique / Math-Informatique"
+    },
+    {
+        "codeEtape": "TL3CMS11",
+        "libelleEtape": "L3 Physique Chimie / Chimie-médicaments - Accès Santé"
+    },
+    {
+        "codeEtape": "TL3MAA11",
+        "libelleEtape": "L3 Mathématiques / Mathématiques appliquées"
+    },
+    {
+        "codeEtape": "TL3MAS11",
+        "libelleEtape": "L3 Mathématiques / Mathématiques appliquées - Accès Santé"
+    },
+    {
+        "codeEtape": "TL3LM11",
+        "libelleEtape": "L3 Physique Chimie / Lumière, molécules et phy.-chim."
+    },
+    {
+        "codeEtape": "TL2MAI11",
+        "libelleEtape": "L2 Double Licence Mathématiques / Math-Informatique"
+    },
+    {
+        "codeEtape": "TL3MFS11",
+        "libelleEtape": "L3 Mathématiques / Spécifique aux MEEF - Accès Santé"
+    },
+    {
+        "codeEtape": "TDOBOA1",
+        "libelleEtape": "DOCTORAT BIOLOGIE DES ORGANISMES AQUATIQUES"
+    },
+    {
+        "codeEtape": "JLPEM1",
+        "libelleEtape": "LP-UCO Eco-manager en développement durable et respon. soc."
+    },
+    {
+        "codeEtape": "TM1LUM3",
+        "libelleEtape": "M1 Chimie / Lumière Molécule Matière (LUMOMAT)"
+    },
+    {
+        "codeEtape": "TM2LUM3",
+        "libelleEtape": "M2 Chimie / Lumière Molécule Matière (LUMOMAT)"
+    },
+    {
+        "codeEtape": "TL3BC11",
+        "libelleEtape": "L3 SVT / Biologie cellulaire moléculaire et physiologie"
+    },
+    {
+        "codeEtape": "TL3BOS11",
+        "libelleEtape": "L3 SVT / Biologie des organismes & populations - Accès Santé"
+    },
+    {
+        "codeEtape": "TL3BO11",
+        "libelleEtape": "L3 SVT / Biologie des organismes et des populations"
+    },
+    {
+        "codeEtape": "TL3GE11",
+        "libelleEtape": "L3 SVT / Géosciences et environnement"
+    },
+    {
+        "codeEtape": "TL1MIP2",
+        "libelleEtape": "L1-Partenaire Sciences, technologies, santé / MI"
+    },
+    {
+        "codeEtape": "TL1MIP1",
+        "libelleEtape": "L1-Partenaire Sciences, technologies, santé / MI"
+    },
+    {
+        "codeEtape": "TL2MIP2",
+        "libelleEtape": "L2-Partenaire Sciences, technologies, santé / MI"
+    },
+    {
+        "codeEtape": "TL2MIP1",
+        "libelleEtape": "L2-Partenaire Sciences, technologies, santé / MI"
+    },
+    {
+        "codeEtape": "TLPERD1",
+        "libelleEtape": "LP Expérimentation Recherche et Dévelop., nouvelles techno."
+    },
+    {
+        "codeEtape": "TL3GES11",
+        "libelleEtape": "L3 SVT / Géosciences et environnement - Accès Santé"
+    },
+    {
+        "codeEtape": "TL3BV12",
+        "libelleEtape": "L3 SVT / Biologie végétale"
+    },
+    {
+        "codeEtape": "TL3BV11",
+        "libelleEtape": "L3 SVT / Biologie végétale"
+    },
+    {
+        "codeEtape": "TL3BVS11",
+        "libelleEtape": "L3 SVT / Biologie végétale - Accès Santé"
+    },
+    {
+        "codeEtape": "TL3BCS11",
+        "libelleEtape": "L3 SVT / Biologie cellulaire molécul et physio - Accès Santé"
+    },
+    {
+        "codeEtape": "TM2SPP1",
+        "libelleEtape": "M2 BV / Biology and technology of Seeds and Plant Propaga."
+    },
+    {
+        "codeEtape": "TM2PHP1",
+        "libelleEtape": "M2 Biologie Végétale / Santé des plantes"
+    },
+    {
+        "codeEtape": "TM2HIP1",
+        "libelleEtape": "M2 BV / Horticulture et Innovations de la Plante aux Systè."
+    },
+    {
+        "codeEtape": "JL2BM1",
+        "libelleEtape": "L2-UCO SVT / Biotechnologies marines"
+    },
+    {
+        "codeEtape": "JL1BM1",
+        "libelleEtape": "L1-UCO SVT / Biotechnologies marines"
+    },
+    {
+        "codeEtape": "JL3BM1",
+        "libelleEtape": "L3-UCO SVT / Biotechnologies marines"
+    },
+    {
+        "codeEtape": "TDOCMS1",
+        "libelleEtape": "Doctorat Chimie Moléculaire et supramoléculaire"
+    },
+    {
+        "codeEtape": "TDOCOR1",
+        "libelleEtape": "DOCTORAT Chimie organique"
+    },
+    {
+        "codeEtape": "TDOBMS1",
+        "libelleEtape": "DOCTORAT Biologie moléculaire et structurale, biochimie"
+    },
+    {
+        "codeEtape": "TDOBGM1",
+        "libelleEtape": "DOCTORAT Biogéochimie marine"
+    },
+    {
+        "codeEtape": "TM1BV3",
+        "libelleEtape": "M1 Biologie Végétale"
+    },
+    {
+        "codeEtape": "TDOPS1",
+        "libelleEtape": "DOCTORAT Physique Subatomique (nucléaire et des particules)"
+    },
+    {
+        "codeEtape": "TDORAD1",
+        "libelleEtape": "DOCTORAT Radiochimie"
+    },
+    {
+        "codeEtape": "TDOBPE1",
+        "libelleEtape": "DOCTORAT BIO POP ECO"
+    },
+    {
+        "codeEtape": "TDOEC1",
+        "libelleEtape": "DOCTORAT ÉCOLOGIE CHIMIQUE"
+    },
+    {
+        "codeEtape": "TDOCMB1",
+        "libelleEtape": "DOCTORAT Chimie macromoléculaire - Biopolymères et Mat bios"
+    },
+    {
+        "codeEtape": "TDOECT1",
+        "libelleEtape": "DOCTORAT Écotoxicologie"
+    },
+    {
+        "codeEtape": "TDOCPN1",
+        "libelleEtape": "DOCTORAT CHIMIE DES  PRODUITS NATURELS"
+    },
+    {
+        "codeEtape": "TL1MP14",
+        "libelleEtape": "L1 Sc, techno, santé / Portail MPC"
+    },
+    {
+        "codeEtape": "TL3LM12",
+        "libelleEtape": "L3 Physique Chimie / Lumière, molécules et phy.-chim."
+    },
+    {
+        "codeEtape": "MASS1",
+        "libelleEtape": "Doctorat Mathématiques Appliquées et  Sciences Sociales"
+    },
+    {
+        "codeEtape": "JM2DOP1",
+        "libelleEtape": "M2 Ingénierie décisionnelle et optimisation UCO"
+    },
+    {
+        "codeEtape": "JM1DOP1",
+        "libelleEtape": "M1 Ingénierie décisionnelle et optimisation UCO"
+    },
+    {
+        "codeEtape": "JM1DAF1",
+        "libelleEtape": "M1 Ingénierie de la donnée et actuariat-finance UCO"
+    },
+    {
+        "codeEtape": "JM2DAF1",
+        "libelleEtape": "M2 Ingénierie de la donnée et actuariat-finance UCO"
+    },
+    {
+        "codeEtape": "TDOPA1",
+        "libelleEtape": "DOCTORAT Paléoocéanographie"
+    },
+    {
+        "codeEtape": "TDOGCH1",
+        "libelleEtape": "DOCTORAT Géochimie et cycles biogéochimiques"
+    },
+    {
+        "codeEtape": "TL2PC12",
+        "libelleEtape": "L2 Physique Chimie"
+    },
+    {
+        "codeEtape": "TL2MAS11",
+        "libelleEtape": "L2 Mathématiques - Accès Santé"
+    },
+    {
+        "codeEtape": "TL2PC13",
+        "libelleEtape": "L2 Physique Chimie"
+    },
+    {
+        "codeEtape": "TL2MA11",
+        "libelleEtape": "L2 Mathématiques"
+    },
+    {
+        "codeEtape": "TLPMI1",
+        "libelleEtape": "LP Métiers de l'informatique : applications web"
+    },
+    {
+        "codeEtape": "TDOBCE1",
+        "libelleEtape": "DOCTORAT BIOANALYSES, CHIMIE ANALYTIQUES ENVIRONNEMTALE"
+    }
+]

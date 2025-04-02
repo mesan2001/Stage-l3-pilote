@@ -1,0 +1,20 @@
+[MAIN]
+name = "Course staging"
+workdir = "."
+
+[IO]
+datamarts = [
+    "formations",
+    "steps",
+    "new_courses as courses",
+    "step_course_junction",
+    "modalities",
+]
+datasources = ["raw_courses"]
+
+[STAGING]
+files = [
+    "sql/staging_course.sql",
+    "csv/stage_course_1.csv",
+    "sql/staging_course_splitting.sql",
+]

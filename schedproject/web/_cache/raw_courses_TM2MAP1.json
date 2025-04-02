@@ -1,0 +1,32 @@
+[
+    {
+        "annee": "2024",
+        "codeStructureEtape": "AES",
+        "libStructureEtape": "Faculté des Sciences",
+        "codeEtape": "TM2MAP1",
+        "libEtape": "M2 Maths appli / MFA - Analyse & probabilités",
+        "noElement": "T5MAW2",
+        "libElement": "Charges - M2 MFA Analyse et probabilités",
+        "codeNatureElp": "CHAR",
+        "libNatureElp": "Charges d'Enseignement",
+        "codeCNU": "25",
+        "libCNU": "Mathématiques",
+        "codePeriode": null,
+        "libPeriode": null,
+        "nbHeureCM": "0",
+        "nbHeureTD": "0",
+        "nbHeureTP": "0",
+        "nbHeureCMTD": "0",
+        "nbGroupeCM": "0",
+        "nbGroupeTD": "0",
+        "nbGroupeTP": "0",
+        "nbGroupeCMTD": "0",
+        "nbEtuInscritElpEtape": "0",
+        "nbEtuInscritElpTotal": "0",
+        "volumeHoraireElpPondereEtape": "0",
+        "volumeHoraireElpTotal": "0",
+        "nbEtuInscritPrevisionnelElpEtape": "1",
+        "nbEtuInscritPrevisionnelElpTotal": "1",
+        "nbEtape": "1"
+    }
+]

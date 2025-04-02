@@ -17,18 +17,80 @@
     <!-- Section 1: Sélection d'instance -->
     <section class="section-block" id="instance-selection">
       <h2>Sélection d'Instance</h2>
-
+      <!-- modif ici-->
       <div class="search-filter">
         <input type="text" id="instance-search" placeholder="Rechercher une instance...">
+        <div id="suggestions" class="suggestions-box"></div>
+        <!--Liste des formation disponible-->
         <select id="instance-type-filter">
-          <option value="all">Tous les types</option>
-          <option value="L1">L1</option>
-          <option value="L2">L2</option>
-          <option value="L3">L3</option>
-          <option value="Master">Master</option>
+            <option value="all">Tous les types</option>
+            <option value="L1 Double Licence Mathématiques Informatique">L1 Double Licence Mathématiques Informatique</option>
+            <option value="L1 Double Licence Mathématiques Économie">L1 Double Licence Mathématiques Économie</option>
+            <option value="L1 Sciences, Technologies, Santé - MI">L1 Sciences, Technologies, Santé - MI</option>
+            <option value="L1 Sciences, Technologies, Santé - MPC">L1 Sciences, Technologies, Santé - MPC</option>
+            <option value="L1 Sciences, Technologies, Santé - MPC - Santé">L1 Sciences, Technologies, Santé - MPC - Santé</option>
+            <option value="L1 Sciences de la Vie et de la Terre - Chimie">L1 Sciences de la Vie et de la Terre - Chimie</option>
+            <option value="L1 Sciences de la Vie et de la Terre - Chimie - Santé">L1 Sciences de la Vie et de la Terre - Chimie - Santé</option>
+            <option value="L2 Sciences de la Vie et de la Terre - Biologies et Chimie - Santé">L2 Sciences de la Vie et de la Terre - Biologies et Chimie - Santé</option>
+            <option value="L2 Sciences de la Vie et de la Terre - Géosciences">L2 Sciences de la Vie et de la Terre - Géosciences</option>
+            <option value="L2 Sciences de la Vie et de la Terre - Géosciences - Santé">L2 Sciences de la Vie et de la Terre - Géosciences - Santé</option>
+            <option value="L2 Informatique">L2 Informatique</option>
+            <option value="L2 Informatique - Santé">L2 Informatique - Santé</option>
+            <option value="L2 Mathématiques">L2 Mathématiques</option>
+            <option value="L2 Double Licence Mathématiques Informatique ">L2 Double Licence Mathématiques Informatique</option>
+            <option value="L2 Mathématiques - Santé">L2 Mathématiques - Santé</option>
+            <option value="L2 Double Licence Mathématiques Économie">L2 Double Licence Mathématiques Économie</option>
+            <option value="L2 Physique Chimie">L2 Physique Chimie</option>
+            <option value="L2 Physique Chimie - Santé">L2 Physique Chimie - Santé</option>
+            <option value="L2 Mathématiques / Préparation Professorat des Ecoles">L2 Mathématiques / Préparation Professorat des Ecoles</option>
+            <option value="L2 SVT">L2 SVT</option>
+            <option value="L3 Sciences de la Vie et de la Terre - Biologie cellulaire moléculaire et physiologie">L3 Sciences de la Vie et de la Terre - Biologie cellulaire moléculaire et physiologie</option>
+            <option value="L3 Sciences de la Vie et de la Terre - Biologie cellulaire moléculaire et physiologie - Santé">L3 Sciences de la Vie et de la Terre - Biologie cellulaire moléculaire et physiologie - Santé</option>
+            <option value="L3 Sciences de la Vie et de la Terre - Biologie des organismes et des populations">L3 Sciences de la Vie et de la Terre - Biologie des organismes et des populations</option>
+            <option value="L3 Sciences de la Vie et de la Terre - Biologie des organismes et des populations - Santé">L3 Sciences de la Vie et de la Terre - Biologie des organismes et des populations - Santé</option>
+            <option value="L3 Sciences de la Vie et de la Terre - Biologie Végétale">L3 Sciences de la Vie et de la Terre - Biologie Végétale</option>
+            <option value="L3 Sciences de la Vie et de la Terre - Biologie Végétale - Santé">L3 Sciences de la Vie et de la Terre - Biologie Végétale - Santé</option>
+            <option value="L3 Physique Chimie / Chimie-environnement">L3 Physique Chimie / Chimie-environnement</option>
+            <option value="L3 Physique Chimie / Chimie-environnement Santé">L3 Physique Chimie / Chimie-environnement Santé</option>
+            <option value="L3 Physique Chimie / Chimie-médicaments">L3 Physique Chimie / Chimie-médicaments</option>
+            <option value="L3 Physique Chimie / Chimie-médicaments Santé">L3 Physique Chimie / Chimie-médicaments Santé</option>
+            <option value="L3 Sciences de la Vie et de la Terre - Géosciences environnement">L3 Sciences de la Vie et de la Terre - Géosciences environnement</option>
+            <option value="L3 Sciences de la Vie et de la Terre - Géosciences environnement - Santé">L3 Sciences de la Vie et de la Terre - Géosciences environnement - Santé</option>
+            <option value="L3 Informatique">L3 Informatique</option>
+            <option value="L3 Informatique - Santé">L3 Informatique - Santé</option>
+            <option value="L3 Physique Chimie / Lumière, molécules et Physique-Chimie">L3 Physique Chimie / Lumière, molécules et Physique-Chimie</option>
+            <option value="L3 Mathématiques / Mathématiques appliquées">L3 Mathématiques / Mathématiques appliquées</option>
+            <option value="L3 Double Licence Mathématiques Informatique">L3 Double Licence Mathématiques Informatique</option>
+            <option value="L3 Mathématiques / Mathématiques appliquées - Santé">L3 Mathématiques / Mathématiques appliquées - Santé</option>
+            <option value="L3 Mathématiques">L3 Mathématiques</option>
+            <option value="L3 Double Licence Mathématiques Économie">L3 Double Licence Mathématiques Économie</option>
+            <option value="L3 Mathématiques / MEEF">L3 Mathématiques / MEEF</option>
+            <option value="L3 Mathématiques / MEEF - Santé">L3 Mathématiques / MEEF - Santé</option>
+            <option value="">L3 Physique Chimie / Physique applications</option>
+            <option value="L3 Physique Chimie / Physique applications - Santé">L3 Physique Chimie / Physique applications - Santé</option>
+            <option value="L3 Mathématiques / Préparation Professorat des Ecoles">L3 Mathématiques / Préparation Professorat des Ecoles</option>
+            <option value="M1 Biologie Santé / Cursus Sciences">M1 Biologie Santé / Cursus Sciences</option>
+            <option value="M1 Biologie Végétale">M1 Biologie Végétale</option>
+            <option value="M1 Mathématiques Appliquées / Data sciences et Données Biologie et Numériques">M1 Mathématiques Appliquées / Data sciences et Données Biologie et Numériques</option>
+            <option value="M1 BEE / Gestion de la biodiversité dans socio-écosystèmes">M1 BEE / Gestion de la biodiversité dans socio-écosystèmes</option>
+            <option value="M1 Informatique">M1 Informatique</option>
+            <option value="M1 Chimie / Lumière Molécule Matière">M1 Chimie / Lumière Molécule Matière</option>
+            <option value="M1 BEE / Mer, anthropisation, diagnostic">M1 BEE / Mer, anthropisation, diagnostic</option>
+            <option value="M1 THE / Toxicologie Humaine et Environnementale">M1 THE / Toxicologie Humaine et Environnementale</option>
+            
+            
+
         </select>
         <button id="search-button">Rechercher</button>
       </div>
+      <!--Une Affichage des périodes-->
+      <div id="period-container" style="display: none;">
+        <label for="period-select">Sélectionner les périodes :</label>
+        <select id="period-select" multiple>
+        </select>
+        <button id="select-all">Tout sélectionner</button>
+      </div>
+      <br/>
 
       <div class="instances-table-container">
         <table id="instances-table">

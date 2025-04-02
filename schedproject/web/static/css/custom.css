@@ -1,0 +1,15 @@
+.group-item {
+    cursor: move;
+    padding: 4px;
+    margin: 2px;
+    background: #f3f4f6;
+    border-radius: 4px;
+}
+
+.group-item.dragging {
+    opacity: 0.5;
+}
+
+.border.drag-over {
+    background-color: #e5e7eb;
+}

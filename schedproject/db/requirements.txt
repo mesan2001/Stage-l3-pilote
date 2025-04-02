@@ -1,0 +1,7 @@
+psycopg-binary
+psycopg
+flask
+toml
+clingo
+colorama
+pyyaml

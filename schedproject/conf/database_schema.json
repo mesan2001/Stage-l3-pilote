@@ -1,0 +1,1773 @@
+{
+  "calendars": {
+    "columns": [
+      "id",
+      "name",
+      "type",
+      "created_at"
+    ],
+    "relationships": [],
+    "columns_info": {
+      "id": {
+        "name": "id",
+        "type": "integer",
+        "is_primary_key": true,
+        "repr_column": false
+      },
+      "name": {
+        "name": "name",
+        "type": "text",
+        "is_primary_key": false,
+        "repr_column": false
+      },
+      "type": {
+        "name": "type",
+        "type": "text",
+        "is_primary_key": false,
+        "repr_column": false
+      },
+      "created_at": {
+        "name": "created_at",
+        "type": "timestamp with time zone",
+        "is_primary_key": false,
+        "repr_column": false
+      }
+    },
+    "table_type": "BASE TABLE"
+  },
+  "class_modality_junction": {
+    "columns": [
+      "class_id",
+      "modality_id"
+    ],
+    "relationships": [
+      {
+        "from": "class_id",
+        "to": "classes",
+        "foreign_key": "id"
+      },
+      {
+        "from": "modality_id",
+        "to": "modalities",
+        "foreign_key": "id"
+      }
+    ],
+    "columns_info": {
+      "class_id": {
+        "name": "class_id",
+        "type": "integer",
+        "is_primary_key": true,
+        "repr_column": false
+      },
+      "modality_id": {
+        "name": "modality_id",
+        "type": "integer",
+        "is_primary_key": true,
+        "repr_column": false
+      }
+    },
+    "table_type": "BASE TABLE"
+  },
+  "classes": {
+    "columns": [
+      "id",
+      "name"
+    ],
+    "relationships": [],
+    "columns_info": {
+      "id": {
+        "name": "id",
+        "type": "integer",
+        "is_primary_key": true,
+        "repr_column": false
+      },
+      "name": {
+        "name": "name",
+        "type": "text",
+        "is_primary_key": false,
+        "repr_column": false
+      }
+    },
+    "table_type": "BASE TABLE"
+  },
+  "classrooms": {
+    "columns": [
+      "id",
+      "name",
+      "capacity",
+      "annee",
+      "nosalle",
+      "codesalle",
+      "site",
+      "capacite",
+      "building",
+      "type",
+      "departement"
+    ],
+    "relationships": [],
+    "columns_info": {
+      "id": {
+        "name": "id",
+        "type": "integer",
+        "is_primary_key": true,
+        "repr_column": false
+      },
+      "name": {
+        "name": "name",
+        "type": "text",
+        "is_primary_key": false,
+        "repr_column": false
+      },
+      "capacity": {
+        "name": "capacity",
+        "type": "integer",
+        "is_primary_key": false,
+        "repr_column": false
+      },
+      "annee": {
+        "name": "annee",
+        "type": "text",
+        "is_primary_key": false,
+        "repr_column": false
+      },
+      "nosalle": {
+        "name": "nosalle",
+        "type": "text",
+        "is_primary_key": false,
+        "repr_column": false
+      },
+      "codesalle": {
+        "name": "codesalle",
+        "type": "text",
+        "is_primary_key": false,
+        "repr_column": false
+      },
+      "site": {
+        "name": "site",
+        "type": "text",
+        "is_primary_key": false,
+        "repr_column": false
+      },
+      "capacite": {
+        "name": "capacite",
+        "type": "text",
+        "is_primary_key": false,
+        "repr_column": false
+      },
+      "building": {
+        "name": "building",
+        "type": "text",
+        "is_primary_key": false,
+        "repr_column": false
+      },
+      "type": {
+        "name": "type",
+        "type": "text",
+        "is_primary_key": false,
+        "repr_column": false
+      },
+      "departement": {
+        "name": "departement",
+        "type": "text",
+        "is_primary_key": false,
+        "repr_column": false
+      }
+    },
+    "table_type": "BASE TABLE"
+  },
+  "classrooms_transactions": {
+    "columns": [
+      "id",
+      "target_table",
+      "target_column",
+      "target_id",
+      "new_value",
+      "action",
+      "created_at"
+    ],
+    "relationships": [],
+    "columns_info": {
+      "id": {
+        "name": "id",
+        "type": "integer",
+        "is_primary_key": true,
+        "repr_column": false
+      },
+      "target_table": {
+        "name": "target_table",
+        "type": "character varying",
+        "is_primary_key": false,
+        "repr_column": false
+      },
+      "target_column": {
+        "name": "target_column",
+        "type": "character varying",
+        "is_primary_key": false,
+        "repr_column": false
+      },
+      "target_id": {
+        "name": "target_id",
+        "type": "integer",
+        "is_primary_key": false,
+        "repr_column": false
+      },
+      "new_value": {
+        "name": "new_value",
+        "type": "character varying",
+        "is_primary_key": false,
+        "repr_column": false
+      },
+      "action": {
+        "name": "action",
+        "type": "character varying",
+        "is_primary_key": false,
+        "repr_column": false
+      },
+      "created_at": {
+        "name": "created_at",
+        "type": "timestamp without time zone",
+        "is_primary_key": false,
+        "repr_column": false
+      }
+    },
+    "table_type": "TRANSACTION TABLE"
+  },
+  "constraints": {
+    "columns": [
+      "id",
+      "name",
+      "type",
+      "parameters"
+    ],
+    "relationships": [],
+    "columns_info": {
+      "id": {
+        "name": "id",
+        "type": "integer",
+        "is_primary_key": true,
+        "repr_column": false
+      },
+      "name": {
+        "name": "name",
+        "type": "text",
+        "is_primary_key": false,
+        "repr_column": false
+      },
+      "type": {
+        "name": "type",
+        "type": "text",
+        "is_primary_key": false,
+        "repr_column": false
+      },
+      "parameters": {
+        "name": "parameters",
+        "type": "jsonb",
+        "is_primary_key": false,
+        "repr_column": false
+      }
+    },
+    "table_type": "BASE TABLE"
+  },
+  "courses": {
+    "columns": [
+      "id",
+      "coursename",
+      "coursenumber",
+      "elpccode",
+      "elpname",
+      "cnucode",
+      "cnuname"
+    ],
+    "relationships": [],
+    "columns_info": {
+      "id": {
+        "name": "id",
+        "type": "integer",
+        "is_primary_key": true,
+        "repr_column": false
+      },
+      "coursename": {
+        "name": "coursename",
+        "type": "text",
+        "is_primary_key": false,
+        "repr_column": false
+      },
+      "coursenumber": {
+        "name": "coursenumber",
+        "type": "text",
+        "is_primary_key": false,
+        "repr_column": false
+      },
+      "elpccode": {
+        "name": "elpccode",
+        "type": "text",
+        "is_primary_key": false,
+        "repr_column": false
+      },
+      "elpname": {
+        "name": "elpname",
+        "type": "text",
+        "is_primary_key": false,
+        "repr_column": false
+      },
+      "cnucode": {
+        "name": "cnucode",
+        "type": "text",
+        "is_primary_key": false,
+        "repr_column": false
+      },
+      "cnuname": {
+        "name": "cnuname",
+        "type": "text",
+        "is_primary_key": false,
+        "repr_column": false
+      }
+    },
+    "table_type": "BASE TABLE"
+  },
+  "courses_transactions": {
+    "columns": [
+      "id",
+      "target_table",
+      "target_column",
+      "target_id",
+      "new_value",
+      "action",
+      "created_at"
+    ],
+    "relationships": [],
+    "columns_info": {
+      "id": {
+        "name": "id",
+        "type": "integer",
+        "is_primary_key": true,
+        "repr_column": false
+      },
+      "target_table": {
+        "name": "target_table",
+        "type": "character varying",
+        "is_primary_key": false,
+        "repr_column": false
+      },
+      "target_column": {
+        "name": "target_column",
+        "type": "character varying",
+        "is_primary_key": false,
+        "repr_column": false
+      },
+      "target_id": {
+        "name": "target_id",
+        "type": "integer",
+        "is_primary_key": false,
+        "repr_column": false
+      },
+      "new_value": {
+        "name": "new_value",
+        "type": "character varying",
+        "is_primary_key": false,
+        "repr_column": false
+      },
+      "action": {
+        "name": "action",
+        "type": "character varying",
+        "is_primary_key": false,
+        "repr_column": false
+      },
+      "created_at": {
+        "name": "created_at",
+        "type": "timestamp without time zone",
+        "is_primary_key": false,
+        "repr_column": false
+      }
+    },
+    "table_type": "TRANSACTION TABLE"
+  },
+  "custom_labels": {
+    "columns": [
+      "id",
+      "resource_type",
+      "resource_id",
+      "label_key",
+      "label",
+      "origin"
+    ],
+    "relationships": [],
+    "columns_info": {
+      "id": {
+        "name": "id",
+        "type": "integer",
+        "is_primary_key": true,
+        "repr_column": false
+      },
+      "resource_type": {
+        "name": "resource_type",
+        "type": "character varying",
+        "is_primary_key": false,
+        "repr_column": false
+      },
+      "resource_id": {
+        "name": "resource_id",
+        "type": "character varying",
+        "is_primary_key": false,
+        "repr_column": false
+      },
+      "label_key": {
+        "name": "label_key",
+        "type": "character varying",
+        "is_primary_key": false,
+        "repr_column": false
+      },
+      "label": {
+        "name": "label",
+        "type": "text",
+        "is_primary_key": false,
+        "repr_column": false
+      },
+      "origin": {
+        "name": "origin",
+        "type": "character varying",
+        "is_primary_key": false,
+        "repr_column": false
+      }
+    },
+    "table_type": "BASE TABLE"
+  },
+  "filters": {
+    "columns": [
+      "id",
+      "selector_id",
+      "resource_type",
+      "label_key",
+      "label_value",
+      "rank"
+    ],
+    "relationships": [
+      {
+        "from": "selector_id",
+        "to": "selectors",
+        "foreign_key": "id"
+      }
+    ],
+    "columns_info": {
+      "id": {
+        "name": "id",
+        "type": "integer",
+        "is_primary_key": true,
+        "repr_column": false
+      },
+      "selector_id": {
+        "name": "selector_id",
+        "type": "integer",
+        "is_primary_key": false,
+        "repr_column": false
+      },
+      "resource_type": {
+        "name": "resource_type",
+        "type": "text",
+        "is_primary_key": false,
+        "repr_column": false
+      },
+      "label_key": {
+        "name": "label_key",
+        "type": "text",
+        "is_primary_key": false,
+        "repr_column": false
+      },
+      "label_value": {
+        "name": "label_value",
+        "type": "text",
+        "is_primary_key": false,
+        "repr_column": false
+      },
+      "rank": {
+        "name": "rank",
+        "type": "jsonb",
+        "is_primary_key": false,
+        "repr_column": false
+      }
+    },
+    "table_type": "BASE TABLE"
+  },
+  "formations": {
+    "columns": [
+      "id",
+      "name",
+      "year",
+      "formationstructurecode",
+      "formationstructurename"
+    ],
+    "relationships": [],
+    "columns_info": {
+      "id": {
+        "name": "id",
+        "type": "text",
+        "is_primary_key": true,
+        "repr_column": false
+      },
+      "name": {
+        "name": "name",
+        "type": "text",
+        "is_primary_key": false,
+        "repr_column": false
+      },
+      "year": {
+        "name": "year",
+        "type": "text",
+        "is_primary_key": false,
+        "repr_column": false
+      },
+      "formationstructurecode": {
+        "name": "formationstructurecode",
+        "type": "text",
+        "is_primary_key": false,
+        "repr_column": false
+      },
+      "formationstructurename": {
+        "name": "formationstructurename",
+        "type": "text",
+        "is_primary_key": false,
+        "repr_column": false
+      }
+    },
+    "table_type": "BASE TABLE"
+  },
+  "formations_transactions": {
+    "columns": [
+      "id",
+      "target_table",
+      "target_column",
+      "target_id",
+      "new_value",
+      "action",
+      "created_at"
+    ],
+    "relationships": [],
+    "columns_info": {
+      "id": {
+        "name": "id",
+        "type": "integer",
+        "is_primary_key": true,
+        "repr_column": false
+      },
+      "target_table": {
+        "name": "target_table",
+        "type": "character varying",
+        "is_primary_key": false,
+        "repr_column": false
+      },
+      "target_column": {
+        "name": "target_column",
+        "type": "character varying",
+        "is_primary_key": false,
+        "repr_column": false
+      },
+      "target_id": {
+        "name": "target_id",
+        "type": "integer",
+        "is_primary_key": false,
+        "repr_column": false
+      },
+      "new_value": {
+        "name": "new_value",
+        "type": "character varying",
+        "is_primary_key": false,
+        "repr_column": false
+      },
+      "action": {
+        "name": "action",
+        "type": "character varying",
+        "is_primary_key": false,
+        "repr_column": false
+      },
+      "created_at": {
+        "name": "created_at",
+        "type": "timestamp without time zone",
+        "is_primary_key": false,
+        "repr_column": false
+      }
+    },
+    "table_type": "TRANSACTION TABLE"
+  },
+  "group_class_junction": {
+    "columns": [
+      "group_id",
+      "class_id"
+    ],
+    "relationships": [
+      {
+        "from": "group_id",
+        "to": "groups",
+        "foreign_key": "id"
+      },
+      {
+        "from": "class_id",
+        "to": "classes",
+        "foreign_key": "id"
+      }
+    ],
+    "columns_info": {
+      "group_id": {
+        "name": "group_id",
+        "type": "integer",
+        "is_primary_key": true,
+        "repr_column": false
+      },
+      "class_id": {
+        "name": "class_id",
+        "type": "bigint",
+        "is_primary_key": true,
+        "repr_column": false
+      }
+    },
+    "table_type": "BASE TABLE"
+  },
+  "groups": {
+    "columns": [
+      "id",
+      "name"
+    ],
+    "relationships": [],
+    "columns_info": {
+      "id": {
+        "name": "id",
+        "type": "integer",
+        "is_primary_key": true,
+        "repr_column": false
+      },
+      "name": {
+        "name": "name",
+        "type": "text",
+        "is_primary_key": false,
+        "repr_column": false
+      }
+    },
+    "table_type": "BASE TABLE"
+  },
+  "labels": {
+    "columns": [
+      "resource_type",
+      "resource_id",
+      "label_key",
+      "label",
+      "origin"
+    ],
+    "relationships": [],
+    "columns_info": {
+      "resource_type": {
+        "name": "resource_type",
+        "type": "text",
+        "is_primary_key": false,
+        "repr_column": false
+      },
+      "resource_id": {
+        "name": "resource_id",
+        "type": "text",
+        "is_primary_key": false,
+        "repr_column": false
+      },
+      "label_key": {
+        "name": "label_key",
+        "type": "text",
+        "is_primary_key": false,
+        "repr_column": false
+      },
+      "label": {
+        "name": "label",
+        "type": "text",
+        "is_primary_key": false,
+        "repr_column": false
+      },
+      "origin": {
+        "name": "origin",
+        "type": "text",
+        "is_primary_key": false,
+        "repr_column": false
+      }
+    },
+    "table_type": "VIEW"
+  },
+  "lecturer_assignments": {
+    "columns": [
+      "id",
+      "lecturer_id",
+      "course_id",
+      "modality_id",
+      "nb_groups",
+      "computed_hours"
+    ],
+    "relationships": [
+      {
+        "from": "lecturer_id",
+        "to": "lecturers",
+        "foreign_key": "id"
+      },
+      {
+        "from": "course_id",
+        "to": "courses",
+        "foreign_key": "id"
+      },
+      {
+        "from": "modality_id",
+        "to": "modalities",
+        "foreign_key": "id"
+      }
+    ],
+    "columns_info": {
+      "id": {
+        "name": "id",
+        "type": "integer",
+        "is_primary_key": true,
+        "repr_column": false
+      },
+      "lecturer_id": {
+        "name": "lecturer_id",
+        "type": "bigint",
+        "is_primary_key": false,
+        "repr_column": false
+      },
+      "course_id": {
+        "name": "course_id",
+        "type": "bigint",
+        "is_primary_key": false,
+        "repr_column": false
+      },
+      "modality_id": {
+        "name": "modality_id",
+        "type": "bigint",
+        "is_primary_key": false,
+        "repr_column": false
+      },
+      "nb_groups": {
+        "name": "nb_groups",
+        "type": "integer",
+        "is_primary_key": false,
+        "repr_column": false
+      },
+      "computed_hours": {
+        "name": "computed_hours",
+        "type": "double precision",
+        "is_primary_key": false,
+        "repr_column": false
+      }
+    },
+    "table_type": "BASE TABLE"
+  },
+  "lecturers": {
+    "columns": [
+      "id",
+      "name",
+      "lastname",
+      "volumehoraireannee",
+      "oraganization_component",
+      "hourly_volume",
+      "code_fonction",
+      "code_unite"
+    ],
+    "relationships": [],
+    "columns_info": {
+      "id": {
+        "name": "id",
+        "type": "integer",
+        "is_primary_key": true,
+        "repr_column": false
+      },
+      "name": {
+        "name": "name",
+        "type": "text",
+        "is_primary_key": false,
+        "repr_column": false
+      },
+      "lastname": {
+        "name": "lastname",
+        "type": "text",
+        "is_primary_key": false,
+        "repr_column": false
+      },
+      "volumehoraireannee": {
+        "name": "volumehoraireannee",
+        "type": "text",
+        "is_primary_key": false,
+        "repr_column": false
+      },
+      "oraganization_component": {
+        "name": "oraganization_component",
+        "type": "text",
+        "is_primary_key": false,
+        "repr_column": false
+      },
+      "hourly_volume": {
+        "name": "hourly_volume",
+        "type": "text",
+        "is_primary_key": false,
+        "repr_column": false
+      },
+      "code_fonction": {
+        "name": "code_fonction",
+        "type": "text",
+        "is_primary_key": false,
+        "repr_column": false
+      },
+      "code_unite": {
+        "name": "code_unite",
+        "type": "text",
+        "is_primary_key": false,
+        "repr_column": false
+      }
+    },
+    "table_type": "BASE TABLE"
+  },
+  "lecturers_transactions": {
+    "columns": [
+      "id",
+      "target_table",
+      "target_column",
+      "target_id",
+      "new_value",
+      "action",
+      "created_at"
+    ],
+    "relationships": [],
+    "columns_info": {
+      "id": {
+        "name": "id",
+        "type": "integer",
+        "is_primary_key": true,
+        "repr_column": false
+      },
+      "target_table": {
+        "name": "target_table",
+        "type": "character varying",
+        "is_primary_key": false,
+        "repr_column": false
+      },
+      "target_column": {
+        "name": "target_column",
+        "type": "character varying",
+        "is_primary_key": false,
+        "repr_column": false
+      },
+      "target_id": {
+        "name": "target_id",
+        "type": "integer",
+        "is_primary_key": false,
+        "repr_column": false
+      },
+      "new_value": {
+        "name": "new_value",
+        "type": "character varying",
+        "is_primary_key": false,
+        "repr_column": false
+      },
+      "action": {
+        "name": "action",
+        "type": "character varying",
+        "is_primary_key": false,
+        "repr_column": false
+      },
+      "created_at": {
+        "name": "created_at",
+        "type": "timestamp without time zone",
+        "is_primary_key": false,
+        "repr_column": false
+      }
+    },
+    "table_type": "TRANSACTION TABLE"
+  },
+  "modalities": {
+    "columns": [
+      "id",
+      "course_id",
+      "modality",
+      "groups",
+      "hours"
+    ],
+    "relationships": [
+      {
+        "from": "course_id",
+        "to": "courses",
+        "foreign_key": "id"
+      }
+    ],
+    "columns_info": {
+      "id": {
+        "name": "id",
+        "type": "integer",
+        "is_primary_key": true,
+        "repr_column": false
+      },
+      "course_id": {
+        "name": "course_id",
+        "type": "integer",
+        "is_primary_key": false,
+        "repr_column": false
+      },
+      "modality": {
+        "name": "modality",
+        "type": "text",
+        "is_primary_key": false,
+        "repr_column": true
+      },
+      "groups": {
+        "name": "groups",
+        "type": "integer",
+        "is_primary_key": false,
+        "repr_column": false
+      },
+      "hours": {
+        "name": "hours",
+        "type": "double precision",
+        "is_primary_key": false,
+        "repr_column": false
+      }
+    },
+    "table_type": "BASE TABLE"
+  },
+  "modalities_transactions": {
+    "columns": [
+      "id",
+      "target_table",
+      "target_column",
+      "target_id",
+      "new_value",
+      "action",
+      "created_at"
+    ],
+    "relationships": [],
+    "columns_info": {
+      "id": {
+        "name": "id",
+        "type": "integer",
+        "is_primary_key": true,
+        "repr_column": false
+      },
+      "target_table": {
+        "name": "target_table",
+        "type": "character varying",
+        "is_primary_key": false,
+        "repr_column": false
+      },
+      "target_column": {
+        "name": "target_column",
+        "type": "character varying",
+        "is_primary_key": false,
+        "repr_column": false
+      },
+      "target_id": {
+        "name": "target_id",
+        "type": "integer",
+        "is_primary_key": false,
+        "repr_column": false
+      },
+      "new_value": {
+        "name": "new_value",
+        "type": "character varying",
+        "is_primary_key": false,
+        "repr_column": false
+      },
+      "action": {
+        "name": "action",
+        "type": "character varying",
+        "is_primary_key": false,
+        "repr_column": false
+      },
+      "created_at": {
+        "name": "created_at",
+        "type": "timestamp without time zone",
+        "is_primary_key": false,
+        "repr_column": false
+      }
+    },
+    "table_type": "TRANSACTION TABLE"
+  },
+  "periods": {
+    "columns": [
+      "id",
+      "calendar_id",
+      "name",
+      "start_date",
+      "end_date",
+      "start_hour",
+      "end_hour",
+      "weekdays",
+      "exclusions"
+    ],
+    "relationships": [
+      {
+        "from": "calendar_id",
+        "to": "calendars",
+        "foreign_key": "id"
+      }
+    ],
+    "columns_info": {
+      "id": {
+        "name": "id",
+        "type": "integer",
+        "is_primary_key": true,
+        "repr_column": false
+      },
+      "calendar_id": {
+        "name": "calendar_id",
+        "type": "integer",
+        "is_primary_key": false,
+        "repr_column": false
+      },
+      "name": {
+        "name": "name",
+        "type": "character varying",
+        "is_primary_key": false,
+        "repr_column": false
+      },
+      "start_date": {
+        "name": "start_date",
+        "type": "date",
+        "is_primary_key": false,
+        "repr_column": false
+      },
+      "end_date": {
+        "name": "end_date",
+        "type": "date",
+        "is_primary_key": false,
+        "repr_column": false
+      },
+      "start_hour": {
+        "name": "start_hour",
+        "type": "time without time zone",
+        "is_primary_key": false,
+        "repr_column": false
+      },
+      "end_hour": {
+        "name": "end_hour",
+        "type": "time without time zone",
+        "is_primary_key": false,
+        "repr_column": false
+      },
+      "weekdays": {
+        "name": "weekdays",
+        "type": "jsonb",
+        "is_primary_key": false,
+        "repr_column": false
+      },
+      "exclusions": {
+        "name": "exclusions",
+        "type": "jsonb",
+        "is_primary_key": false,
+        "repr_column": false
+      }
+    },
+    "table_type": "BASE TABLE"
+  },
+  "rule_selectors": {
+    "columns": [
+      "rule_id",
+      "selector_id"
+    ],
+    "relationships": [
+      {
+        "from": "rule_id",
+        "to": "rules",
+        "foreign_key": "id"
+      },
+      {
+        "from": "selector_id",
+        "to": "selectors",
+        "foreign_key": "id"
+      }
+    ],
+    "columns_info": {
+      "rule_id": {
+        "name": "rule_id",
+        "type": "integer",
+        "is_primary_key": true,
+        "repr_column": false
+      },
+      "selector_id": {
+        "name": "selector_id",
+        "type": "integer",
+        "is_primary_key": true,
+        "repr_column": false
+      }
+    },
+    "table_type": "BASE TABLE"
+  },
+  "rules": {
+    "columns": [
+      "id",
+      "name",
+      "author",
+      "description",
+      "constraint",
+      "created_at",
+      "updated_at"
+    ],
+    "relationships": [],
+    "columns_info": {
+      "id": {
+        "name": "id",
+        "type": "integer",
+        "is_primary_key": true,
+        "repr_column": false
+      },
+      "name": {
+        "name": "name",
+        "type": "text",
+        "is_primary_key": false,
+        "repr_column": false
+      },
+      "author": {
+        "name": "author",
+        "type": "text",
+        "is_primary_key": false,
+        "repr_column": false
+      },
+      "description": {
+        "name": "description",
+        "type": "text",
+        "is_primary_key": false,
+        "repr_column": false
+      },
+      "constraint": {
+        "name": "constraint",
+        "type": "jsonb",
+        "is_primary_key": false,
+        "repr_column": false
+      },
+      "created_at": {
+        "name": "created_at",
+        "type": "timestamp with time zone",
+        "is_primary_key": false,
+        "repr_column": false
+      },
+      "updated_at": {
+        "name": "updated_at",
+        "type": "timestamp with time zone",
+        "is_primary_key": false,
+        "repr_column": false
+      }
+    },
+    "table_type": "BASE TABLE"
+  },
+  "selectors": {
+    "columns": [
+      "id",
+      "name",
+      "operation"
+    ],
+    "relationships": [],
+    "columns_info": {
+      "id": {
+        "name": "id",
+        "type": "integer",
+        "is_primary_key": true,
+        "repr_column": false
+      },
+      "name": {
+        "name": "name",
+        "type": "text",
+        "is_primary_key": false,
+        "repr_column": false
+      },
+      "operation": {
+        "name": "operation",
+        "type": "jsonb",
+        "is_primary_key": false,
+        "repr_column": false
+      }
+    },
+    "table_type": "BASE TABLE"
+  },
+  "step_course_junction": {
+    "columns": [
+      "id",
+      "step_id",
+      "course_id"
+    ],
+    "relationships": [
+      {
+        "from": "step_id",
+        "to": "steps",
+        "foreign_key": "id"
+      },
+      {
+        "from": "course_id",
+        "to": "courses",
+        "foreign_key": "id"
+      }
+    ],
+    "columns_info": {
+      "id": {
+        "name": "id",
+        "type": "integer",
+        "is_primary_key": true,
+        "repr_column": false
+      },
+      "step_id": {
+        "name": "step_id",
+        "type": "integer",
+        "is_primary_key": false,
+        "repr_column": false
+      },
+      "course_id": {
+        "name": "course_id",
+        "type": "integer",
+        "is_primary_key": false,
+        "repr_column": false
+      }
+    },
+    "table_type": "BASE TABLE"
+  },
+  "step_course_junction_transactions": {
+    "columns": [
+      "id",
+      "target_table",
+      "target_column",
+      "target_id",
+      "new_value",
+      "action",
+      "created_at"
+    ],
+    "relationships": [],
+    "columns_info": {
+      "id": {
+        "name": "id",
+        "type": "integer",
+        "is_primary_key": true,
+        "repr_column": false
+      },
+      "target_table": {
+        "name": "target_table",
+        "type": "character varying",
+        "is_primary_key": false,
+        "repr_column": false
+      },
+      "target_column": {
+        "name": "target_column",
+        "type": "character varying",
+        "is_primary_key": false,
+        "repr_column": false
+      },
+      "target_id": {
+        "name": "target_id",
+        "type": "integer",
+        "is_primary_key": false,
+        "repr_column": false
+      },
+      "new_value": {
+        "name": "new_value",
+        "type": "character varying",
+        "is_primary_key": false,
+        "repr_column": false
+      },
+      "action": {
+        "name": "action",
+        "type": "character varying",
+        "is_primary_key": false,
+        "repr_column": false
+      },
+      "created_at": {
+        "name": "created_at",
+        "type": "timestamp without time zone",
+        "is_primary_key": false,
+        "repr_column": false
+      }
+    },
+    "table_type": "TRANSACTION TABLE"
+  },
+  "steps": {
+    "columns": [
+      "id",
+      "formation_id",
+      "periodcode",
+      "periodname"
+    ],
+    "relationships": [],
+    "columns_info": {
+      "id": {
+        "name": "id",
+        "type": "integer",
+        "is_primary_key": true,
+        "repr_column": false
+      },
+      "formation_id": {
+        "name": "formation_id",
+        "type": "text",
+        "is_primary_key": false,
+        "repr_column": false
+      },
+      "periodcode": {
+        "name": "periodcode",
+        "type": "text",
+        "is_primary_key": false,
+        "repr_column": false
+      },
+      "periodname": {
+        "name": "periodname",
+        "type": "text",
+        "is_primary_key": false,
+        "repr_column": false
+      }
+    },
+    "table_type": "BASE TABLE"
+  },
+  "steps_transactions": {
+    "columns": [
+      "id",
+      "target_table",
+      "target_column",
+      "target_id",
+      "new_value",
+      "action",
+      "created_at"
+    ],
+    "relationships": [],
+    "columns_info": {
+      "id": {
+        "name": "id",
+        "type": "integer",
+        "is_primary_key": true,
+        "repr_column": false
+      },
+      "target_table": {
+        "name": "target_table",
+        "type": "character varying",
+        "is_primary_key": false,
+        "repr_column": false
+      },
+      "target_column": {
+        "name": "target_column",
+        "type": "character varying",
+        "is_primary_key": false,
+        "repr_column": false
+      },
+      "target_id": {
+        "name": "target_id",
+        "type": "integer",
+        "is_primary_key": false,
+        "repr_column": false
+      },
+      "new_value": {
+        "name": "new_value",
+        "type": "character varying",
+        "is_primary_key": false,
+        "repr_column": false
+      },
+      "action": {
+        "name": "action",
+        "type": "character varying",
+        "is_primary_key": false,
+        "repr_column": false
+      },
+      "created_at": {
+        "name": "created_at",
+        "type": "timestamp without time zone",
+        "is_primary_key": false,
+        "repr_column": false
+      }
+    },
+    "table_type": "TRANSACTION TABLE"
+  },
+  "student_group_junction": {
+    "columns": [
+      "student_id",
+      "group_id"
+    ],
+    "relationships": [
+      {
+        "from": "student_id",
+        "to": "students",
+        "foreign_key": "id"
+      },
+      {
+        "from": "group_id",
+        "to": "groups",
+        "foreign_key": "id"
+      }
+    ],
+    "columns_info": {
+      "student_id": {
+        "name": "student_id",
+        "type": "bigint",
+        "is_primary_key": true,
+        "repr_column": false
+      },
+      "group_id": {
+        "name": "group_id",
+        "type": "integer",
+        "is_primary_key": true,
+        "repr_column": false
+      }
+    },
+    "table_type": "BASE TABLE"
+  },
+  "students": {
+    "columns": [
+      "id",
+      "name"
+    ],
+    "relationships": [],
+    "columns_info": {
+      "id": {
+        "name": "id",
+        "type": "integer",
+        "is_primary_key": true,
+        "repr_column": false
+      },
+      "name": {
+        "name": "name",
+        "type": "text",
+        "is_primary_key": false,
+        "repr_column": false
+      }
+    },
+    "table_type": "BASE TABLE"
+  },
+  "view_classrooms": {
+    "columns": [
+      "id",
+      "annee",
+      "nosalle",
+      "codesalle",
+      "site",
+      "capacite",
+      "name",
+      "building",
+      "type",
+      "departement"
+    ],
+    "relationships": [],
+    "columns_info": {
+      "id": {
+        "name": "id",
+        "type": "integer",
+        "is_primary_key": false,
+        "repr_column": false
+      },
+      "annee": {
+        "name": "annee",
+        "type": "character varying",
+        "is_primary_key": false,
+        "repr_column": false
+      },
+      "nosalle": {
+        "name": "nosalle",
+        "type": "character varying",
+        "is_primary_key": false,
+        "repr_column": false
+      },
+      "codesalle": {
+        "name": "codesalle",
+        "type": "character varying",
+        "is_primary_key": false,
+        "repr_column": false
+      },
+      "site": {
+        "name": "site",
+        "type": "character varying",
+        "is_primary_key": false,
+        "repr_column": false
+      },
+      "capacite": {
+        "name": "capacite",
+        "type": "character varying",
+        "is_primary_key": false,
+        "repr_column": false
+      },
+      "name": {
+        "name": "name",
+        "type": "character varying",
+        "is_primary_key": false,
+        "repr_column": false
+      },
+      "building": {
+        "name": "building",
+        "type": "character varying",
+        "is_primary_key": false,
+        "repr_column": false
+      },
+      "type": {
+        "name": "type",
+        "type": "character varying",
+        "is_primary_key": false,
+        "repr_column": false
+      },
+      "departement": {
+        "name": "departement",
+        "type": "character varying",
+        "is_primary_key": false,
+        "repr_column": false
+      }
+    },
+    "table_type": "VIEW"
+  },
+  "view_courses": {
+    "columns": [
+      "id",
+      "coursenumber",
+      "coursename",
+      "elpccode",
+      "elpname",
+      "cnucode",
+      "cnuname"
+    ],
+    "relationships": [],
+    "columns_info": {
+      "id": {
+        "name": "id",
+        "type": "integer",
+        "is_primary_key": false,
+        "repr_column": false
+      },
+      "coursenumber": {
+        "name": "coursenumber",
+        "type": "character varying",
+        "is_primary_key": false,
+        "repr_column": false
+      },
+      "coursename": {
+        "name": "coursename",
+        "type": "character varying",
+        "is_primary_key": false,
+        "repr_column": false
+      },
+      "elpccode": {
+        "name": "elpccode",
+        "type": "character varying",
+        "is_primary_key": false,
+        "repr_column": false
+      },
+      "elpname": {
+        "name": "elpname",
+        "type": "character varying",
+        "is_primary_key": false,
+        "repr_column": false
+      },
+      "cnucode": {
+        "name": "cnucode",
+        "type": "character varying",
+        "is_primary_key": false,
+        "repr_column": false
+      },
+      "cnuname": {
+        "name": "cnuname",
+        "type": "character varying",
+        "is_primary_key": false,
+        "repr_column": false
+      }
+    },
+    "table_type": "VIEW"
+  },
+  "view_formations": {
+    "columns": [
+      "id",
+      "name",
+      "formationstructurecode",
+      "formationstructurename",
+      "year"
+    ],
+    "relationships": [],
+    "columns_info": {
+      "id": {
+        "name": "id",
+        "type": "text",
+        "is_primary_key": false,
+        "repr_column": false
+      },
+      "name": {
+        "name": "name",
+        "type": "character varying",
+        "is_primary_key": false,
+        "repr_column": false
+      },
+      "formationstructurecode": {
+        "name": "formationstructurecode",
+        "type": "character varying",
+        "is_primary_key": false,
+        "repr_column": false
+      },
+      "formationstructurename": {
+        "name": "formationstructurename",
+        "type": "character varying",
+        "is_primary_key": false,
+        "repr_column": false
+      },
+      "year": {
+        "name": "year",
+        "type": "character varying",
+        "is_primary_key": false,
+        "repr_column": false
+      }
+    },
+    "table_type": "VIEW"
+  },
+  "view_lecturers": {
+    "columns": [
+      "id",
+      "volumehoraireannee",
+      "lastname",
+      "oraganization_component",
+      "name",
+      "hourly_volume",
+      "code_fonction",
+      "code_unite"
+    ],
+    "relationships": [],
+    "columns_info": {
+      "id": {
+        "name": "id",
+        "type": "integer",
+        "is_primary_key": false,
+        "repr_column": false
+      },
+      "volumehoraireannee": {
+        "name": "volumehoraireannee",
+        "type": "character varying",
+        "is_primary_key": false,
+        "repr_column": false
+      },
+      "lastname": {
+        "name": "lastname",
+        "type": "character varying",
+        "is_primary_key": false,
+        "repr_column": false
+      },
+      "oraganization_component": {
+        "name": "oraganization_component",
+        "type": "character varying",
+        "is_primary_key": false,
+        "repr_column": false
+      },
+      "name": {
+        "name": "name",
+        "type": "character varying",
+        "is_primary_key": false,
+        "repr_column": false
+      },
+      "hourly_volume": {
+        "name": "hourly_volume",
+        "type": "character varying",
+        "is_primary_key": false,
+        "repr_column": false
+      },
+      "code_fonction": {
+        "name": "code_fonction",
+        "type": "character varying",
+        "is_primary_key": false,
+        "repr_column": false
+      },
+      "code_unite": {
+        "name": "code_unite",
+        "type": "character varying",
+        "is_primary_key": false,
+        "repr_column": false
+      }
+    },
+    "table_type": "VIEW"
+  },
+  "view_modalities": {
+    "columns": [
+      "id",
+      "course_id",
+      "groups",
+      "hours",
+      "modality"
+    ],
+    "relationships": [],
+    "columns_info": {
+      "id": {
+        "name": "id",
+        "type": "integer",
+        "is_primary_key": false,
+        "repr_column": false
+      },
+      "course_id": {
+        "name": "course_id",
+        "type": "integer",
+        "is_primary_key": false,
+        "repr_column": false
+      },
+      "groups": {
+        "name": "groups",
+        "type": "integer",
+        "is_primary_key": false,
+        "repr_column": false
+      },
+      "hours": {
+        "name": "hours",
+        "type": "double precision",
+        "is_primary_key": false,
+        "repr_column": false
+      },
+      "modality": {
+        "name": "modality",
+        "type": "character varying",
+        "is_primary_key": false,
+        "repr_column": true
+      }
+    },
+    "table_type": "VIEW"
+  },
+  "view_step_course_junction": {
+    "columns": [
+      "id",
+      "step_id",
+      "course_id"
+    ],
+    "relationships": [],
+    "columns_info": {
+      "id": {
+        "name": "id",
+        "type": "integer",
+        "is_primary_key": false,
+        "repr_column": false
+      },
+      "step_id": {
+        "name": "step_id",
+        "type": "integer",
+        "is_primary_key": false,
+        "repr_column": false
+      },
+      "course_id": {
+        "name": "course_id",
+        "type": "integer",
+        "is_primary_key": false,
+        "repr_column": false
+      }
+    },
+    "table_type": "VIEW"
+  },
+  "view_steps": {
+    "columns": [
+      "id",
+      "formation_id",
+      "periodcode",
+      "periodname"
+    ],
+    "relationships": [],
+    "columns_info": {
+      "id": {
+        "name": "id",
+        "type": "integer",
+        "is_primary_key": false,
+        "repr_column": false
+      },
+      "formation_id": {
+        "name": "formation_id",
+        "type": "character varying",
+        "is_primary_key": false,
+        "repr_column": false
+      },
+      "periodcode": {
+        "name": "periodcode",
+        "type": "character varying",
+        "is_primary_key": false,
+        "repr_column": false
+      },
+      "periodname": {
+        "name": "periodname",
+        "type": "character varying",
+        "is_primary_key": false,
+        "repr_column": false
+      }
+    },
+    "table_type": "VIEW"
+  }
+}

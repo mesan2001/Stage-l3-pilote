@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS formations (id TEXT PRIMARY KEY, name TEXT, year TEXT);

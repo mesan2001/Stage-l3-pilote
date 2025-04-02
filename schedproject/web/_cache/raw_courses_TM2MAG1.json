@@ -1,0 +1,32 @@
+[
+    {
+        "annee": "2024",
+        "codeStructureEtape": "AES",
+        "libStructureEtape": "Faculté des Sciences",
+        "codeEtape": "TM2MAG1",
+        "libEtape": "M2 Maths appli / MFA - Algèbre & géométrie",
+        "noElement": "T5MAW1",
+        "libElement": "Charges - M2 MFA Algèbre et géométrie",
+        "codeNatureElp": "CHAR",
+        "libNatureElp": "Charges d'Enseignement",
+        "codeCNU": "25",
+        "libCNU": "Mathématiques",
+        "codePeriode": null,
+        "libPeriode": null,
+        "nbHeureCM": "0",
+        "nbHeureTD": "0",
+        "nbHeureTP": "0",
+        "nbHeureCMTD": "0",
+        "nbGroupeCM": "0",
+        "nbGroupeTD": "0",
+        "nbGroupeTP": "0",
+        "nbGroupeCMTD": "0",
+        "nbEtuInscritElpEtape": "0",
+        "nbEtuInscritElpTotal": "0",
+        "volumeHoraireElpPondereEtape": "0",
+        "volumeHoraireElpTotal": "0",
+        "nbEtuInscritPrevisionnelElpEtape": "0",
+        "nbEtuInscritPrevisionnelElpTotal": "0",
+        "nbEtape": "1"
+    }
+]
