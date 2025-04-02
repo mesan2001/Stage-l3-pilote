@@ -1,1 +1,0 @@
-from interface_web_app import InterfacesWebApp as InterfacesWebApp

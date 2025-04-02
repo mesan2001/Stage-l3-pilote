@@ -1,1 +1,0 @@
-from core.controller import PostgreSQLAPIController as PostgreSQLAPIController
