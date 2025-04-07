@@ -5,341 +5,429 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Pilotage de Solveur d'Emplois du Temps</title>
+  <!-- Ajout de Bootstrap pour améliorer l'interface-->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
-  <header>
-    <h1>Pilotage de Solveur d'Emplois du Temps</h1>
+  <header class="bg-primary text-white py-3">
+    <div class="container">
+      <h1>Pilotage de Solveur d'Emplois du Temps</h1>
+    </div>
   </header>
 
-  <main>
-    <!-- Section 1: Sélection d'instance -->
-    <section class="section-block" id="instance-selection">
-      <h2>Sélection d'Instance</h2>
-      <!-- modif ici-->
-      <div class="search-filter">
-        <input type="text" id="instance-search" placeholder="Rechercher une instance...">
-        <div id="suggestions" class="suggestions-box"></div>
-        <!--Liste des formation disponible-->
-        <select id="instance-type-filter">
-            <option value="all">Tous les types</option>
-            <option value="L1 Double Licence Mathématiques Informatique">L1 Double Licence Mathématiques Informatique</option>
-            <option value="L1 Double Licence Mathématiques Économie">L1 Double Licence Mathématiques Économie</option>
-            <option value="L1 Sciences, Technologies, Santé - MI">L1 Sciences, Technologies, Santé - MI</option>
-            <option value="L1 Sciences, Technologies, Santé - MPC">L1 Sciences, Technologies, Santé - MPC</option>
-            <option value="L1 Sciences, Technologies, Santé - MPC - Santé">L1 Sciences, Technologies, Santé - MPC - Santé</option>
-            <option value="L1 Sciences de la Vie et de la Terre - Chimie">L1 Sciences de la Vie et de la Terre - Chimie</option>
-            <option value="L1 Sciences de la Vie et de la Terre - Chimie - Santé">L1 Sciences de la Vie et de la Terre - Chimie - Santé</option>
-            <option value="L2 Sciences de la Vie et de la Terre - Biologies et Chimie - Santé">L2 Sciences de la Vie et de la Terre - Biologies et Chimie - Santé</option>
-            <option value="L2 Sciences de la Vie et de la Terre - Géosciences">L2 Sciences de la Vie et de la Terre - Géosciences</option>
-            <option value="L2 Sciences de la Vie et de la Terre - Géosciences - Santé">L2 Sciences de la Vie et de la Terre - Géosciences - Santé</option>
-            <option value="L2 Informatique">L2 Informatique</option>
-            <option value="L2 Informatique - Santé">L2 Informatique - Santé</option>
-            <option value="L2 Mathématiques">L2 Mathématiques</option>
-            <option value="L2 Double Licence Mathématiques Informatique ">L2 Double Licence Mathématiques Informatique</option>
-            <option value="L2 Mathématiques - Santé">L2 Mathématiques - Santé</option>
-            <option value="L2 Double Licence Mathématiques Économie">L2 Double Licence Mathématiques Économie</option>
-            <option value="L2 Physique Chimie">L2 Physique Chimie</option>
-            <option value="L2 Physique Chimie - Santé">L2 Physique Chimie - Santé</option>
-            <option value="L2 Mathématiques / Préparation Professorat des Ecoles">L2 Mathématiques / Préparation Professorat des Ecoles</option>
-            <option value="L2 SVT">L2 SVT</option>
-            <option value="L3 Sciences de la Vie et de la Terre - Biologie cellulaire moléculaire et physiologie">L3 Sciences de la Vie et de la Terre - Biologie cellulaire moléculaire et physiologie</option>
-            <option value="L3 Sciences de la Vie et de la Terre - Biologie cellulaire moléculaire et physiologie - Santé">L3 Sciences de la Vie et de la Terre - Biologie cellulaire moléculaire et physiologie - Santé</option>
-            <option value="L3 Sciences de la Vie et de la Terre - Biologie des organismes et des populations">L3 Sciences de la Vie et de la Terre - Biologie des organismes et des populations</option>
-            <option value="L3 Sciences de la Vie et de la Terre - Biologie des organismes et des populations - Santé">L3 Sciences de la Vie et de la Terre - Biologie des organismes et des populations - Santé</option>
-            <option value="L3 Sciences de la Vie et de la Terre - Biologie Végétale">L3 Sciences de la Vie et de la Terre - Biologie Végétale</option>
-            <option value="L3 Sciences de la Vie et de la Terre - Biologie Végétale - Santé">L3 Sciences de la Vie et de la Terre - Biologie Végétale - Santé</option>
-            <option value="L3 Physique Chimie / Chimie-environnement">L3 Physique Chimie / Chimie-environnement</option>
-            <option value="L3 Physique Chimie / Chimie-environnement Santé">L3 Physique Chimie / Chimie-environnement Santé</option>
-            <option value="L3 Physique Chimie / Chimie-médicaments">L3 Physique Chimie / Chimie-médicaments</option>
-            <option value="L3 Physique Chimie / Chimie-médicaments Santé">L3 Physique Chimie / Chimie-médicaments Santé</option>
-            <option value="L3 Sciences de la Vie et de la Terre - Géosciences environnement">L3 Sciences de la Vie et de la Terre - Géosciences environnement</option>
-            <option value="L3 Sciences de la Vie et de la Terre - Géosciences environnement - Santé">L3 Sciences de la Vie et de la Terre - Géosciences environnement - Santé</option>
-            <option value="L3 Informatique">L3 Informatique</option>
-            <option value="L3 Informatique - Santé">L3 Informatique - Santé</option>
-            <option value="L3 Physique Chimie / Lumière, molécules et Physique-Chimie">L3 Physique Chimie / Lumière, molécules et Physique-Chimie</option>
-            <option value="L3 Mathématiques / Mathématiques appliquées">L3 Mathématiques / Mathématiques appliquées</option>
-            <option value="L3 Double Licence Mathématiques Informatique">L3 Double Licence Mathématiques Informatique</option>
-            <option value="L3 Mathématiques / Mathématiques appliquées - Santé">L3 Mathématiques / Mathématiques appliquées - Santé</option>
-            <option value="L3 Mathématiques">L3 Mathématiques</option>
-            <option value="L3 Double Licence Mathématiques Économie">L3 Double Licence Mathématiques Économie</option>
-            <option value="L3 Mathématiques / MEEF">L3 Mathématiques / MEEF</option>
-            <option value="L3 Mathématiques / MEEF - Santé">L3 Mathématiques / MEEF - Santé</option>
-            <option value="">L3 Physique Chimie / Physique applications</option>
-            <option value="L3 Physique Chimie / Physique applications - Santé">L3 Physique Chimie / Physique applications - Santé</option>
-            <option value="L3 Mathématiques / Préparation Professorat des Ecoles">L3 Mathématiques / Préparation Professorat des Ecoles</option>
-            <option value="M1 Biologie Santé / Cursus Sciences">M1 Biologie Santé / Cursus Sciences</option>
-            <option value="M1 Biologie Végétale">M1 Biologie Végétale</option>
-            <option value="M1 Mathématiques Appliquées / Data sciences et Données Biologie et Numériques">M1 Mathématiques Appliquées / Data sciences et Données Biologie et Numériques</option>
-            <option value="M1 BEE / Gestion de la biodiversité dans socio-écosystèmes">M1 BEE / Gestion de la biodiversité dans socio-écosystèmes</option>
-            <option value="M1 Informatique">M1 Informatique</option>
-            <option value="M1 Chimie / Lumière Molécule Matière">M1 Chimie / Lumière Molécule Matière</option>
-            <option value="M1 BEE / Mer, anthropisation, diagnostic">M1 BEE / Mer, anthropisation, diagnostic</option>
-            <option value="M1 THE / Toxicologie Humaine et Environnementale">M1 THE / Toxicologie Humaine et Environnementale</option>
-            
-            
-
-        </select>
-        <button id="search-button">Rechercher</button>
+  <main class="container py-4">
+    <!--section 1: sélection d'instance -->
+    <section class="card mb-4" id="instance-selection">
+      <div class="card-header bg-light">
+        <h2 class="mb-0">Sélection d'Instance</h2>
       </div>
-      <!--Une Affichage des périodes-->
-      <div id="period-container" style="display: none;">
-        <label for="period-select">Sélectionner les périodes :</label>
-        <select id="period-select" multiple>
-        </select>
-        <button id="select-all">Tout sélectionner</button>
-      </div>
-      <br/>
-
-      <div class="instances-table-container">
-        <table id="instances-table">
-          <thead>
-            <tr>
-              <th>Sélectionner</th>
-              <th>Nom</th>
-              <th>Formation</th>
-              <th>Période</th>
-              <th>Nb Cours</th>
-              <th>Dernière modification</th>
-            </tr>
-          </thead>
-          <tbody id="instances-list">
-            <!-- Liste des instances générée par JavaScript -->
-          </tbody>
-        </table>
-      </div>
-
-      <div class="instance-details" id="instance-details">
-        <h3>Détails de l'instance sélectionnée</h3>
-        <div id="instance-info">
-          <!-- Informations sur l'instance sélectionnée -->
-        </div>
-      </div>
-    </section>
-
-    <!-- Section 2: Configuration du solveur -->
-    <section class="section-block" id="solver-config">
-      <h2>Configuration du Solveur</h2>
-
-      <form id="solver-config-form">
-        <!-- Paramètres généraux -->
-        <div class="config-section">
-          <h3>Paramètres généraux</h3>
-          <div class="form-group">
-            <label for="time-out">Temps maximum (secondes):</label>
-            <input type="number" id="time-out" name="time_out" min="1" value="40">
+      <div class="card-body">
+        <div class="row mb-3">
+          <div class="col-md-6">
+            <input type="text" id="instance-search" class="form-control" placeholder="Rechercher une instance...">
           </div>
-        </div>
+          <!--modif-->
+          <div id="suggestions" class="suggestions-box"></div>
 
-        <!-- Stratégies des variables -->
-        <div class="config-section">
-          <h3>Stratégies des variables</h3>
-          <div id="vars-strategies">
-            <!-- Stratégies générées par JavaScript -->
+          <div class="col-md-3">
+            <select id="instance-type-filter" class="form-select"></select>
           </div>
-          <button type="button" id="add-strategy">+ Ajouter une stratégie</button>
-        </div>
-
-        <!-- Contraintes fondamentales -->
-
-
-        <div class="config-section">
-          <div class="section-header">
-            <h3>Contraintes fondamentales</h3>
-            <button type="button" class="toggle-button" data-target="core-constraints-list">
-              <span class="expand-icon">▼</span>
-            </button>
+          <div class="col-md-3">
+            <button id="search-button" class="btn btn-primary">Lancer la rechercher des données</button>
           </div>
-          <div id="core-constraints">
-            <div id="core-constraints-list" class="constraint-list">
-              <!-- Contraintes fondamentales -->
-              <div class="constraint-item">
-                <input type="checkbox" id="core-implicite_sequenced_sessions" name="core_constraint[]"
-                  value="implicite_sequenced_sessions" checked>
-                <label for="core-implicite_sequenced_sessions">implicite_sequenced_sessions</label>
-              </div>
-              <div class="constraint-item">
-                <input type="checkbox" id="core-teacher_service" name="core_constraint[]" value="teacher_service"
-                  checked>
-                <label for="core-teacher_service">teacher_service</label>
-              </div>
-              <div class="constraint-item">
-                <input type="checkbox" id="core-disjunctive_teacher" name="core_constraint[]"
-                  value="disjunctive_teacher" checked>
-                <label for="core-disjunctive_teacher">disjunctive_teacher</label>
-              </div>
-              <div class="constraint-item">
-                <input type="checkbox" id="core-disjunctive_group" name="core_constraint[]" value="disjunctive_group"
-                  checked>
-                <label for="core-disjunctive_group">disjunctive_group</label>
-              </div>
-              <div class="constraint-item">
-                <input type="checkbox" id="core-disjunctive_room" name="core_constraint[]" value="disjunctive_room"
-                  checked>
-                <label for="core-disjunctive_room">disjunctive_room</label>
-              </div>
-              <div class="constraint-item">
-                <input type="checkbox" id="core-size_of_multiroom" name="core_constraint[]" value="size_of_multiroom"
-                  checked>
-                <label for="core-size_of_multiroom">size_of_multiroom</label>
-              </div>
-              <div class="constraint-item">
-                <input type="checkbox" id="core-bench_class_equilibrate" name="core_constraint[]"
-                  value="bench_class_equilibrate" checked>
-                <label for="core-bench_class_equilibrate">bench_class_equilibrate</label>
+          <div class="col-md-2">
+            <button id="download-xml" class="btn btn-success" disabled>Visualiser le XML</button>
+        </div>
+        </div>
+        <!--ajout des périodes-->
+        <!--Une Affichage des périodes-->
+        <div id="period-container" style="display: none;">
+          <label for="period-select">Sélectionner les périodes :</label>
+          <div class="row">
+            <div class="col-md-9">
+              <select id="period-select" class="form-select" multiple></select>
+            </div>
+            <div class="col-md-3 d-flex flex-column">
+              <button id="select-all" class="btn btn-secondary btn-sm align-self-start">Tout sélectionner</button>
+              <!-- Bouton Ok -->
+              <div id="confirmation-container" style="display: none;">
+                <button id="confirm-selection" class="btn btn-success btn-sm align-self-start mt-1">Ok</button>
               </div>
             </div>
           </div>
         </div>
+        <br/>
+        <!-- Résumé de la sélection -->
+        <div id="summary-container" style="display: none;">
+          <h4>Vos sélections :</h4>
+          <div id="selection-items-container"></div>
+        </div>
 
-        <!-- Contraintes métier -->
-        <div class="config-section">
-          <div class="section-header">
-            <h3>Contraintes métier</h3>
-            <button type="button" class="toggle-button" data-target="user-constraints-list">
-              <span class="expand-icon">▼</span>
+
+
+        <div class="instances-table-container">
+          <table id="instances-table" class="table table-striped table-hover">
+            <thead class="table-light">
+              <tr>
+                <th>
+                  <input type="checkbox" id="select-all-instances">
+                  <!-- ajout d'une checkbox pour sélectionner toutes les instances -->
+                </th>
+                <th>Nom</th>
+                <th>Formation</th>
+                <th>Période</th>
+                <th>Nb Cours</th>
+                <th>Dernière modification</th>
+              </tr>
+            </thead>
+            <tbody id="instances-list">
+              <!-- liste des instances générée par JavaScript -->
+            </tbody>
+          </table>
+        </div>
+
+        <div class="alert alert-info mt-3" id="selected-instances-info" style="display: none;">
+          <strong>Instances sélectionnées:</strong> <span id="selected-instances-count">0</span>
+        </div>
+
+        <div class="card mt-3" id="instance-details" style="display: none;">
+          <div class="card-header">
+            <h3 class="mb-0">Détails de l'instance sélectionnée</h3>
+          </div>
+          <div class="card-body" id="instance-info">
+            <!-- Informations sur l'instance sélectionnée -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- section 2: Configuration du solveur -->
+    <section class="card mb-4" id="solver-config">
+      <div class="card-header bg-light">
+        <h2 class="mb-0">Configuration du Solveur</h2>
+      </div>
+      <div class="card-body">
+        <div class="mb-3">
+          <div class="btn-group">
+            <button type="button" id="save-config-btn" class="btn btn-outline-primary">Enregistrer configuration</button>
+            <button type="button" id="load-config-btn" class="btn btn-outline-primary">Charger configuration</button>
+            <input type="file" id="config-file-input" style="display: none;" accept=".json">
+          </div>
+        </div>
+
+        <form id="solver-config-form">
+          <!-- Paramètres généraux -->
+          <div class="card mb-3">
+            <div class="card-header">
+              <h3 class="mb-0">Paramètres généraux</h3>
+            </div>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <label for="time-out" class="form-label">Temps maximum (secondes):</label>
+                    <input type="number" id="time-out" name="time_out" min="1" value="40" class="form-control">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+         <!--Stratégies des variables - amélioration avec interface plus claire -->
+         <div class="card mb-3">
+          <div class="card-header d-flex justify-content-between align-items-center">
+            <h3 class="mb-0">Stratégies des variables</h3>
+            <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="collapse"
+              data-bs-target="#vars-help">
+              Aide
             </button>
           </div>
-          <div id="user-constraints">
-            <div id="user-constraints-list" class="constraint-list">
-              <!-- Contraintes métier -->
-              <div class="constraint-item">
-                <input type="checkbox" id="user-sameRooms" name="user_constraint[]" value="sameRooms" checked>
-                <label for="user-sameRooms">sameRooms</label>
+            <div class="collapse" id="vars-help">
+              <div class="card-body bg-light">
+                <p>Les stratégies définissent l'ordre et la manière dont le solveur traite les variables.</p>
+                <p><strong>Format:</strong> {"x_room":[{"rank":"*"},"first_fail","indomain_random"]}</p>
+                <p><strong>Types de variables:</strong> x_room, x_rooms, x_teacher, x_teachers, x_slot</p>
+                <p><strong>Stratégies d'ordre:</strong> input_order, first_fail, anti_first_fail, etc.</p>
+                <p><strong>Stratégies de parcours:</strong> indomain_min, indomain_max, indomain_random, etc.</p>
               </div>
-              <div class="constraint-item">
-                <input type="checkbox" id="user-sameTeachers" name="user_constraint[]" value="sameTeachers" checked>
-                <label for="user-sameTeachers">sameTeachers</label>
+            </div>
+            <div class="card-body">
+              <div id="vars-strategies" class="mb-3">
+                <!-- Stratégies générées par JavaScript -->
               </div>
-              <div class="constraint-item">
-                <input type="checkbox" id="user-allowedPeriod" name="user_constraint[]" value="allowedPeriod" checked>
-                <label for="user-allowedPeriod">allowedPeriod</label>
+              <button type="button" id="add-strategy" class="btn btn-outline-primary">+ Ajouter une stratégie</button>
+            </div>
+          </div>
+
+          <!-- Mode avancé - Nouvelle section pour configuration JSON directe -->
+          <div class="card mb-3">
+            <div class="card-header d-flex justify-content-between align-items-center">
+              <h3 class="mb-0">Mode avancé</h3>
+              <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" id="advanced-mode-toggle">
+                <label class="form-check-label" for="advanced-mode-toggle">Activer</label>
               </div>
-              <div class="constraint-item">
-                <input type="checkbox" id="user-forbiddenPeriod" name="user_constraint[]" value="forbiddenPeriod"
-                  checked>
-                <label for="user-forbiddenPeriod">forbiddenPeriod</label>
+            </div>
+            <div class="card-body" id="advanced-mode-section" style="display: none;">
+              <div class="alert alert-warning">
+                <strong>Attention:</strong> Ce mode permet d'entrer directement la configuration JSON du solveur.
+                Utilisez-le uniquement si vous savez ce que vous faites.
               </div>
-              <div class="constraint-item">
-                <input type="checkbox" id="user-weekly" name="user_constraint[]" value="weekly" checked>
-                <label for="user-weekly">weekly</label>
+              <div class="mb-3">
+                <label for="advanced-config-json" class="form-label">Configuration JSON:</label>
+                <textarea id="advanced-config-json" class="form-control" rows="10" placeholder='{
+  "time_out": "40s",
+  "vars": [...],
+  "core_constraint": [...],
+  "user_constraint": [...],
+  "deactivate_rules": [...]
+}'></textarea>
               </div>
-              <div class="constraint-item">
-                <input type="checkbox" id="user-sameWeek" name="user_constraint[]" value="sameWeek" checked>
-                <label for="user-sameWeek">sameWeek</label>
+            </div>
+          </div>
+
+          <!-- Contraintes fondamentales -->
+          <div class="card mb-4">
+            <div class="card-header d-flex justify-content-between align-items-center">
+              <h3>Contraintes fondamentales</h3>
+              <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="collapse"
+                data-bs-target="#core-constraints-body">
+                <span class="expand-icon">▼</span>
+              </button>
+            </div>
+            <div class="collapse show" id="core-constraints-body">
+              <div class="card-body">
+                <div id="core-constraints-list" class="constraint-list">
+                  <!-- core constraints checkboxes here -->
+                  <div class="constraint-item">
+                    <input type="checkbox" id="core-implicite_sequenced_sessions" name="core_constraint[]"
+                      value="implicite_sequenced_sessions" checked>
+                    <label for="core-implicite_sequenced_sessions">implicite_sequenced_sessions</label>
+                  </div>
+                  <div class="constraint-item">
+                    <input type="checkbox" id="core-teacher_service" name="core_constraint[]" value="teacher_service"
+                      checked>
+                    <label for="core-teacher_service">teacher_service</label>
+                  </div>
+                  <div class="constraint-item">
+                    <input type="checkbox" id="core-disjunctive_teacher" name="core_constraint[]"
+                      value="disjunctive_teacher" checked>
+                    <label for="core-disjunctive_teacher">disjunctive_teacher</label>
+                  </div>
+                  <div class="constraint-item">
+                    <input type="checkbox" id="core-disjunctive_group" name="core_constraint[]"
+                      value="disjunctive_group" checked>
+                    <label for="core-disjunctive_group">disjunctive_group</label>
+                  </div>
+                  <div class="constraint-item">
+                    <input type="checkbox" id="core-disjunctive_room" name="core_constraint[]" value="disjunctive_room"
+                      checked>
+                    <label for="core-disjunctive_room">disjunctive_room</label>
+                  </div>
+                  <div class="constraint-item">
+                    <input type="checkbox" id="core-size_of_multiroom" name="core_constraint[]"
+                      value="size_of_multiroom" checked>
+                    <label for="core-size_of_multiroom">size_of_multiroom</label>
+                  </div>
+                  <div class="constraint-item">
+                    <input type="checkbox" id="core-bench_class_equilibrate" name="core_constraint[]"
+                      value="bench_class_equilibrate" checked>
+                    <label for="core-bench_class_equilibrate">bench_class_equilibrate</label>
+                  </div>
+                </div>
               </div>
-              <div class="constraint-item">
-                <input type="checkbox" id="user-assignRoom" name="user_constraint[]" value="assignRoom" checked>
-                <label for="user-assignRoom">assignRoom</label>
+            </div>
+
+            <!-- user Constraints Section -->
+            <div class="card mb-4">
+              <div class="card-header d-flex justify-content-between align-items-center">
+                <h3>Contraintes métier</h3>
+                <div class="d-flex align-items-center gap-2">
+                  <input type="text" id="user-constraints-search" class="form-control form-control-sm"
+                    placeholder="Rechercher..." style="min-width: 200px;">
+                  <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="collapse"
+                    data-bs-target="#user-constraints-body">
+                    <span class="expand-icon">▼</span>
+                  </button>
+                </div>
               </div>
-              <div class="constraint-item">
-                <input type="checkbox" id="user-forbiddenRooms" name="user_constraint[]" value="forbiddenRooms" checked>
-                <label for="user-forbiddenRooms">forbiddenRooms</label>
+              <div class="collapse show" id="user-constraints-body">
+                <div class="card-body">
+                  <div id="user-constraints-list" class="constraint-list">
+                    <!-- Contraintes métier -->
+                    <div class="constraint-item">
+                      <input type="checkbox" id="user-sameRooms" name="user_constraint[]" value="sameRooms" checked>
+                      <label for="user-sameRooms">sameRooms</label>
+                    </div>
+                    <div class="constraint-item">
+                      <input type="checkbox" id="user-sameTeachers" name="user_constraint[]" value="sameTeachers"
+                        checked>
+                      <label for="user-sameTeachers">sameTeachers</label>
+                    </div>
+                    <div class="constraint-item">
+                      <input type="checkbox" id="user-allowedPeriod" name="user_constraint[]" value="allowedPeriod"
+                        checked>
+                      <label for="user-allowedPeriod">allowedPeriod</label>
+                    </div>
+                    <div class="constraint-item">
+                      <input type="checkbox" id="user-forbiddenPeriod" name="user_constraint[]" value="forbiddenPeriod"
+                        checked>
+                      <label for="user-forbiddenPeriod">forbiddenPeriod</label>
+                    </div>
+                    <div class="constraint-item">
+                      <input type="checkbox" id="user-weekly" name="user_constraint[]" value="weekly" checked>
+                      <label for="user-weekly">weekly</label>
+                    </div>
+                    <div class="constraint-item">
+                      <input type="checkbox" id="user-sameWeek" name="user_constraint[]" value="sameWeek" checked>
+                      <label for="user-sameWeek">sameWeek</label>
+                    </div>
+                    <div class="constraint-item">
+                      <input type="checkbox" id="user-assignRoom" name="user_constraint[]" value="assignRoom" checked>
+                      <label for="user-assignRoom">assignRoom</label>
+                    </div>
+                    <div class="constraint-item">
+                      <input type="checkbox" id="user-forbiddenRooms" name="user_constraint[]" value="forbiddenRooms"
+                        checked>
+                      <label for="user-forbiddenRooms">forbiddenRooms</label>
+                    </div>
+                    <div class="constraint-item">
+                      <input type="checkbox" id="user-sameWeekDay" name="user_constraint[]" value="sameWeekDay" checked>
+                      <label for="user-sameWeekDay">sameWeekDay</label>
+                    </div>
+                    <div class="constraint-item">
+                      <input type="checkbox" id="user-differentWeekDay" name="user_constraint[]"
+                        value="differentWeekDay" checked>
+                      <label for="user-differentWeekDay">differentWeekDay</label>
+                    </div>
+                    <div class="constraint-item">
+                      <input type="checkbox" id="user-differentSlots" name="user_constraint[]" value="differentSlots"
+                        checked>
+                      <label for="user-differentSlots">differentSlots</label>
+                    </div>
+                    <div class="constraint-item">
+                      <input type="checkbox" id="user-disjunct" name="user_constraint[]" value="disjunct" checked>
+                      <label for="user-disjunct">disjunct</label>
+                    </div>
+                    <div class="constraint-item">
+                      <input type="checkbox" id="user-sameWeeklySlot" name="user_constraint[]" value="sameWeeklySlot"
+                        checked>
+                      <label for="user-sameWeeklySlot">sameWeeklySlot</label>
+                    </div>
+                    <div class="constraint-item">
+                      <input type="checkbox" id="user-differentWeek" name="user_constraint[]" value="differentWeek"
+                        checked>
+                      <label for="user-differentWeek">differentWeek</label>
+                    </div>
+                    <div class="constraint-item">
+                      <input type="checkbox" id="user-sameSlot" name="user_constraint[]" value="sameSlot" checked>
+                      <label for="user-sameSlot">sameSlot</label>
+                    </div>
+                    <div class="constraint-item">
+                      <input type="checkbox" id="user-sameSlots" name="user_constraint[]" value="sameSlots" checked>
+                      <label for="user-sameSlots">sameSlots</label>
+                    </div>
+                    <div class="constraint-item">
+                      <input type="checkbox" id="user-periodic" name="user_constraint[]" value="periodic" checked>
+                      <label for="user-periodic">periodic</label>
+                    </div>
+                    <div class="constraint-item">
+                      <input type="checkbox" id="user-sequenced" name="user_constraint[]" value="sequenced" checked>
+                      <label for="user-sequenced">sequenced</label>
+                    </div>
+                  </div>
+                </div>
               </div>
-              <div class="constraint-item">
-                <input type="checkbox" id="user-sameWeekDay" name="user_constraint[]" value="sameWeekDay" checked>
-                <label for="user-sameWeekDay">sameWeekDay</label>
+              <!-- desactivation de règles -->
+              <div class="card mb-3">
+                <div class="card-header">
+                  <h3 class="mb-0">Désactivation de règles</h3>
+                </div>
+                <div class="card-body">
+                  <div class="mb-3">
+                    <label for="deactivate-rules" class="form-label">Règles à désactiver (ex: 1,2-5):</label>
+                    <input type="text" id="deactivate-rules" name="deactivate_rules" class="form-control">
+                  </div>
+                </div>
               </div>
-              <div class="constraint-item">
-                <input type="checkbox" id="user-differentWeekDay" name="user_constraint[]" value="differentWeekDay"
-                  checked>
-                <label for="user-differentWeekDay">differentWeekDay</label>
+
+             <!-- boutons d'action -->
+            <div class="d-flex justify-content-start mb-4">
+              <button type="button" id="start-solver" class="btn btn-success me-2">Lancer le solveur</button>
+              <button type="button" id="save-config" class="btn btn-primary me-2">Enregistrer configuration</button>
+              <button type="reset" class="btn btn-secondary">Réinitialiser</button>
+            </div>
+        </form>
+      </div>
+    </section>
+
+
+    <!-- section 3: Résultats et statut -->
+    <section class="card mb-4" id="solver-results">
+      <div class="card-header bg-light">
+        <h2 class="mb-0">Résultats</h2>
+      </div>
+      <div class="card-body">
+        <div class="card mb-4">
+          <div class="card-header">
+            <h3 class="mb-0">Statut du solveur</h3>
+          </div>
+          <div class="card-body">
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <p>État: <span id="solver-status" class="badge bg-secondary">Inactif</span></p>
               </div>
-              <div class="constraint-item">
-                <input type="checkbox" id="user-differentSlots" name="user_constraint[]" value="differentSlots" checked>
-                <label for="user-differentSlots">differentSlots</label>
+              <div class="col-md-6">
+                <p>Temps écoulé: <span id="elapsed-time">0s</span></p>
               </div>
-              <div class="constraint-item">
-                <input type="checkbox" id="user-disjunct" name="user_constraint[]" value="disjunct" checked>
-                <label for="user-disjunct">disjunct</label>
-              </div>
-              <div class="constraint-item">
-                <input type="checkbox" id="user-sameWeeklySlot" name="user_constraint[]" value="sameWeeklySlot" checked>
-                <label for="user-sameWeeklySlot">sameWeeklySlot</label>
-              </div>
-              <div class="constraint-item">
-                <input type="checkbox" id="user-differentWeek" name="user_constraint[]" value="differentWeek" checked>
-                <label for="user-differentWeek">differentWeek</label>
-              </div>
-              <div class="constraint-item">
-                <input type="checkbox" id="user-sameSlot" name="user_constraint[]" value="sameSlot" checked>
-                <label for="user-sameSlot">sameSlot</label>
-              </div>
-              <div class="constraint-item">
-                <input type="checkbox" id="user-sameSlots" name="user_constraint[]" value="sameSlots" checked>
-                <label for="user-sameSlots">sameSlots</label>
-              </div>
-              <div class="constraint-item">
-                <input type="checkbox" id="user-periodic" name="user_constraint[]" value="periodic" checked>
-                <label for="user-periodic">periodic</label>
-              </div>
-              <div class="constraint-item">
-                <input type="checkbox" id="user-sequenced" name="user_constraint[]" value="sequenced" checked>
-                <label for="user-sequenced">sequenced</label>
-              </div>
+            </div>
+            <div class="progress">
+              <div class="progress-bar" id="solver-progress" role="progressbar" style="width: 0%"></div>
             </div>
           </div>
         </div>
 
-        <!-- Désactivation de règles -->
-        <div class="config-section">
-          <h3>Désactivation de règles</h3>
-          <div class="form-group">
-            <label for="deactivate-rules">Règles à désactiver (ex: 1,2-5):</label>
-            <input type="text" id="deactivate-rules" name="deactivate_rules">
+        <div class="card" id="results-content" style="display: none;">
+          <div class="card-header">
+            <h3 class="mb-0">Résumé de la solution</h3>
           </div>
-        </div>
+          <div class="card-body">
+            <div class="row" id="solution-stats">
+              <!--Statistiques de la solution générées par JavaScript-->
+            </div>
 
-        <!-- Boutons d'action -->
-        <div class="form-actions">
-          <button type="button" id="start-solver">Lancer le solveur</button>
-          <button type="button" id="save-config">Enregistrer configuration</button>
-          <button type="reset">Réinitialiser</button>
-        </div>
-      </form>
-    </section>
+            <h4 class="mt-4">Aperçu de l'emploi du temps</h4>
+            <div id="timetable-preview" class="mt-3">
+              <!-- Aperçu de l'emploi du temps généré-->
+            </div>
 
-    <!-- Section 3: Résultats et statut -->
-    <section class="section-block" id="solver-results">
-      <h2>Résultats</h2>
-
-      <div class="status-section">
-        <h3>Statut du solveur</h3>
-        <div class="status-info">
-          <p>État: <span id="solver-status">Inactif</span></p>
-          <p>Temps écoulé: <span id="elapsed-time">0s</span></p>
-        </div>
-        <div class="progress-bar">
-          <div class="progress" id="solver-progress"></div>
-        </div>
-      </div>
-
-      <div class="results-section" id="results-content">
-        <h3>Résumé de la solution</h3>
-        <div id="solution-stats">
-          <!-- Statistiques de la solution générées par JavaScript -->
-        </div>
-
-        <h3>Emploi du temps généré</h3>
-        <div id="timetable-preview">
-          <!-- Aperçu de l'emploi du temps généré -->
-        </div>
-
-        <div class="results-actions">
-          <button id="save-solution">Enregistrer la solution</button>
-          <button id="export-solution">Exporter</button>
-          <button id="view-full-timetable">Voir l'emploi du temps complet</button>
+            <div class="mt-4">
+              <button id="save-solution" class="btn btn-primary me-2">Enregistrer la solution</button>
+              <button id="export-solution" class="btn btn-secondary me-2">Exporter</button>
+              <a href="http://cbehuet.fr:8080/calendar" target="_blank" id="view-full-timetable"
+                class="btn btn-success">
+                Voir l'emploi du temps complet
+              </a>
+            </div>
+          </div>
         </div>
       </div>
     </section>
   </main>
 
-  <footer>
-    <p>&copy; 2025 Université d'Angers - LERIA</p>
+  <footer class="bg-light py-3 mt-4">
+    <div class="container text-center">
+      <p class="mb-0">&copy; 2025 Université d'Angers - LERIA</p>
+    </div>
   </footer>
 
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
   <script src="js/app.js"></script>
+  <script src="js/app_instance.js"></script>
 
 </body>
 
