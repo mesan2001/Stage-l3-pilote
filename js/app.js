@@ -155,7 +155,7 @@ document.addEventListener("DOMContentLoaded", function () {
         </div>
         <div class="mb-2">
           <label class="form-label">Valeur du sélecteur:</label>
-          <input type="text" class="form-control selector-value" placeholder="ex: *, 1-5, L1">
+          <input type="text" class="form-control selector-value" placeholder="ex: *, 1-5, L1" value="*">
         </div>
         <div class="mb-2">
           <label class="form-label">Stratégie d'ordre:</label>
@@ -182,64 +182,139 @@ document.addEventListener("DOMContentLoaded", function () {
       </div>
     `;
 
-    //ajouter au conteneur principal
+    // Ajouter au conteneur principal
     const varsStrategies = document.getElementById("vars-strategies");
     if (varsStrategies) {
       varsStrategies.appendChild(container);
     }
 
-    //ajouter un gestionnaire pour le bouton de suppression
+    // Gestionnaire pour le bouton de suppression
     const removeButton = container.querySelector(".remove-strategy");
     if (removeButton) {
       removeButton.addEventListener("click", function () {
         container.remove();
       });
     }
-  }
 
-  // gestion de la sauvegarde de configuration 
-  const saveConfigBtn = document.getElementById("save-config");
-  if (saveConfigBtn) {
-    saveConfigBtn.addEventListener("click", function () {
-      // Générer le JSON de configuration
-      let configData = generateConfigJSON();
 
-      // Si mode avancé activé, tenter de parser le JSON saisi
-      const advancedModeActive =
-        advancedModeToggle && advancedModeToggle.checked;
-      if (advancedModeActive) {
-        try {
-          const jsonTextarea = document.getElementById("advanced-config-json");
-          if (jsonTextarea) {
-            configData = JSON.parse(jsonTextarea.value);
-          }
-        } catch (e) {
-          alert("Erreur de format JSON: " + e.message);
-          return;
+
+    const selectorValueInput = container.querySelector(".selector-value");
+    selectorValueInput.value = "*"; // Valeur par défaut
+
+    // Ajouter un élément pour afficher les erreurs
+    const errorDisplay = document.createElement("div");
+    errorDisplay.className = "text-danger mt-1 error-feedback";
+    container.querySelector(".strategy-fields").appendChild(errorDisplay);
+    const selectorTypeSelect = container.querySelector(".selector-type");
+
+    selectorValueInput.addEventListener("input", function() {
+        if (selectorTypeSelect.value === "rank") {
+            const value = this.value.trim();
+            const rankRegex = /^(\*|\d+(-\d+)?(,\d+(-\d+)?)*)$/;
+            
+            if (!rankRegex.test(value)) {
+                this.classList.add("is-invalid");
+                errorDisplay.textContent = "Format invalide. Exemples : *, 1-5, 1,3-5,8";
+            } else {
+                this.classList.remove("is-invalid");
+                errorDisplay.textContent = "";
+            }
         }
+    });
+
+    // Changement du type de sélecteur
+    selectorTypeSelect.addEventListener("change", function() {
+      if (this.value === "rank") {
+        selectorValueInput.placeholder = "ex: *, 1-5, 1,2-5,8";
+        // Réappliquer la validation si nécessaire
+        const event = new Event("input");
+        selectorValueInput.dispatchEvent(event);
+      } else {
+        selectorValueInput.placeholder = "ex: *, L1, ID123";
+        selectorValueInput.setCustomValidity("");
       }
-
-      // Créer un nom de fichier avec date
-      const date = new Date();
-      const fileName = `solver-config-${date.getFullYear()}${(
-        date.getMonth() + 1
-      )
-        .toString()
-        .padStart(2, "0")}${date.getDate().toString().padStart(2, "0")}.json`;
-
-      // Créer le lien de téléchargement
-      const dataStr = JSON.stringify(configData, null, 2);
-      const dataUri =
-        "data:application/json;charset=utf-8," + encodeURIComponent(dataStr);
-
-      const exportLink = document.createElement("a");
-      exportLink.setAttribute("href", dataUri);
-      exportLink.setAttribute("download", fileName);
-      document.body.appendChild(exportLink);
-      exportLink.click();
-      document.body.removeChild(exportLink);
     });
   }
+
+
+  // ici :
+  // En haut de votre fichier (déclarations globales)
+  const saveConfigButtons = [
+    document.getElementById("save-config"),
+    document.getElementById("save-config-btn")
+  ].filter(btn => btn);
+
+  const startSolverBtn = document.getElementById("start-solver");
+
+  // Plus bas dans votre fichier
+  function setupActionButtons() {
+    const allButtons = [...saveConfigButtons, startSolverBtn].filter(btn => btn);
+    allButtons.forEach(btn => btn.addEventListener("click", handleButtonAction));
+  }
+
+  function handleButtonAction(e) {
+    const errors = document.querySelectorAll(".is-invalid");
+    if (errors.length > 0) {
+      e.preventDefault();
+      e.stopPropagation();
+      alert("Corrigez les erreurs avant de continuer");
+      errors[0].scrollIntoView({ behavior: "smooth" });
+      return false; // Important: indique qu'il y a des erreurs
+    }
+    return true; // Aucune erreur
+  }
+
+
+// Initialisation au chargement
+  document.addEventListener("DOMContentLoaded", setupActionButtons); // fin
+  
+  saveConfigButtons.forEach((btn) => {
+    if (btn) {
+      btn.addEventListener("click", function (e) {
+        if (!handleButtonAction(e)) return; // Bloquer si erreurs
+        // Générer le JSON de configuration
+        let configData = generateConfigJSON();
+  
+        // Si mode avancé activé, tenter de parser le JSON saisi
+        const advancedModeToggle = document.getElementById("advanced-mode-toggle");
+        const advancedModeActive =
+          advancedModeToggle && advancedModeToggle.checked;
+        if (advancedModeActive) {
+          try {
+            const jsonTextarea = document.getElementById("advanced-config-json");
+            if (jsonTextarea) {
+              configData = JSON.parse(jsonTextarea.value);
+            }
+          } catch (e) {
+            alert("Erreur de format JSON: " + e.message);
+            return;
+          }
+        }
+  
+        // Créer un nom de fichier avec date
+        const now = new Date();
+        const fileName = `solver-config-${now.getFullYear()}${(now.getMonth() + 1)
+          .toString()
+          .padStart(2, "0")}${now.getDate().toString().padStart(2, "0")}_${now.getHours()
+          .toString()
+          .padStart(2, "0")}-${now.getMinutes().toString().padStart(2, "0")}-${now.getSeconds()
+          .toString()
+          .padStart(2, "0")}.json`;
+  
+        // Créer le lien de téléchargement
+        const dataStr = JSON.stringify(configData, null, 2);
+        const dataUri =
+          "data:application/json;charset=utf-8," + encodeURIComponent(dataStr);
+  
+        const exportLink = document.createElement("a");
+        exportLink.setAttribute("href", dataUri);
+        exportLink.setAttribute("download", fileName);
+        document.body.appendChild(exportLink);
+        exportLink.click();
+        document.body.removeChild(exportLink);
+      });
+    }
+  });
 
 
 
@@ -382,9 +457,10 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   ////  Gestion du lancement du solveur 
-  const startSolverBtn = document.getElementById("start-solver");
+ // const startSolverBtn = document.getElementById("start-solver");
   if (startSolverBtn) {
-    startSolverBtn.addEventListener("click", function () {
+    startSolverBtn.addEventListener("click", function (e) {
+      if (!handleButtonAction(e)) return; // Bloquer si erreurs
       // Afficher la section résultats
       const resultsContent = document.getElementById("results-content");
       if (resultsContent) {
@@ -405,10 +481,18 @@ document.addEventListener("DOMContentLoaded", function () {
         progressBar.setAttribute("aria-valuenow", "0");
       }
 
-      // Simuler la progression
+      /*// Simuler la progression
       let progress = 0;
       const elapsedTime = document.getElementById("elapsed-time");
-      let startTime = Date.now();
+      let startTime = Date.now();*/
+      // Appeler le solveur avec délai simulé 
+      setTimeout(() => {
+        if (typeof chargerResultatSolveur === "function") {
+          chargerResultatSolveur();
+        } else {
+          console.error("La fonction chargerResultatSolveur() n'est pas disponible.");
+        }
+      }, 3000);
 
 
     });

@@ -1,5 +1,5 @@
 
-//PARTIE 1
+//PARTIE 1 à modifier apres la mise à jour de l'API par mr SIMON
 /* Gestion de la complétion des textes et le chargement des formations depuis l'API*/
 
 const apiBaseUrl = "http://localhost:8080/api"; // Base de l'API (ici url vers l'api avec le port 8080 , et 8081 pour une modif par exemple)

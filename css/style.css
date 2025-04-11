@@ -1,34 +1,253 @@
 /* Styles personnalisés pour Bootstrap */
-/* polices et couleurs personnalisées */
-
+/* définition des polices et couleurs de base */
 body {
   font-family: 'Segoe UI', sans-serif;
+  background-color: #eaeef2;
+  padding-top: 0;
+  position: relative;
 }
 
-/* personnalisation des cartes et de l'en-tête */
+/*espacement du conteneur principal*/
+main.container {
+  padding-top: 3rem;
+  padding-bottom: 2rem;
+}
+
+/*style des cartes et des ombres */
 .card {
   box-shadow: 0 2px 4px rgba(0,0,0,0.05);
   border-radius: 8px;
   margin-bottom: 20px;
 }
 
+/*style de l'en-tête avec ombre*/
 header {
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  z-index: 1030;
 }
 
+/*couleur des titres dans les en-têtes de carte */
 .card-header h2, 
 .card-header h3 {
   margin-bottom: 0;
   color: #005a9c;
 }
 
+/* style des titres principaux avec bordure */
 h2 {
-  border-bottom: 2px solid #005a9c;
+  border-bottom: 2px solid #549bce;
   padding-bottom: 0.5rem;
   color: #005a9c;
 }
 
-/* personnalisation de la liste des contraintes */
+/* style du conteneur de stratégie */
+.strategy-container {
+  background-color: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+/* style pour l'en-tête de stratégie */
+.strategy-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+/* style pour les champs de stratégie */
+.strategy-fields {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+/*style pour les sélecteurs de stratégie */
+.strategy-select {
+  width: 100%;
+}
+/* style du bouton de suppression */
+.remove-strategy {
+  color: #dc3545;
+  border: 1px solid #dc3545;
+  background: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+  display: inline-flex;
+  align-items: center;
+}
+
+/* effet au survol */
+.remove-strategy:hover {
+  background-color: #dc3545;
+  color: white;
+  transform: translateY(-1px); /* Effet de soulèvement plus subtil */
+  box-shadow: 0 2px 4px rgba(220, 53, 69, 0.2);
+}
+/* effet au clic */
+.remove-strategy:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+
+/* style des sections principales avec ombre et espacement */
+main.container > section.card {
+  padding-top: 110px;
+  margin-top: -85px;
+  background-color: white;
+  border-radius: 16px;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+  border: none;
+  overflow: visible;
+  position: relative;
+  margin-bottom: 8rem;
+  padding-bottom: 5rem;
+}
+
+/*bordure supérieure pour toutes les sections*/
+main.container > section.card {
+  border-top-width: 7px;
+  border-top-style: solid;
+}
+
+/*couleurs spécifiques pour chaque section*/
+body main.container > section#instance-selection.card {
+  border-top-color: #3498db;
+  z-index: 1;
+}
+
+body main.container > section#solver-config.card {
+  border-top-color: #3498db;
+  z-index: 1;
+}
+
+body main.container > section#solver-results.card {
+  border-top-color: #3498db;
+  z-index: 1;
+}
+
+/*Ligne de séparation après chaque section */
+main.container > section.card::after {
+  content: '';
+  position: absolute;
+  bottom: -4rem;
+  left: 5%;
+  right: 5%;
+  height: 4px;
+  background: linear-gradient(to right, transparent, #aaa, transparent);
+}
+
+/*suppression de la ligne après la dernière section*/
+main.container > section.card:last-child::after {
+  display: none;
+}
+
+/*styles pour les en-têtes de section avec numérotation  */
+main.container > section.card > .card-header {
+  background: linear-gradient(to right, #f8f9fa, #ffffff);
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+  display: flex;
+  align-items: center;
+}
+
+/* Numérotation pour la première section */
+#instance-selection > .card-header::before {
+  content: '1';
+  background-color: #3498db;
+  display: inline-block;
+  width: 35px;
+  height: 35px;
+  line-height: 35px;
+  text-align: center;
+  color: white;
+  border-radius: 50%;
+  margin-right: 15px;
+  font-weight: bold;
+}
+
+/*numérotation pour la deuxième section*/
+#solver-config > .card-header::before {
+  content: '2';
+  background-color: #3498db;
+  display: inline-block;
+  width: 35px;
+  height: 35px;
+  line-height: 35px;
+  text-align: center;
+  color: white;
+  border-radius: 50%;
+  margin-right: 15px;
+  font-weight: bold;
+}
+
+/*numérotation pour la troisième section */
+#solver-results > .card-header::before {
+  content: '3';
+  background-color: #3498db;
+  display: inline-block;
+  width: 35px;
+  height: 35px;
+  line-height: 35px;
+  text-align: center;
+  color: white;
+  border-radius: 50%;
+  margin-right: 15px;
+  font-weight: bold;
+}
+
+/* réduction de la marge pour la dernière section */
+main.container > section.card:last-child {
+  margin-bottom: 4rem;
+}
+
+/*styles pour la barre de navigation et les onglets */
+#navbar-tabs {
+  margin-bottom: 20px;
+  position: sticky;
+  top: 76px;
+  z-index: 1030;
+  padding: 0;
+  background-color: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+/* style des liens dans la barre de navigation */
+#navbar-tabs .nav-link {
+  padding: 1rem 1.5rem; 
+  font-size: 1.15rem; 
+  font-weight: 700; 
+  color: #495057;
+  transition: all 0.3s ease;
+  letter-spacing: 0.02rem;
+}
+
+/* style des liens actifs dans la barre de navigation */
+#navbar-tabs .nav-link.active {
+  color: #005a9c;
+  border-color: #dee2e6 #dee2e6 #fff;
+}
+
+/* style des sous-onglets dans la configuration */
+#configTabs .nav-link {
+  padding: 0.5rem 1rem;
+  color: #495057;
+}
+
+/* style des sous-onglets actifs */
+#configTabs .nav-link.active {
+  color: #005a9c;
+  background-color: #f8f9fa;
+  border-color: #dee2e6 #dee2e6 #f8f9fa;
+}
+
+/* style de la liste des contraintes en grille */
 .constraint-list {
   max-height: 300px;
   overflow-y: auto;
@@ -38,7 +257,7 @@ h2 {
   margin-top: 0.5rem;
 }
 
-/*style des éléments de contrainte*/
+/* style des éléments de contrainte */
 .constraint-item {
   display: flex;
   align-items: center;
@@ -47,29 +266,30 @@ h2 {
   background-color: #f9f9f9;
 }
 
-/*style des cases à cocher dans les contraintes */
+/* style des cases à cocher dans les contraintes */
 .constraint-item input[type="checkbox"] {
   width: auto;
   margin-right: 0.5rem;
 }
 
+/* Masquage de la liste des contraintes */
 .constraint-list.show {
   display: none;
 }
 
-/*effets de survol des boutons*/
+/* animation des boutons au survol */
 .btn:hover {
   transform: translateY(-2px);
   transition: transform 0.2s ease;
 }
 
-/*Style des cases à cocher cochées */
+/*style des cases à cocher cochées */
 .form-check-input:checked {
   background-color: #005a9c;
   border-color: #005a9c;
 }
 
-/*conteneur des stratégies */
+/* style du conteneur des stratégies */
 .strategy-container {
   border: 1px solid #e9ecef;
   border-radius: 8px;
@@ -78,7 +298,7 @@ h2 {
   background-color: #f8f9fa;
 }
 
-/* en-tête des stratégies */
+/* style de l'en-tête des stratégies */
 .strategy-header {
   display: flex;
   justify-content: space-between;
@@ -86,31 +306,32 @@ h2 {
   margin-bottom: 10px;
 }
 
-/* disposition des champs de stratégie */
+/* disposition des champs de stratégie en grille */
 .strategy-fields {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 10px;
 }
 
-/* animation du statut du solveur */
+/* animation du statut du solveur en succès */
 #solver-status.badge.bg-success {
   animation: pulse 1.5s infinite;
 }
 
+/* animation de pulsation */
 @keyframes pulse {
   0% { opacity: 0.8; }
   50% { opacity: 1; }
   100% { opacity: 0.8; }
 }
 
-/* éditeur JSON avancé */
+/* style de l'éditeur JSON en mode avancé */
 #advanced-config-json {
   font-family: monospace;
   font-size: 14px;
 }
 
-/* couleurs des boutons  d'action */
+/* couleurs pour les boutons d'action spécifiques */
 #view-full-timetable, #start-solver {
   background-color: #22c55e;
 }
@@ -119,7 +340,7 @@ h2 {
   background-color: #6b7280;
 }
 
-/* disposition des statistique de solution*/
+/* disposition des statistiques de solution en grille */
 #solution-stats {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -127,24 +348,107 @@ h2 {
   margin-bottom: 1.5rem;
 }
 
-/* adaptation responsive  */
+/* style des boutons dans l'en-tête des cartes */
+.card-header .btn-group .btn {
+  padding: 0.4rem 1rem;
+  border-color: #d1e6ff;
+  background-color: #f8fbff;
+  transition: all 0.3s ease;
+  font-weight: 500;
+}
+
+/* Animation des boutons au survol */
+.card-header .btn-group .btn:hover {
+  background-color: #e6f2ff;
+  border-color: #005a9c;
+  color: #005a9c;
+  transform: translateY(-2px);
+  box-shadow: 0 2px 4px rgba(0, 90, 156, 0.15);
+}
+
+/* Adaptations pour les écrans mobiles */
 @media (max-width: 768px) {
+  /* Passage à une colonne pour les grilles en mode mobile */
   .constraint-list,
   .strategy-fields,
   #solution-stats {
     grid-template-columns: 1fr;
   }
+  
+  /* réorganisation de l'en-tête de carte en mode mobile */
+  .card-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  /* Ajustement des marges des titres */
+  .card-header h2 {
+    margin-bottom: 0.5rem;
+  }
+  
+  /* Ajustement des groupes de boutons */
+  .card-header .btn-group {
+    width: 100%;
+    display: flex;
+  }
+  
+  /* Ajustement des boutons individuels */
+  .card-header .btn-group .btn {
+    flex: 1;
+    font-size: 0.85rem;
+    padding: 0.3rem 0.5rem;
+  }
+  
+  /* Ajustement de la position de la barre de navigation */
+  #navbar-tabs {
+    top: 60px;
+  }
+  
+  /* Ajustement du padding des sections */
+  main.container > section.card {
+    padding-top: 85px;
+    margin-top: -60px;
+    margin-bottom: 3rem;
+  }
+  
+  /* Ajustement de la taille des indicateurs numériques */
+  main.container > section.card > .card-header::before {
+    width: 28px;
+    height: 28px;
+    line-height: 28px;
+    margin-right: 10px;
+    font-size: 0.9rem;
+  }
 }
 
-/* détails de l'instance*/
+/* Adaptations pour les très petits écrans */
+@media (max-width: 576px) {
+  /* Passage en colonne pour les groupes de boutons */
+  .card-header .btn-group {
+    flex-direction: column;
+  }
+  
+  /*ajustement des boutons pour les petits écrans */
+  .card-header .btn-group .btn {
+    width: 100%;
+    margin-bottom: 0.5rem;
+    border-radius: 0.25rem !important;
+  }
+  
+  /*suppression des marges droites pour les boutons*/
+  .card-header .btn-group .btn:not(:last-child) {
+    margin-right: 0;
+  }
+}
+
+/*style pour les détails d'instance*/
 .instance-details {
   border-left: 4px solid #005a9c;
 }
 
-
-/* *THI VI j'ai rajouté de code ici */ 
+/*style pour la boîte de suggestions*/
 .row.mb-3 {
-  position: relative; /* Ajout de position relative pour le conteneur parent */
+  position: relative;
 }
 
 .suggestions-box {
@@ -158,20 +462,20 @@ h2 {
   overflow-y: auto;
   display: none;
   cursor: pointer;
-  z-index: 10; /* Ajout de z-index pour la superposition */
+  z-index: 10;
 }
 
+/*effet de survol sur les suggestions */
 .suggestion:hover {
   background: #f0f0f0;
 }
 
-/* Ajoutez ceci à la fin du fichier CSS */
+/*style du conteneur de confirmation*/
 #confirmation-container {
   margin-top: 0.5rem;
 }
 
-/* Une modif ici @THI VI */
-/* Ajoutez ces styles à votre fichier CSS */
+/* style des éléments de sélection*/
 .selection-item {
   background-color: #faf8f8;
   border-radius: 5px;
@@ -179,17 +483,21 @@ h2 {
   margin-bottom: 10px;
 }
 
+/*effet de survol sur les éléments de sélection */
 .selection-item:hover {
   background-color: #e9ecef;
 }
 
+/*style du conteneur des éléments de sélection*/
 #selection-items-container {
   max-height: 300px;
   overflow-y: auto;
   padding-right: 10px;
 }
 
+/*style des boutons d'édition et de suppression*/
 .edit-selection, .remove-selection {
   padding: 0.25rem 0.5rem;
   font-size: 0.8rem;
 }
+
