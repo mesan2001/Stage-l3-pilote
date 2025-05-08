@@ -1,0 +1,121 @@
+[tables.calendars]
+description = "Calendar definitions for scheduling"
+protected_columns = ["id", "created_at"]
+depends_on = []
+
+[tables.periods]
+description = "Time periods associated with calendars"
+protected_columns = ["id"]
+depends_on = ["calendars"]
+
+[tables.formations]
+description = "formations"
+protected_columns = ["id"]
+depends_on = ["calendars"]
+
+[tables.steps]
+description = "Academic steps/levels in educational programs"
+protected_columns = ["id"]
+depends_on = ["formations", "periods"]
+
+[tables.courses]
+description = "Course definitions"
+protected_columns = ["id"]
+depends_on = ["steps"]
+
+[tables.modalities]
+description = "Teaching modalities (lecture, tutorial, practical, etc.)"
+protected_columns = ["id"]
+depends_on = ["courses"]
+
+[tables.classrooms]
+description = "Physical rooms for scheduling"
+protected_columns = ["id"]
+depends_on = []
+
+[tables.lecturers]
+description = "Teaching staff information"
+protected_columns = ["id"]
+depends_on = []
+
+[tables.students]
+description = "Student records"
+protected_columns = ["id"]
+depends_on = []
+
+[tables.classes]
+description = "Class entities"
+protected_columns = ["id"]
+depends_on = ["modalities"]
+
+[tables.custom_labels]
+description = "Custom labeling for resources"
+protected_columns = ["id"]
+depends_on = []
+
+[tables.rules]
+description = "Rule definitions for scheduling constraints"
+protected_columns = ["id", "created_at", "updated_at"]
+depends_on = []
+
+[tables.selectors]
+description = "Selector definitions for rules"
+protected_columns = ["id"]
+depends_on = ["rules"]
+
+[tables.constraints]
+description = "Constraint definitions"
+protected_columns = ["id"]
+depends_on = []
+
+[tables.groups]
+description = " groups"
+protected_columns = []
+depends_on = ["modalities"]
+
+[tables.group_class_junction]
+description = "Relates groups to classes"
+protected_columns = []
+depends_on = ["groups", "classes"]
+
+[tables.student_group_junction]
+description = "Relates students to groups"
+protected_columns = []
+depends_on = ["students", "groups"]
+
+[tables.step_course_junction]
+description = "Relates step to course"
+protected_columns = []
+depends_on = ["courses", "steps"]
+
+[tables.student_course_junction]
+description = "Relates student to course"
+protected_columns = []
+depends_on = ["courses", "students"]
+
+[tables.lecturer_assignments]
+description = "Relates lecturers to courses and modalities"
+protected_columns = ["id"]
+depends_on = ["lecturers", "courses", "modalities"]
+
+[tables.rule_step_junction]
+description = "Relates rules to steps"
+protected_columns = []
+depends_on = ["rules", "steps"]
+
+[tables.detailed_groups]
+description = "Detailed information about groups"
+protected_columns = []
+depends_on = ["groups", "modalities", "student_group_junction"]
+
+[tables.detailed_classes]
+description = "Detailed information about classes"
+protected_columns = []
+depends_on = [
+    "classes",
+    "detailed_groups",
+    "modalities",
+    "student_group_junction",
+    "group_class_junction",
+
+]

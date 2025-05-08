@@ -1,0 +1,14 @@
+[MAIN]
+name = "Periods & Calendar"
+workdir = "."
+
+[IO]
+datasources = []
+datamarts = ["calendars", "periods"]
+
+[STAGING]
+files = [
+    "../core/sql/calendars.sql",
+    "../core/sql/periods.sql",
+    "sql/populating_periods_calendar.sql",
+]

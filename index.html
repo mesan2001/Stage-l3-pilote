@@ -7,174 +7,514 @@
   <title>Pilotage de Solveur d'Emplois du Temps</title>
   <!-- Ajout de Bootstrap pour améliorer l'interface-->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+
   <link rel="stylesheet" href="css/style.css">
+  <!-- CSS pour la navigation par onglets -->
+  <link rel="stylesheet" href="css/tabs_navigation.css">
+  <link rel="stylesheet" href="css/config_tab.css">
+  <link rel="stylesheet" href="css/welcome_page.css">
 </head>
 
-<body data-bs-spy="scroll" data-bs-target="#navbar-tabs" data-bs-offset="100">
-  <header class="bg-primary text-white py-3 sticky-top">
-    <div class="container">
-      <h1 class="mb-0">Pilotage de Solveur d'Emplois du Temps</h1>
-    </div>
-  </header>
-
-  <!-- Barre de navigation fixe avec onglets pour naviguer entre les différentes sections -->
-  <nav id="navbar-tabs" class="navbar navbar-expand-lg navbar-light bg-light sticky-top border-bottom shadow-sm">
-    <div class="container">
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="nav nav-tabs" role="tablist">
-          <li class="nav-item">
-            <a class="nav-link active" href="#instance-selection">Sélection d'Instance</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#solver-config">Configuration du Solveur</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#solver-results">Résultats</a>
-          </li>
-        </ul>
+<body>
+  <!-- Page d'accueil -->
+  <div id="welcome-screen" class="welcome-container">
+    <div class="welcome-content">
+      <h1>Pilotage de Solveur d'Emplois du Temps</h1>
+      <p class="welcome-description">Bienvenue dans l'outil de pilotage. Veuillez choisir une option pour continuer.</p>
+      
+      <div class="options-container">
+        <div class="option-card">
+          <div class="option-icon">
+            <i class="bi bi-plus-circle"></i>
+          </div>
+          <h2>Nouvelle configuration</h2>
+          <p>Créer une nouvelle configuration en définissant un périmètre, des règles et des ressources</p>
+          <button id="new-config" class="btn btn-primary">Commencer</button>
+        </div>
+        
+        <div class="option-card">
+          <div class="option-icon">
+            <i class="bi bi-folder2-open"></i>
+          </div>
+          <h2>Configuration existante</h2>
+          <p>Charger une configuration précédemment sauvegardée</p>
+          <button id="load-existing-config" class="btn btn-success">Charger</button>
+        </div>
       </div>
     </div>
-  </nav>
-  <main class="container py-4" data-bs-spy="scroll" data-bs-target="#navbar-tabs">
-    <!-- spacer pour éviter le chevauchement -->
-    <div class="nav-spacer" style="height: 30px; visibility: hidden;"></div>
-    
-    <!--section 1: sélection d'instance -->
-    <section class="card mb-4" id="instance-selection">
-      <div class="card-header bg-light">
-        <h2 class="mb-0">Sélection d'Instance</h2>
-      </div>
-      <div class="card-body">
-        <div class="row mb-3">
-          <div class="col-md-6">
-            <input type="text" id="instance-search" class="form-control" placeholder="Rechercher une instance...">
-          </div>
-          <!--modif-->
-          <div id="suggestions" class="suggestions-box"></div>
+  </div>
 
-          <div class="col-md-3">
-            <select id="instance-type-filter" class="form-select"></select>
+  <!-- Modal de sélection d'une configuration existante -->
+  <div class="modal fade" id="load-config-modal" tabindex="-1" aria-labelledby="loadConfigModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="loadConfigModalLabel">Charger une configuration</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-3">
+            <label for="config-list" class="form-label">Sélectionnez une configuration :</label>
+            <select id="config-list" class="form-select">
+              <option value="" selected disabled>Chargement des configurations...</option>
+            </select>
           </div>
-          <div class="col-md-3">
-            <button id="search-button" class="btn btn-primary">Lancer la rechercher des données</button>
-          </div>
-          
-          <div class="col-md-2 mt-2">
-            <button id="download-xml" class="btn btn-success" disabled>Visualiser le XML</button>
+          <div id="config-details" class="config-details d-none">
+            <h6>Détails de la configuration</h6>
+            <dl class="row">
+              <dt class="col-sm-4">Nom :</dt>
+              <dd class="col-sm-8" id="config-name"></dd>
+              <dt class="col-sm-4">Date :</dt>
+              <dd class="col-sm-8" id="config-date"></dd>
+              <!--
+              <dt class="col-sm-4">Formations :</dt>
+              <dd class="col-sm-8" id="config-formations"></dd>
+              -->
+            </dl>
           </div>
         </div>
-        <!--ajout des périodes-->
-        <!--Une Affichage des périodes-->
-        <div id="period-container" style="display: none;">
-          <label for="period-select">Sélectionner les périodes :</label>
-          <div class="row">
-            <div class="col-md-9">
-              <select id="period-select" class="form-select" multiple></select>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+          <button type="button" class="btn btn-primary" id="confirm-load-config" disabled>Charger</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Nouvelle navigation par onglets -->
+  <div class="container mt-4 mb-3">
+    <ul class="nav nav-tabs" id="main-tabs" role="tablist">
+      <li class="nav-item" role="presentation">
+        <button class="nav-link active" id="selection-tab" data-bs-toggle="tab" data-bs-target="#selection-content" type="button" role="tab" aria-controls="selection-content" aria-selected="true"> Définition du périmètre</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="filtering-tab" data-bs-toggle="tab" data-bs-target="#filtering-content" type="button" role="tab" aria-controls="filtering-content" aria-selected="false"> Filtrage des règles</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="resources-tab" data-bs-toggle="tab" data-bs-target="#resources-content" type="button" role="tab" aria-controls="resources-content" aria-selected="false"> Filtrage des ressources</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="config-tab" data-bs-toggle="tab" data-bs-target="#config-content" type="button" role="tab" aria-controls="config-content" aria-selected="false"> Configuration du solveur</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="results-tab" data-bs-toggle="tab" data-bs-target="#results-content" type="button" role="tab" aria-controls="results-content" aria-selected="false"> Solutions </button>
+      </li>
+    </ul>
+  </div>
+
+  <main class="container py-4">
+    <div class="tab-content" id="main-tab-content">
+      <!-- section 1 Contenu de l'onglet Périmetre-->
+      <div class="tab-pane fade show active" id="selection-content" role="tabpanel" aria-labelledby="selection-tab">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+          <h2 class="mb-0">Définition du périmètre</h2>
+        </div>
+        <div class="card-body">
+          <div class="row mb-3">
+            <div class="col-md-6">
+              <input type="text" id="instance-search" class="form-control" placeholder="Rechercher une formation...">
             </div>
-            <div class="col-md-3 d-flex flex-column">
-              <button id="select-all" class="btn btn-secondary btn-sm align-self-start">Tout sélectionner</button>
-              <!-- Bouton Ok -->
-              <div id="confirmation-container" style="display: none;">
-                <button id="confirm-selection" class="btn btn-success btn-sm align-self-start mt-1">Ok</button>
+            <!--modif-->
+            <div id="suggestions" class="suggestions-box"></div>
+
+            <div class="col-md-3">
+              <select id="instance-type-filter" class="form-select"></select>
+            </div>
+            <div class="col-md-3">
+              <button id="search-button" class="btn btn-primary">Lancer la rechercher des données</button>
+            </div>
+            
+            <div class="col-md-2">
+              <button id="download-xml" class="btn btn-success" disabled>Visualiser le XML</button>
+            </div>
+          </div>
+          <!--ajout des périodes-->
+          <!--Une Affichage des périodes-->
+          <div id="period-container" style="display: none;">
+            <label for="period-select">Sélectionner les périodes :</label>
+            <div class="row">
+              <div class="col-md-9">
+                <select id="period-select" class="form-select" multiple></select>
+              </div>
+              <div class="col-md-3 d-flex flex-column">
+                <button id="select-all" class="btn btn-secondary btn-sm align-self-start">Tout sélectionner</button>
+                <!-- Bouton Ok -->
+                <div id="confirmation-container" style="display: none;">
+                  <button id="confirm-selection" class="btn btn-success btn-sm align-self-start mt-1">Ok</button>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <br/>
-        <!-- Résumé de la sélection -->
-        <div id="summary-container" style="display: none;">
-          <h4>Vos sélections :</h4>
-          <div id="selection-items-container"></div>
-        </div>
-
-        <div class="instances-table-container">
-          <table id="instances-table" class="table table-striped table-hover">
-            <thead class="table-light">
-              <tr>
-                <th>
-                  <input type="checkbox" id="select-all-instances">
-                  <!--  checkbox pour sélectionner toutes les instances -->
-                </th>
-                <th>Nom</th>
-                <th>Formation</th>
-                <th>Période</th>
-                <th>Nb Cours</th>
-                <th>Dernière modification</th>
-              </tr>
-            </thead>
-            <tbody id="instances-list">
-              <!-- liste des instances générée par JavaScript -->
-            </tbody>
-          </table>
-        </div>
-
-        <div class="alert alert-info mt-3" id="selected-instances-info" style="display: none;">
-          <strong>Instances sélectionnées:</strong> <span id="selected-instances-count">0</span>
-        </div>
-
-        <div class="card mt-3" id="instance-details" style="display: none;">
-          <div class="card-header">
-            <h3 class="mb-0">Détails de l'instance sélectionnée</h3>
+          <!-- Résumé de la sélection -->
+          <div id="summary-container" style="display: none;">
+            <h4>Vos sélections :</h4>
+            <div id="selection-items-container"></div>
           </div>
-          <div class="card-body" id="instance-info">
-            <!-- Informations sur l'instance sélectionnée -->
+          <div class="alert alert-info mt-3" id="selected-instances-info" style="display: none;">
+            <strong>Instances sélectionnées:</strong> <span id="selected-instances-count">0</span>
           </div>
-        </div>
-      </div>
-    </section>
 
-    <!-- section 2: Configuration du solveur -->
-    <section class="card mb-4" id="solver-config">
-      <div class="card-header bg-light">  
-        <h2 class="mb-0" style="float: left;">Configuration du Solveur</h2>
-        <div class="btn-group" style="float: right; margin-left: 370px;">
-          <button type="button" id="load-config-btn" class="btn btn-outline-primary">Charger configuration</button>
-          <button type="button" id="save-config-btn" class="btn btn-outline-primary">Enregistrer configuration</button>
-          <input type="file" id="config-file-input" style="display: none;" accept=".json">
-        </div>
-        <div style="clear: both;"></div>
-      </div>
-      <div class="card-body">
-        <!-- Sous-navigation par onglets pour la section de configuration -->
-        <ul class="nav nav-tabs mb-3" id="configTabs" role="tablist">
-          <li class="nav-item" role="presentation">
-            <button class="nav-link active" id="general-tab" data-bs-toggle="tab" data-bs-target="#general-panel" type="button" role="tab">Paramètres généraux</button>
-          </li>
-          <li class="nav-item" role="presentation">
-            <button class="nav-link" id="rules-tab" data-bs-toggle="tab" data-bs-target="#rules-panel" type="button" role="tab">Désactivation de règles</button>
-          </li>
-          <li class="nav-item" role="presentation">
-            <button class="nav-link" id="strategies-tab" data-bs-toggle="tab" data-bs-target="#strategies-panel" type="button" role="tab">Stratégies des variables</button>
-          </li>
-          <li class="nav-item" role="presentation">
-            <button class="nav-link" id="core-constraints-tab" data-bs-toggle="tab" data-bs-target="#core-constraints-panel" type="button" role="tab">Contraintes fondamentales</button>
-          </li>
-          <li class="nav-item" role="presentation">
-            <button class="nav-link" id="user-constraints-tab" data-bs-toggle="tab" data-bs-target="#user-constraints-panel" type="button" role="tab">Contraintes métier</button>
-          </li>
-          <li class="nav-item" role="presentation">
-            <button class="nav-link" id="advanced-tab" data-bs-toggle="tab" data-bs-target="#advanced-panel" type="button" role="tab">Mode avancé</button>
-          </li>
-        </ul>
-
-        <form id="solver-config-form">
-          <div class="tab-content" id="configTabsContent">
-            <!-- Panneau des paramètres généraux -->
-        <div class="tab-pane fade show active" id="general-panel" role="tabpanel">
-          <!-- Paramètres généraux -->
-          <div class="card mb-3">
+          <div class="card mt-3" id="instance-details" style="display: none;">
             <div class="card-header">
-              <h3 class="mb-0">Paramètres généraux</h3>
+              <h3 class="mb-0">Détails de l'instance sélectionnée</h3>
             </div>
-            <div class="card-body">
-              <div class="row">
-                <div class="col-md-6">
-                  <div class="mb-3">
-                    <label for="time-out" class="form-label">Temps maximum (secondes):</label>
-                    <input type="number" id="time-out" name="time_out" min="1" value="40" class="form-control">
+            <div class="card-body" id="instance-info">
+              <!-- Informations sur l'instance sélectionnée -->
+            </div>
+          </div>
+        </div>
+        <!-- Boutons de navigation -->
+        <div class="d-flex justify-content-end mt-3">
+          <button class="btn btn-primary next-tab" data-next="filtering-tab">Suivant</button>
+        </div>
+      </div>
+
+      <!-- Section 2: Contenu de l'onglet Filtrage -->
+      <div class="tab-pane fade" id="filtering-content" role="tabpanel" aria-labelledby="filtering-tab">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+          <h2 class="mb-0">Filtrage des Règles</h2>
+        </div>
+
+        <div class="card-body">
+          <!-- Sous-onglets pour Filtrage des Règles -->
+          <div class="card-body p-0">
+            <ul class="nav nav-pills nav-fill config-subtabs mb-3" id="filtering-subtabs" role="tablist">
+              <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="core-constraints-tab" data-bs-toggle="pill" data-bs-target="#core-constraints" type="button" role="tab">Contraintes fondamentales</button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button class="nav-link" id="user-constraints-tab" data-bs-toggle="pill" data-bs-target="#user-constraints" type="button" role="tab">Contraintes métier</button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button class="nav-link" id="deactivate-tab" data-bs-toggle="pill" data-bs-target="#deactivate-content" type="button" role="tab" aria-controls="deactivate-content" aria-selected="false">Désactivation de règles</button>
+              </li>
+            </ul>
+
+            <!-- Contenu des sous-onglets -->
+            <div class="tab-content p-3" id="filtering-subtabs-content">
+              <!-- Contraintes fondamentales -->
+              <div class="tab-pane fade show active" id="core-constraints" role="tabpanel" aria-labelledby="core-constraints-tab">
+                <div class="card mb-4">
+                  <div class="card-header d-flex justify-content-between align-items-center">
+                    <h3>Contraintes fondamentales</h3>
+                    <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="collapse"
+                      data-bs-target="#core-constraints-body">
+                      <span class="expand-icon">▼</span>
+                    </button>
+                  </div>
+                  <div class="collapse show" id="core-constraints-body">
+                    <div class="card-body">
+                      <div id="core-constraints-list" class="constraint-list">
+                        <div class="constraint-item">
+                          <input type="checkbox" id="core-implicite_sequenced_sessions" name="core_constraint[]"
+                            value="implicite_sequenced_sessions" checked>
+                          <label for="core-implicite_sequenced_sessions">implicite_sequenced_sessions</label>
+                        </div>
+                        <div class="constraint-item">
+                          <input type="checkbox" id="core-teacher_service" name="core_constraint[]" value="teacher_service"
+                            checked>
+                          <label for="core-teacher_service">teacher_service</label>
+                        </div>
+                        <div class="constraint-item">
+                          <input type="checkbox" id="core-disjunctive_teacher" name="core_constraint[]"
+                            value="disjunctive_teacher" checked>
+                          <label for="core-disjunctive_teacher">disjunctive_teacher</label>
+                        </div>
+                        <div class="constraint-item">
+                          <input type="checkbox" id="core-disjunctive_group" name="core_constraint[]"
+                            value="disjunctive_group" checked>
+                          <label for="core-disjunctive_group">disjunctive_group</label>
+                        </div>
+                        <div class="constraint-item">
+                          <input type="checkbox" id="core-disjunctive_room" name="core_constraint[]" value="disjunctive_room"
+                            checked>
+                          <label for="core-disjunctive_room">disjunctive_room</label>
+                        </div>
+                        <div class="constraint-item">
+                          <input type="checkbox" id="core-size_of_multiroom" name="core_constraint[]"
+                            value="size_of_multiroom" checked>
+                          <label for="core-size_of_multiroom">size_of_multiroom</label>
+                        </div>
+                        <div class="constraint-item">
+                          <input type="checkbox" id="core-bench_class_equilibrate" name="core_constraint[]"
+                            value="bench_class_equilibrate" checked>
+                          <label for="core-bench_class_equilibrate">bench_class_equilibrate</label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Contraintes métier -->
+              <div class="tab-pane fade" id="user-constraints" role="tabpanel" aria-labelledby="user-constraints-tab">
+                <div class="card mb-4">
+                  <div class="card-header d-flex justify-content-between align-items-center">
+                    <h3>Contraintes métier</h3>
+                    <div class="d-flex align-items-center gap-2">
+                      <input type="text" id="user-constraints-search" class="form-control form-control-sm"
+                        placeholder="Rechercher..." style="min-width: 200px;">
+                      <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="collapse"
+                        data-bs-target="#user-constraints-body">
+                        <span class="expand-icon">▼</span>
+                      </button>
+                    </div>
+                  </div>
+                  <div class="collapse show" id="user-constraints-body">
+                    <div class="card-body">
+                      <div id="user-constraints-list" class="constraint-list">
+                        <div class="constraint-item">
+                          <input type="checkbox" id="user-sameRooms" name="user_constraint[]" value="sameRooms" checked>
+                          <label for="user-sameRooms">sameRooms</label>
+                        </div>
+                        <div class="constraint-item">
+                          <input type="checkbox" id="user-sameTeachers" name="user_constraint[]" value="sameTeachers"
+                            checked>
+                          <label for="user-sameTeachers">sameTeachers</label>
+                        </div>
+                        <div class="constraint-item">
+                          <input type="checkbox" id="user-allowedPeriod" name="user_constraint[]" value="allowedPeriod"
+                            checked>
+                          <label for="user-allowedPeriod">allowedPeriod</label>
+                        </div>
+                        <div class="constraint-item">
+                          <input type="checkbox" id="user-forbiddenPeriod" name="user_constraint[]" value="forbiddenPeriod"
+                            checked>
+                          <label for="user-forbiddenPeriod">forbiddenPeriod</label>
+                        </div>
+                        <div class="constraint-item">
+                          <input type="checkbox" id="user-weekly" name="user_constraint[]" value="weekly" checked>
+                          <label for="user-weekly">weekly</label>
+                        </div>
+                        <div class="constraint-item">
+                          <input type="checkbox" id="user-sameWeek" name="user_constraint[]" value="sameWeek" checked>
+                          <label for="user-sameWeek">sameWeek</label>
+                        </div>
+                        <div class="constraint-item">
+                          <input type="checkbox" id="user-assignRoom" name="user_constraint[]" value="assignRoom" checked>
+                          <label for="user-assignRoom">assignRoom</label>
+                        </div>
+                        <div class="constraint-item">
+                          <input type="checkbox" id="user-forbiddenRooms" name="user_constraint[]" value="forbiddenRooms"
+                            checked>
+                          <label for="user-forbiddenRooms">forbiddenRooms</label>
+                        </div>
+                        <div class="constraint-item">
+                          <input type="checkbox" id="user-sameWeekDay" name="user_constraint[]" value="sameWeekDay" checked>
+                          <label for="user-sameWeekDay">sameWeekDay</label>
+                        </div>
+                        <div class="constraint-item">
+                          <input type="checkbox" id="user-differentWeekDay" name="user_constraint[]"
+                            value="differentWeekDay" checked>
+                          <label for="user-differentWeekDay">differentWeekDay</label>
+                        </div>
+                        <div class="constraint-item">
+                          <input type="checkbox" id="user-differentSlots" name="user_constraint[]" value="differentSlots"
+                            checked>
+                          <label for="user-differentSlots">differentSlots</label>
+                        </div>
+                        <div class="constraint-item">
+                          <input type="checkbox" id="user-disjunct" name="user_constraint[]" value="disjunct" checked>
+                          <label for="user-disjunct">disjunct</label>
+                        </div>
+                        <div class="constraint-item">
+                          <input type="checkbox" id="user-sameWeeklySlot" name="user_constraint[]" value="sameWeeklySlot"
+                            checked>
+                          <label for="user-sameWeeklySlot">sameWeeklySlot</label>
+                        </div>
+                        <div class="constraint-item">
+                          <input type="checkbox" id="user-differentWeek" name="user_constraint[]" value="differentWeek"
+                            checked>
+                          <label for="user-differentWeek">differentWeek</label>
+                        </div>
+                        <div class="constraint-item">
+                          <input type="checkbox" id="user-sameSlot" name="user_constraint[]" value="sameSlot" checked>
+                          <label for="user-sameSlot">sameSlot</label>
+                        </div>
+                        <div class="constraint-item">
+                          <input type="checkbox" id="user-sameSlots" name="user_constraint[]" value="sameSlots" checked>
+                          <label for="user-sameSlots">sameSlots</label>
+                        </div>
+                        <div class="constraint-item">
+                          <input type="checkbox" id="user-periodic" name="user_constraint[]" value="periodic" checked>
+                          <label for="user-periodic">periodic</label>
+                        </div>
+                        <div class="constraint-item">
+                          <input type="checkbox" id="user-sequenced" name="user_constraint[]" value="sequenced" checked>
+                          <label for="user-sequenced">sequenced</label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Désactivation de règles -->
+              <div class="tab-pane fade" id="deactivate-content" role="tabpanel" aria-labelledby="deactivate-tab">
+                <div class="card mb-3">
+                  <div class="card-header">
+                    <ul class="nav nav-tabs card-header-tabs" id="rules-tabs" role="tablist">
+                      <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="list-tab" data-bs-toggle="tab" data-bs-target="#list-tab-pane" type="button" role="tab">Liste complète</button>
+                      </li>
+                      <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="filter-tab" data-bs-toggle="tab" data-bs-target="#filter-tab-pane" type="button" role="tab">Filtrage avancé</button>
+                      </li>
+                      <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="manual-tab" data-bs-toggle="tab" data-bs-target="#manual-tab-pane" type="button" role="tab">Saisie manuelle</button>
+                      </li>
+                    </ul>
+                  </div>
+
+                  <div class="card-body">
+                    <div class="tab-content" id="rules-tabs-content">
+                      <!-- Onglet 1: Liste complète -->
+                      <div class="tab-pane fade show active" id="list-tab-pane" role="tabpanel" aria-labelledby="list-tab">
+                        <div class="card mb-4">
+                          <div class="card-header d-flex justify-content-between align-items-center">
+                            <h3>Liste des règles</h3>
+                            <div class="d-flex align-items-center gap-2">
+                              <input type="text" id="rules-search" class="form-control form-control-sm" 
+                                placeholder="Rechercher une règle..." style="min-width: 200px;">
+                              <!--
+                              <button id="select-all-rules" class="btn btn-sm btn-outline-secondary">Tout sélectionner</button>
+                              <button id="deselect-all-rules" class="btn btn-sm btn-outline-secondary">Tout désélectionner</button>
+                              -->
+                            </div>
+                          </div>
+                          <div class="card-body">
+                            <div class="rules-counter mb-3">
+                              <span id="active-rules-count">0</span> / <span id="total-rules-count">0</span> règles actives
+                            </div>
+                            <div class="table-responsive">
+                              <table class="table table-striped table-hover" id="rules-table">
+                                <thead class="table-light">
+                                  <tr>
+                                    <th>
+                                      <input type="checkbox" id="select-all-rules-checkbox">
+                                    </th>
+                                    <th class="sortable" data-sort="id">ID <span class="sort-icon"></span></th>
+                                    <th class="sortable" data-sort="label">Label <span class="sort-icon"></span></th>
+                                    <th class="sortable" data-sort="generator">Generator <span class="sort-icon"></span></th>
+                                    <th class="sortable" data-sort="filter">Filter <span class="sort-icon"></span></th>
+                                    <th class="sortable" data-sort="constraint">Constraint <span class="sort-icon"></span></th>
+                                    <th class="sortable" data-sort="type">Type <span class="sort-icon"></span></th>
+                                    <th class="sortable" data-sort="status">Status <span class="sort-icon"></span></th>
+                                  </tr>
+                                </thead>
+                                <tbody id="rules-list">
+                                  
+                                </tbody>
+                              </table>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- Onglet 2: Filtrage avancé -->
+                      <div class="tab-pane fade" id="filter-tab-pane" role="tabpanel" aria-labelledby="filter-tab">
+                        <div class="row g-3 mb-4">
+                          <!-- Type de contrainte -->
+                          <div class="col-md-4">
+                            <label class="form-label">Type de contrainte :</label>
+                            <div class="input-group mb-3">
+                              <select class="form-select" id="filter-constraint-type">
+                                <option value="">Choisir un type...</option>
+                                <option value="hard">hard</option>
+                                <option value="soft">soft</option>
+                              </select>
+                              <span class="input-group-text">ou</span>
+                              <input type="text" class="form-control" id="filter-constraint-type-custom" placeholder="Saisir un type">
+                            </div>
+                          </div>
+
+                          <!-- Nom de contrainte -->
+                          <div class="col-md-4">
+                            <label class="form-label">Nom de contrainte :</label>
+                            <div class="input-group mb-3">
+                              <select class="form-select" id="filter-constraint-name">
+                                <option value="">Choisir un nom...</option>
+                                <option value="sameRooms">sameRooms</option>
+                                <option value="periodic">periodic</option>
+                                <option value="sequenced">sequenced</option>
+                              </select>
+                              <span class="input-group-text">ou</span>
+                              <input type="text" class="form-control" id="filter-constraint-name-custom" placeholder="Saisir un nom">
+                            </div>
+                          </div>
+
+                          <!-- Labels -->
+                          <div class="col-md-4">
+                            <label class="form-label">Label :</label>
+                            <div class="input-group mb-3">
+                              <select class="form-select" id="filter-labels">
+                                <option value="">Choisir un label...</option>
+                                <option value="group_A">group_A</option>
+                                <option value="group_B">group_B</option>
+                                <option value="group_C">group_C</option>
+                                <option value="group_E">group_E</option>
+                                <option value="group_F">group_F</option>
+                              </select>
+                              <span class="input-group-text">ou</span>
+                              <input type="text" class="form-control" id="filter-labels-custom" placeholder="Saisir un label">
+                            </div>
+                          </div>
+
+                          <!-- Generator -->
+                          <div class="col-md-6">
+                            <label class="form-label">Generator :</label>
+                            <input type="text" class="form-control" id="filter-generator" placeholder="Ex : (class, *), (class, {1,2,3})">
+                          </div>
+
+                          <!-- Filter -->
+                          <div class="col-md-6">
+                            <label class="form-label">Filtre (cours / part) :</label>
+                            <input type="text" class="form-control" id="filter-selector" placeholder="Ex : course[id='TM1-f0-c4'], part[label='TD']">
+                          </div>
+
+                          <!-- Paramètre temporel -->
+                          <div class="col-md-6">
+                            <label class="form-label">Paramètre (ex: fréquence) :</label>
+                            <input type="text" class="form-control" id="filter-parameter" placeholder="Ex : 1 week, 2 days">
+                          </div>
+                        </div>
+
+                        <div class="mb-3">
+                          <button class="btn btn-primary" id="apply-filters">
+                            <i class="bi bi-funnel"></i> Appliquer les filtres
+                          </button>
+                          <button class="btn btn-outline-secondary ms-2" id="reset-filters">
+                            <i class="bi bi-arrow-counterclockwise"></i> Réinitialiser
+                          </button>
+                        </div>
+
+                        <div class="border p-3 rounded bg-light" id="filter-results-container" style="display: none;">
+                          <h6 class="mb-3">Résultats du filtrage :</h6>
+                          <div class="mb-3">
+                            <select id="filtered-rules-select" class="form-select" multiple size="5">
+                              <!-- Résultats apparaîtront ici -->
+                            </select>
+                          </div>
+                          <button class="btn btn-sm btn-danger" id="deactivate-filtered">
+                            <i class="bi bi-toggle-off"></i> Désactiver la sélection filtrée
+                          </button>
+                        </div>
+                      </div>
+
+                      <!-- Onglet 3: Saisie manuelle -->
+                      <div class="tab-pane fade" id="manual-tab-pane" role="tabpanel" aria-labelledby="manual-tab">
+                        <div class="alert alert-info mb-3">
+                          <i class="bi bi-info-circle-fill me-2"></i>
+                          Entrez les numéros des règles à désactiver. Utilisez des virgules pour séparer les règles et des tirets pour les plages (ex: 1,2-5).
+                        </div>
+                        <div class="mb-3">
+                          <label for="deactivate-rules" class="form-label">Règles à désactiver :</label>
+                          <input type="text" id="deactivate-rules" name="deactivate_rules" class="form-control" placeholder="Ex: 1,2-5">
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -182,297 +522,335 @@
           </div>
         </div>
 
-        <!-- Panneau de désactivation des règles -->
-        <div class="tab-pane fade" id="rules-panel" role="tabpanel">
-          <div class="card">
-            <div class="card-header d-flex justify-content-between align-items-center">
-              <h3 class="mb-0">Désactivation de règles</h3>
-              <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="collapse" data-bs-target="#rules-help">
-                Aide
-              </button>
-            </div>
-            <div class="collapse" id="rules-help">
-              <div class="card-body bg-light">
-                <p>Entrez les numéros des règles à désactiver.</p>
-                <p><strong>Format:</strong> Utilisez des virgules pour séparer les règles individuelles et des tirets pour les plages (ex: 1,2-5,7)</p>
+        <!-- Boutons de navigation -->
+        <div class="d-flex justify-content-between mt-3">
+          <button class="btn btn-secondary prev-tab" data-prev="selection-tab">Précédent</button>
+          <button class="btn btn-primary next-tab" data-next="resources-tab">Suivant</button>
+        </div>
+      </div>
+
+      <!-- section 3: Contenu de l'onglet Filtrage des ressources -->
+      <div class="tab-pane fade" id="resources-content" role="tabpanel" aria-labelledby="resources-tab">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+          <h2 class="mb-0">Filtrage des Ressources</h2>
+        </div>
+
+        <div class="card-body">
+          <!-- Sous-onglets pour Filtrage des Ressources -->
+          <ul class="nav nav-pills nav-fill config-subtabs mb-3" id="resources-subtabs" role="tablist">
+            <li class="nav-item" role="presentation">
+              <button class="nav-link active" id="courses-tab" data-bs-toggle="pill" data-bs-target="#courses-content" type="button" role="tab">Cours</button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="teachers-tab" data-bs-toggle="pill" data-bs-target="#teachers-content" type="button" role="tab">Enseignants</button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="rooms-tab" data-bs-toggle="pill" data-bs-target="#rooms-content" type="button" role="tab">Salles</button>
+            </li>
+          </ul>
+
+          <!-- Contenu des sous-onglets -->
+          <div class="tab-content p-3" id="resources-subtabs-content">
+            <!-- Cours -->
+            <div class="tab-pane fade show active" id="courses-content" role="tabpanel">
+              <div class="card mb-4">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                  <h3>Liste des cours</h3>
+                  <div class="d-flex align-items-center gap-2">
+                    <input type="text" id="courses-search" class="form-control form-control-sm" placeholder="Rechercher un cours..." style="min-width: 200px;">
+                    <!--
+                    <button id="select-all-courses" class="btn btn-sm btn-outline-secondary">Tout sélectionner</button>
+                    <button id="deselect-all-courses" class="btn btn-sm btn-outline-secondary">Tout désélectionner</button>
+                    -->
+                  </div>
+                </div>
+                <div class="card-body">
+                  <div class="resources-counter mb-3">
+                    <span id="active-courses-count">0</span> / <span id="total-courses-count">0</span> cours actifs
+                  </div>
+                  <div class="table-responsive">
+                    <table class="table table-striped table-hover" id="courses-table">
+                      <thead class="table-light">
+                        <tr>
+                          <th><input type="checkbox" id="select-all-courses-checkbox"></th>
+                          <th class="sortable" data-sort="id">ID <span class="sort-icon"></span></th>
+                          <th class="sortable" data-sort="label">Label <span class="sort-icon"></span></th>
+                          <th class="sortable" data-sort="parts">Parts <span class="sort-icon"></span></th>
+                          <th class="sortable" data-sort="status">Status <span class="sort-icon"></span></th>
+                        </tr>
+                      </thead>
+                      <tbody id="courses-list"></tbody>
+                    </table>
+                  </div>
+                </div>
               </div>
             </div>
-            <div class="card-body">
-              <div class="mb-3">
-                <label for="deactivate-rules" class="form-label">Règles à désactiver:</label>
-                <input type="text" id="deactivate-rules" name="deactivate_rules" class="form-control" placeholder="ex: 1,2-5">
+
+            <!-- Enseignants -->
+            <div class="tab-pane fade" id="teachers-content" role="tabpanel">
+              <div class="card mb-4">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                  <h3>Liste des enseignants</h3>
+                  <div class="d-flex align-items-center gap-2">
+                    <input type="text" id="teachers-search" class="form-control form-control-sm" placeholder="Rechercher un enseignant..." style="min-width: 200px;">
+                    <!--
+                    <button id="select-all-teachers" class="btn btn-sm btn-outline-secondary">Tout sélectionner</button>
+                    <button id="deselect-all-teachers" class="btn btn-sm btn-outline-secondary">Tout désélectionner</button>
+                    -->
+                  </div>
+                </div>
+                <div class="card-body">
+                  <div class="resources-counter mb-3">
+                    <span id="active-teachers-count">0</span> / <span id="total-teachers-count">0</span> enseignants actifs
+                  </div>
+                  <div class="table-responsive">
+                    <table class="table table-striped table-hover" id="teachers-table">
+                      <thead class="table-light">
+                        <tr>
+                          <th><input type="checkbox" id="select-all-teachers-checkbox"></th>
+                          <th class="sortable" data-sort="id">ID <span class="sort-icon"></span></th>
+                          <th class="sortable" data-sort="name">Nom <span class="sort-icon"></span></th>
+                          <th class="sortable" data-sort="department">Département <span class="sort-icon"></span></th>
+                          <th class="sortable" data-sort="hourly_volume">Volume horaire <span class="sort-icon"></span></th>
+                          <th class="sortable" data-sort="status">Status <span class="sort-icon"></span></th>
+                        </tr>
+                      </thead>
+                      <tbody id="teachers-list"></tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Salles -->
+            <div class="tab-pane fade" id="rooms-content" role="tabpanel">
+              <div class="card mb-4">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                  <h3>Liste des salles</h3>
+                  <div class="d-flex align-items-center gap-2">
+                    <input type="text" id="rooms-search" class="form-control form-control-sm" placeholder="Rechercher une salle..." style="min-width: 200px;">
+                    <!--
+                    <button id="select-all-rooms" class="btn btn-sm btn-outline-secondary">Tout sélectionner</button>
+                    <button id="deselect-all-rooms" class="btn btn-sm btn-outline-secondary">Tout désélectionner</button>
+                    -->
+                  </div>
+                </div>
+                <div class="card-body">
+                  <div class="resources-counter mb-3">
+                    <span id="active-rooms-count">0</span> / <span id="total-rooms-count">0</span> salles actives
+                  </div>
+                  <div class="table-responsive">
+                    <table class="table table-striped table-hover" id="rooms-table">
+                      <thead class="table-light">
+                        <tr>
+                          <th><input type="checkbox" id="select-all-rooms-checkbox"></th>
+                          <th class="sortable" data-sort="id">ID <span class="sort-icon"></span></th>
+                          <th class="sortable" data-sort="name">Nom <span class="sort-icon"></span></th>
+                          <th class="sortable" data-sort="capacity">Capacité <span class="sort-icon"></span></th>
+                          <th class="sortable" data-sort="type">Type <span class="sort-icon"></span></th>
+                          <th class="sortable" data-sort="building">Bâtiment <span class="sort-icon"></span></th>
+                          <th class="sortable" data-sort="status">Status <span class="sort-icon"></span></th>
+                        </tr>
+                      </thead>
+                      <tbody id="rooms-list"></tbody>
+                    </table>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
 
-            <!-- Panneau des stratégies de variables -->
-            <div class="tab-pane fade" id="strategies-panel" role="tabpanel">
-              <div class="card mb-3">
-                <div class="card-header d-flex justify-content-between align-items-center">
-                  <h3 class="mb-0">Stratégies des variables</h3>
-                  <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="collapse"
-                    data-bs-target="#vars-help">
-                    Aide
-                  </button>
-                </div>
-                <div class="collapse" id="vars-help">
-                  <div class="card-body bg-light">
-                    <p>Les stratégies définissent l'ordre et la manière dont le solveur traite les variables.</p>
-                    <p><strong>Format:</strong> {"x_room":[{"rank":"*"},"first_fail","indomain_random"]}</p>
-                    <p><strong>Types de variables:</strong> x_room, x_rooms, x_teacher, x_teachers, x_slot</p>
-                    <p><strong>Stratégies d'ordre:</strong> input_order, first_fail, anti_first_fail, etc.</p>
-                    <p><strong>Stratégies de parcours:</strong> indomain_min, indomain_max, indomain_random, etc.</p>
-                  </div>
-                </div>
-                <div class="card-body">
-                  <div id="vars-strategies" class="mb-3">
-                    <!-- Stratégies générées par JavaScript -->
-                  </div>
-                  <button type="button" id="add-strategy" class="btn btn-outline-primary">+ Ajouter une stratégie</button>
-                </div>
-              </div>
-            </div>
+        <!-- Boutons de navigation -->
+        <div class="d-flex justify-content-between mt-3">
+          <button class="btn btn-secondary prev-tab" data-prev="filtering-tab">Précédent</button>
+          <button class="btn btn-primary next-tab" data-next="config-tab">Suivant</button>
+        </div>
+      </div>
 
-            <!-- Panneau des contraintes fondamentales -->
-            <div class="tab-pane fade" id="core-constraints-panel" role="tabpanel">
-              <div class="card mb-3">
-                <div class="card-header">
-                  <h3 class="mb-0">Contraintes fondamentales</h3>
-                </div>
-                <div class="card-body">
-                  <div id="core-constraints-list" class="constraint-list">
-                    <div class="constraint-item">
-                      <input type="checkbox" id="core-implicite_sequenced_sessions" name="core_constraint[]"
-                        value="implicite_sequenced_sessions" checked>
-                      <label for="core-implicite_sequenced_sessions">implicite_sequenced_sessions</label>
-                    </div>
-                    <div class="constraint-item">
-                      <input type="checkbox" id="core-teacher_service" name="core_constraint[]" value="teacher_service"
-                        checked>
-                      <label for="core-teacher_service">teacher_service</label>
-                    </div>
-                    <div class="constraint-item">
-                      <input type="checkbox" id="core-disjunctive_teacher" name="core_constraint[]"
-                        value="disjunctive_teacher" checked>
-                      <label for="core-disjunctive_teacher">disjunctive_teacher</label>
-                    </div>
-                    <div class="constraint-item">
-                      <input type="checkbox" id="core-disjunctive_group" name="core_constraint[]"
-                        value="disjunctive_group" checked>
-                      <label for="core-disjunctive_group">disjunctive_group</label>
-                    </div>
-                    <div class="constraint-item">
-                      <input type="checkbox" id="core-disjunctive_room" name="core_constraint[]" value="disjunctive_room"
-                        checked>
-                      <label for="core-disjunctive_room">disjunctive_room</label>
-                    </div>
-                    <div class="constraint-item">
-                      <input type="checkbox" id="core-size_of_multiroom" name="core_constraint[]"
-                        value="size_of_multiroom" checked>
-                      <label for="core-size_of_multiroom">size_of_multiroom</label>
-                    </div>
-                    <div class="constraint-item">
-                      <input type="checkbox" id="core-bench_class_equilibrate" name="core_constraint[]"
-                        value="bench_class_equilibrate" checked>
-                      <label for="core-bench_class_equilibrate">bench_class_equilibrate</label>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
 
-            <!-- Panneau des contraintes métier -->
-            <div class="tab-pane fade" id="user-constraints-panel" role="tabpanel">
-              <div class="card mb-3">
-                <div class="card-header d-flex justify-content-between align-items-center">
-                  <h3 class="mb-0">Contraintes métier</h3>
-                  <div>
-                    <input type="text" id="user-constraints-search" class="form-control form-control-sm"
-                      placeholder="Rechercher..." style="min-width: 200px;">
-                  </div>
-                </div>
-                <div class="card-body">
-                  <div id="user-constraints-list" class="constraint-list">
-                    <!-- contraintes métier -->
-                    <div class="constraint-item">
-                      <input type="checkbox" id="user-sameRooms" name="user_constraint[]" value="sameRooms" checked>
-                      <label for="user-sameRooms">sameRooms</label>
-                    </div>
-                    <div class="constraint-item">
-                      <input type="checkbox" id="user-sameTeachers" name="user_constraint[]" value="sameTeachers"
-                        checked>
-                      <label for="user-sameTeachers">sameTeachers</label>
-                    </div>
-                    <div class="constraint-item">
-                      <input type="checkbox" id="user-allowedPeriod" name="user_constraint[]" value="allowedPeriod"
-                        checked>
-                      <label for="user-allowedPeriod">allowedPeriod</label>
-                    </div>
-                    <div class="constraint-item">
-                      <input type="checkbox" id="user-forbiddenPeriod" name="user_constraint[]" value="forbiddenPeriod"
-                        checked>
-                      <label for="user-forbiddenPeriod">forbiddenPeriod</label>
-                    </div>
-                    <div class="constraint-item">
-                      <input type="checkbox" id="user-weekly" name="user_constraint[]" value="weekly" checked>
-                      <label for="user-weekly">weekly</label>
-                    </div>
-                    <div class="constraint-item">
-                      <input type="checkbox" id="user-sameWeek" name="user_constraint[]" value="sameWeek" checked>
-                      <label for="user-sameWeek">sameWeek</label>
-                    </div>
-                    <div class="constraint-item">
-                      <input type="checkbox" id="user-assignRoom" name="user_constraint[]" value="assignRoom" checked>
-                      <label for="user-assignRoom">assignRoom</label>
-                    </div>
-                    <div class="constraint-item">
-                      <input type="checkbox" id="user-forbiddenRooms" name="user_constraint[]" value="forbiddenRooms"
-                        checked>
-                      <label for="user-forbiddenRooms">forbiddenRooms</label>
-                    </div>
-                    <div class="constraint-item">
-                      <input type="checkbox" id="user-sameWeekDay" name="user_constraint[]" value="sameWeekDay" checked>
-                      <label for="user-sameWeekDay">sameWeekDay</label>
-                    </div>
-                    <div class="constraint-item">
-                      <input type="checkbox" id="user-differentWeekDay" name="user_constraint[]"
-                        value="differentWeekDay" checked>
-                      <label for="user-differentWeekDay">differentWeekDay</label>
-                    </div>
-                    <div class="constraint-item">
-                      <input type="checkbox" id="user-differentSlots" name="user_constraint[]" value="differentSlots"
-                        checked>
-                      <label for="user-differentSlots">differentSlots</label>
-                    </div>
-                    <div class="constraint-item">
-                      <input type="checkbox" id="user-disjunct" name="user_constraint[]" value="disjunct" checked>
-                      <label for="user-disjunct">disjunct</label>
-                    </div>
-                    <div class="constraint-item">
-                      <input type="checkbox" id="user-sameWeeklySlot" name="user_constraint[]" value="sameWeeklySlot"
-                        checked>
-                      <label for="user-sameWeeklySlot">sameWeeklySlot</label>
-                    </div>
-                    <div class="constraint-item">
-                      <input type="checkbox" id="user-differentWeek" name="user_constraint[]" value="differentWeek"
-                        checked>
-                      <label for="user-differentWeek">differentWeek</label>
-                    </div>
-                    <div class="constraint-item">
-                      <input type="checkbox" id="user-sameSlot" name="user_constraint[]" value="sameSlot" checked>
-                      <label for="user-sameSlot">sameSlot</label>
-                    </div>
-                    <div class="constraint-item">
-                      <input type="checkbox" id="user-sameSlots" name="user_constraint[]" value="sameSlots" checked>
-                      <label for="user-sameSlots">sameSlots</label>
-                    </div>
-                    <div class="constraint-item">
-                      <input type="checkbox" id="user-periodic" name="user_constraint[]" value="periodic" checked>
-                      <label for="user-periodic">periodic</label>
-                    </div>
-                    <div class="constraint-item">
-                      <input type="checkbox" id="user-sequenced" name="user_constraint[]" value="sequenced" checked>
-                      <label for="user-sequenced">sequenced</label>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- panneau mode avancé -->
-            <div class="tab-pane fade" id="advanced-panel" role="tabpanel">
-              <div class="card mb-3">
-                <div class="card-header d-flex justify-content-between align-items-center">
-                  <h3 class="mb-0">Mode avancé</h3>
-                  <div class="form-check form-switch">
-                    <input class="form-check-input" type="checkbox" id="advanced-mode-toggle">
-                    <label class="form-check-label" for="advanced-mode-toggle">Activer</label>
-                  </div>
-                </div>
-                <div class="card-body" id="advanced-mode-section" style="display: none;">
-                  <div class="alert alert-warning">
-                    <strong>Attention:</strong> Ce mode permet d'entrer directement la configuration JSON du solveur.
-                    Utilisez-le uniquement si vous savez ce que vous faites.
-                  </div>
-                  <div class="mb-3">
-                    <label for="advanced-config-json" class="form-label">Configuration JSON:</label>
-                    <textarea id="advanced-config-json" class="form-control" rows="10" placeholder='{
-  "time_out": "40s",
-  "vars": [...],
-  "core_constraint": [...],
-  "user_constraint": [...],
-  "deactivate_rules": [...]
-}'></textarea>
-                  </div>
-                </div>
-              </div>
+      <!-- section 4 Contenu de l'onglet Configuration -->
+      <div class="tab-pane fade" id="config-content" role="tabpanel" aria-labelledby="config-tab">
+        <section id="solver-config">
+          <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2 class="mb-0">Configuration du Solveur</h2>
+            <div class="btn-group ms-auto" style="margin-left: 340px;">
+              <button type="button" id="load-config-btn" class="btn btn-outline-primary btn-lg">Charger configuration</button>
+              <button type="button" id="save-config-btn" class="btn btn-outline-primary btn-lg">Enregistrer configuration</button>
+              <input type="file" id="config-file-input" style="display: none;" accept=".json">
             </div>
           </div>
-
-          <!-- Boutons d'action -->
-          <div class="d-flex justify-content-start mb-4 mt-3">
-            <button type="button" id="start-solver" class="btn btn-success me-2">Lancer le solveur</button>
-            <button type="button" id="save-config" class="btn btn-primary me-2">Enregistrer configuration</button>
-            <button type="reset" class="btn btn-secondary">Réinitialiser</button>
+          <!-- Sous-onglets pour Configuration du Solveur -->
+          <div class="card-body p-0">
+            <ul class="nav nav-pills nav-fill config-subtabs mb-3" id="config-subtabs" role="tablist">
+              <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="params-tab" data-bs-toggle="pill" data-bs-target="#params-content" type="button" role="tab" aria-controls="params-content" aria-selected="true">Paramètres généraux</button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button class="nav-link" id="strategies-tab" data-bs-toggle="pill" data-bs-target="#strategies-content" type="button" role="tab" aria-controls="strategies-content" aria-selected="false">Stratégies</button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button class="nav-link" id="advanced-tab" data-bs-toggle="pill" data-bs-target="#advanced-content" type="button" role="tab" aria-controls="advanced-content" aria-selected="false">Mode avancé</button>
+              </li>
+            </ul>    
+            
+            <!-- Contenu des sous-onglets -->
+            <div class="tab-content p-3" id="config-subtabs-content">
+              <!-- Paramètres généraux -->
+              <div class="tab-pane fade show active" id="params-content" role="tabpanel" aria-labelledby="params-tab">
+                <form id="solver-config-form">
+                  <div class="card mb-3">
+                    <div class="card-header">
+                      <h3 class="mb-0">Paramètres généraux</h3>
+                    </div>
+                    <div class="card-body">
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="mb-3">
+                            <label for="time-out" class="form-label">Temps maximum (secondes):</label>
+                            <input type="number" id="time-out" name="time_out" min="1" value="40" class="form-control">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+              
+              <!-- Stratégies des variables -->
+              <div class="tab-pane fade" id="strategies-content" role="tabpanel" aria-labelledby="strategies-tab">
+                <div class="card mb-3">
+                  <div class="card-header d-flex justify-content-between align-items-center">
+                    <h3 class="mb-0">Stratégies des variables</h3>
+                    <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="collapse"
+                      data-bs-target="#vars-help">
+                      Aide
+                    </button>
+                  </div>
+                  <div class="collapse" id="vars-help">
+                    <div class="card-body bg-light">
+                      <p>Les stratégies définissent l'ordre et la manière dont le solveur traite les variables.</p>
+                      <p><strong>Format:</strong> {"x_room":[{"rank":"*"},"first_fail","indomain_random"]}</p>
+                      <p><strong>Types de variables:</strong> x_room, x_rooms, x_teacher, x_teachers, x_slot</p>
+                      <p><strong>Stratégies d'ordre:</strong> input_order, first_fail, anti_first_fail, etc.</p>
+                      <p><strong>Stratégies de parcours:</strong> indomain_min, indomain_max, indomain_random, etc.</p>
+                    </div>
+                  </div>
+                  <div class="card-body">
+                    <div id="vars-strategies" class="mb-3">
+                      <!-- Stratégies générées par JavaScript -->
+                    </div>
+                    <button type="button" id="add-strategy" class="btn btn-outline-primary">+ Ajouter une stratégie</button>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Mode avancé -->
+              <div class="tab-pane fade" id="advanced-content" role="tabpanel" aria-labelledby="advanced-tab">
+                <div class="card mb-3">
+                  <div class="card-header d-flex justify-content-between align-items-center">
+                    <h3 class="mb-0">Mode avancé</h3>
+                    <div class="form-check form-switch">
+                      <input class="form-check-input" type="checkbox" id="advanced-mode-toggle">
+                      <label class="form-check-label" for="advanced-mode-toggle">Activer</label>
+                    </div>
+                  </div>
+                  <div class="card-body" id="advanced-mode-section">
+                    <div class="alert alert-warning">
+                      <strong>Attention:</strong> Ce mode permet d'entrer directement la configuration JSON du solveur.
+                      Utilisez-le uniquement si vous savez ce que vous faites.
+                    </div>
+                    <div class="mb-3">
+                      <label for="advanced-config-json" class="form-label">Configuration JSON:</label>
+                      <textarea id="advanced-config-json" class="form-control" rows="10">{
+                "time_out": "40s",
+                "vars": [],
+                "core_constraint": [],
+                "user_constraint": [],
+                "deactivate_rules": []
+              }</textarea>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Boutons d'action -->
+            <div class="d-flex justify-content-start mb-4 mt-3">
+              <button type="button" id="start-solver" class="btn btn-success me-2">Lancer le solveur</button>
+              <button type="button" id="save-config" class="btn btn-primary me-2">Enregistrer configuration</button>
+              <button type="reset" class="btn btn-secondary">Réinitialiser</button>
+            </div>
+            <!-- Boutons de navigation -->
+            <div class="d-flex justify-content-between mt-4">
+            <button type="button" class="btn btn-secondary prev-tab" data-prev="filtering-tab">Précédent</button>
           </div>
-        </form>
-      </div>
-    </section>
-
-    <!-- section 3: Résultats et statut -->
-    <section class="card mb-4" id="solver-results">
-      <div class="card-header bg-light">
-        <h2 class="mb-0">Résultats</h2>
-      </div>
-      <div class="card-body">
-        <div class="card mb-4">
-          <div class="card-header">
-            <h3 class="mb-0">Statut du solveur</h3>
+        </div>
+      </section>
+    </div>
+      <!-- section 4 : Contenu de l'onglet solutions-->
+      <div class="tab-pane fade" id="results-content" role="tabpanel" aria-labelledby="results-tab">
+        <section id="solver-results">
+          <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2 class="mb-0">Solutions</h2>
           </div>
           <div class="card-body">
-            <div class="row mb-3">
-              <div class="col-md-6">
-                <p>État: <span id="solver-status" class="badge bg-secondary">Inactif</span></p>
+            <div class="card mb-4">
+              <div class="card-header">
+                <h3 class="mb-0">Statut du solveur</h3>
               </div>
-              <div class="col-md-6">
-                <p>Temps écoulé: <span id="elapsed-time">0s</span></p>
+              <div class="card-body">
+                <div class="row mb-3">
+                  <div class="col-md-6">
+                    <p>État: <span id="solver-status" class="badge bg-secondary">Inactif</span></p>
+                  </div>
+                  <div class="col-md-6">
+                    <p>Temps écoulé: <span id="elapsed-time">0s</span></p>
+                  </div>
+                </div>
+                <div class="progress">
+                  <div class="progress-bar" id="solver-progress" role="progressbar" style="width: 0%"></div>
+                </div>
               </div>
             </div>
-            <div class="progress">
-              <div class="progress-bar" id="solver-progress" role="progressbar" style="width: 0%"></div>
+
+            <div class="card" id="results-content-panel">
+              <div class="card-header">
+                <h3 class="mb-0">Résumé de la solution</h3>
+              </div>
+              <div class="card-body">
+                <div class="row" id="solution-stats">
+                  <!--Statistiques de la solution générées par JavaScript-->
+                </div>
+
+                <div class="mt-4">
+                  <div class="input-group mb-3">
+                    <input type="text" id="solution-name" class="form-control" placeholder="Nom de la solution">
+                    <button id="save-solution" class="btn btn-primary">
+                        <i class="bi bi-save"></i> Enregistrer
+                    </button>
+                </div>
+                  <button id="export-solution" class="btn btn-secondary me-2">Exporter</button>
+                  <a href="http://cbehuet.fr:8080/calendar" target="_blank" id="view-full-timetable"
+                    class="btn btn-success">
+                    Voir l'emploi du temps complet
+                  </a>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-
-        <div class="card" id="results-content" style="display: none;">
-          <div class="card-header">
-            <h3 class="mb-0">Résumé de la solution</h3>
-          </div>
-          <div class="card-body">
-            <div class="row" id="solution-stats">
-              <!--statistiques de la solution générées par JavaScript-->
-            </div>
-
-            <h4 class="mt-4">Aperçu de l'emploi du temps</h4>
-            <div id="timetable-preview" class="mt-3">
-              <!-- aperçu de l'emploi du temps généré-->
-            </div>
-
-            <div class="mt-4">
-              <button id="save-solution" class="btn btn-primary me-2">Enregistrer la solution</button>
-              <button id="export-solution" class="btn btn-secondary me-2">Exporter</button>
-              <a href="http://cbehuet.fr:8080/calendar" target="_blank" id="view-full-timetable"
-                class="btn btn-success">
-                Voir l'emploi du temps complet
-              </a>
-            </div>
-          </div>
+        </section>
+        <!-- Boutons de navigation -->
+        <div class="d-flex justify-content-between mt-3">
+          <button class="btn btn-secondary prev-tab" data-prev="resources-tab">Précédent</button>
+          <button class="btn btn-primary" id="new-solve">Nouvelle résolution</button>
         </div>
       </div>
-    </section>
+    </div>
   </main>
 
+
+
+  
   <footer class="bg-light py-3 mt-4">
     <div class="container text-center">
       <p class="mb-0">&copy; 2025 Université d'Angers - LERIA</p>
@@ -484,10 +862,15 @@
 
   <script src="js/app.js"></script>
   <script src="js/app_instance.js"></script>
-  <script src="js/scrollspy.js"></script>
+  <!-- JS pour la navigation par onglets -->
+  <script src="js/tabs_navigation.js"></script>
+  <script src="js/config_Tabs.js"></script>
   <script src="js/resultat.js"></script>
+  <script src="js/filter_ressource.js"></script>
+  <script src="js/welcome_page.js"></script>
 
 
+  
 </body>
 
 </html>

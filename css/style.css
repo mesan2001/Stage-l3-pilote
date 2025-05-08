@@ -98,7 +98,7 @@ h2 {
 
 /* style des sections principales avec ombre et espacement */
 main.container > section.card {
-  padding-top: 110px;
+  padding-top: 60px;
   margin-top: -85px;
   background-color: white;
   border-radius: 16px;
@@ -159,7 +159,6 @@ main.container > section.card > .card-header {
 
 /* Numérotation pour la première section */
 #instance-selection > .card-header::before {
-  content: '1';
   background-color: #3498db;
   display: inline-block;
   width: 35px;
@@ -174,7 +173,6 @@ main.container > section.card > .card-header {
 
 /*numérotation pour la deuxième section*/
 #solver-config > .card-header::before {
-  content: '2';
   background-color: #3498db;
   display: inline-block;
   width: 35px;
@@ -189,7 +187,6 @@ main.container > section.card > .card-header {
 
 /*numérotation pour la troisième section */
 #solver-results > .card-header::before {
-  content: '3';
   background-color: #3498db;
   display: inline-block;
   width: 35px;
@@ -202,50 +199,14 @@ main.container > section.card > .card-header {
   font-weight: bold;
 }
 
+
+
 /* réduction de la marge pour la dernière section */
 main.container > section.card:last-child {
   margin-bottom: 4rem;
 }
 
-/*styles pour la barre de navigation et les onglets */
-#navbar-tabs {
-  margin-bottom: 20px;
-  position: sticky;
-  top: 76px;
-  z-index: 1030;
-  padding: 0;
-  background-color: rgba(255, 255, 255, 0.95);
-  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-}
 
-/* style des liens dans la barre de navigation */
-#navbar-tabs .nav-link {
-  padding: 1rem 1.5rem; 
-  font-size: 1.15rem; 
-  font-weight: 700; 
-  color: #495057;
-  transition: all 0.3s ease;
-  letter-spacing: 0.02rem;
-}
-
-/* style des liens actifs dans la barre de navigation */
-#navbar-tabs .nav-link.active {
-  color: #005a9c;
-  border-color: #dee2e6 #dee2e6 #fff;
-}
-
-/* style des sous-onglets dans la configuration */
-#configTabs .nav-link {
-  padding: 0.5rem 1rem;
-  color: #495057;
-}
-
-/* style des sous-onglets actifs */
-#configTabs .nav-link.active {
-  color: #005a9c;
-  background-color: #f8f9fa;
-  border-color: #dee2e6 #dee2e6 #f8f9fa;
-}
 
 /* style de la liste des contraintes en grille */
 .constraint-list {
@@ -399,10 +360,7 @@ main.container > section.card:last-child {
     padding: 0.3rem 0.5rem;
   }
   
-  /* Ajustement de la position de la barre de navigation */
-  #navbar-tabs {
-    top: 60px;
-  }
+
   
   /* Ajustement du padding des sections */
   main.container > section.card {
@@ -500,4 +458,496 @@ main.container > section.card:last-child {
   padding: 0.25rem 0.5rem;
   font-size: 0.8rem;
 }
+
+/* style commun pour toutes les sections */
+.tab-pane {
+  border-radius: 20px;
+  background-color: white;
+  padding: 50px;                
+  margin: 0px 0;             
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1); 
+  overflow: hidden;
+}
+
+/* style spécifique pour chaque section */
+#selection-content,
+#filtering-content,
+#config-content,
+#results-content {
+  margin-top: 10px;           
+  margin-bottom: 20px;         
+  border-top: 12px solid #3498db;
+}
+
+/* Ajout d'espacement pour les éléments à l'intérieur des sections */
+.card {
+  margin-bottom: 30px;         /* epacement entre les cartes */
+}
+
+.card-header {
+  padding: 25px;              /* d'espace dans les en-têtes */
+}
+
+.card-body {
+  padding: 30px;              /* d'espace dans le corps des cartes */
+}
+
+/* Espacement pour les groupes de formulaires */
+.form-group {
+  margin-bottom: 25px;        
+}
+
+/* Espacement pour les rangées */
+.row {
+  margin-bottom: 30px;       
+}
+
+
+/* Barre d'onglets principale - fond blanc qui s'étend sur toute la largeur */
+.container .nav-tabs,
+#main-tabs {
+  width: 100%;
+  background-color: white;
+  border-bottom: 1px solid #dee2e6;
+  padding: 0.5rem 0;
+  margin: 0 !important;
+  display: flex;
+  justify-content: flex-start;
+}
+
+/* Alignement avec le titre "Pilotage" */
+.container .nav-tabs .nav-item:first-child,
+#main-tabs .nav-item:first-child {
+  margin-left: 290px; /* Ajustez cette valeur pour aligner avec "Pilotage" */
+}
+
+/* Conteneur des onglets */
+.container.mt-4.mb-3 {
+  max-width: 100% !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  margin: 0 !important;
+  background-color: white;
+}
+
+/* Style des onglets individuels */
+.container .nav-tabs .nav-link,
+#main-tabs .nav-link {
+  color: #0056b3;
+  font-weight: 500;
+  padding: 0.5rem 1.5rem;
+  margin: 0 5px;
+  border: none;
+}
+
+/* style de l'onglet actif */
+.container .nav-tabs .nav-link.active,
+#main-tabs .nav-link.active {
+  color: #0056b3;
+  font-weight: 800;
+  background-color: transparent;
+}
+
+/* Sélecteurs très spécifiques et forçage avec !important */
+header.bg-primary {
+  margin-bottom: 0 !important;
+  padding-bottom: 0 !important;
+  border-bottom: 0 !important;
+}
+
+/* Cibler spécifiquement le conteneur des onglets */
+.container.mt-4.mb-3,
+div.container[class*="mt-"][class*="mb-"] {
+  margin: 0 !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+/* forcer tous les éléments entre l'en-tête et le contenu à ne pas avoir d'espace */
+body > header ~ div:not(.tab-content) {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* forcer la suppression de tous les espaces entre éléments consécutifs */
+* + * {
+  margin-top: 0 !important;
+}
+
+/* ajout*/ 
+
+.rules-container {
+  max-height: 400px; /* hauteur fixe */
+  overflow-y: auto;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 10px;
+  background: #f9f9f9;
+}
+
+.rule-box {
+  background: #fff;
+  border: 1px solid #dee2e6;
+  border-left: 4px solid #0d6efd;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 6px;
+  font-family: monospace;
+  white-space: pre-wrap;
+  font-size: 13px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.rule-box.selected {
+  background-color: #e3f2fd;
+  border-left-color: #198754;
+}
+
+.rule-header {
+  font-weight: bold;
+  color: #0d6efd;
+  margin-bottom: 5px;
+  font-size: 14px;
+}
+
+.rule-content {
+  font-family: monospace;
+  white-space: pre-wrap;
+  font-size: 13px;
+}
+
+/* JSON Coloration */
+.rule-content .key     { color: #d63384; }
+.rule-content .string  { color: #198754; }
+.rule-content .number  { color: #fd7e14; }
+.rule-content .boolean { color: #6610f2; }
+.rule-content .null    { color: #6c757d; }
+
+.table-responsive {
+  max-height: 600px;
+  overflow-y: auto;
+}
+
+.rule-checkbox {
+  cursor: pointer;
+}
+
+tr.selected {
+  background-color: rgba(0, 123, 255, 0.1) !important;
+}
+
+.badge {
+  font-size: 0.8em;
+  padding: 0.4em 0.6em;
+}
+
+#rules-search {
+  min-width: 200px;
+}
+
+tr.inactive {
+  opacity: 0.6;
+  background-color: #f5f5f5 !important;
+}
+
+.table-responsive {
+  max-height: 500px;
+  overflow-y: auto;
+}
+
+.table thead {
+  position: sticky;
+  top: 0;
+  background-color: white;
+  z-index: 1;
+  border-bottom: 2px solid #dee2e6;
+}
+
+
+/* ajout de la possibilité de trier les colonnes */
+.sortable {
+  cursor: pointer;
+  position: relative;
+}
+
+.sort-icon::after {
+  content: "⇵";
+  opacity: 0.3;
+  margin-left: 5px;
+  font-size: 12px;
+}
+
+.sortable.asc .sort-icon::after {
+  content: "↑";
+  opacity: 1;
+}
+
+.sortable.desc .sort-icon::after {
+  content: "↓";
+  opacity: 1;
+}
+
+/* Garder l'en-tête lors du défilement */
+.table thead {
+  position: sticky;
+  top: 0;
+  background-color: white;
+  z-index: 1;
+  border-bottom: 2px solid #dee2e6;
+}
+
+
+/* pour produire une affichage correcte dans resulat.js */
+
+:root {
+  /* Couleurs */
+  --white: #fff;
+  --gray-100: #f8f9fa;
+  --gray-200: #e9ecef;
+  --gray-300: #dee2e6;
+  --gray-400: #adb5bd;
+  --gray-500: #6c757d;
+  --gray-600: #495057;
+  --gray-700: #2b2d42;
+  --blue: #4361ee;
+  --success: #28a745;
+  --warning: #ffc107;
+  --danger: #dc3545;
+  
+  /* Tailles */
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 10px;
+  --gap-sm: 8px;
+  --gap-md: 12px;
+  --gap-lg: 15px;
+  
+  /* Polices */
+  --text-xs: 0.7rem;
+  --text-sm: 0.8rem;
+  --text-md: 0.9rem;
+  --text-lg: 1.1rem;
+  --text-xl: 1.3rem;
+  --text-2xl: 1.8rem;
+}
+
+/* Structure */
+.stats-wrapper {
+  display: flex;
+  gap: var(--gap-lg);
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  
+}
+/*
+.stats-column {
+  flex: 1;
+  min-width: 0;
+  padding: var(--gap-lg);
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  
+  
+  width: 48%; 
+  min-width: 500px; 
+  max-width: 800px;
+  
+  height: auto; 
+  min-height: 400px;
+}*/
+.stats-column {
+  flex: 1 1 48%;
+  padding: var(--gap-lg);
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+
+  min-width: 420px;
+  max-width: 800px;
+  min-height: 400px;
+}
+
+
+/* Titres */
+.column-title {
+  font-size: var(--text-lg);
+  margin-bottom: 1.2rem;
+  padding-bottom: var(--gap-sm);
+  border-bottom: 1px solid var(--gray-300);
+  display: flex;
+  align-items: center;
+  gap: var(--gap-sm);
+}
+
+/* Cartes communes */
+.stat-item,
+.metric-card,
+.indicator,
+.time-card {
+  display: flex;
+  align-items: center;
+  gap: var(--gap-md);
+  padding: var(--gap-md);
+  border-radius: var(--radius-md);
+  background: var(--gray-100);
+}
+
+/* Colonne Résultats */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--gap-md);
+}
+
+.stat-item i {
+  font-size: var(--text-2xl);
+  padding: var(--gap-sm);
+  border-radius: var(--radius-sm);
+  background: rgba(255,255,255,0.7);
+}
+
+.stat-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.stat-content .value {
+  font-size: var(--text-xl);
+  font-weight: 700;
+}
+
+.stat-content .label {
+  font-size: var(--text-sm);
+  color: var(--gray-500);
+}
+
+/* Colonne Performance */
+.performance-stats {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-lg);
+}
+
+.time-card {
+  background: linear-gradient(135deg, var(--gray-100), var(--gray-200));
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: var(--gap-sm);
+  font-size: var(--text-md);
+  color: var(--gray-600);
+  margin-bottom: 10px;
+}
+
+.main-value {
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  color: var(--gray-700);
+  margin: 5px 0;
+}
+
+.time-details {
+  display: flex;
+  gap: var(--gap-lg);
+  font-size: var(--text-sm);
+  color: var(--gray-500);
+}
+
+.time-details span {
+  font-weight: 500;
+  color: var(--gray-600);
+}
+
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--gap-md);
+}
+
+.metric-card i {
+  font-size: var(--text-xl);
+  color: var(--blue);
+}
+
+.metric-value {
+  font-size: var(--text-xl);
+  font-weight: 700;
+}
+
+.metric-label {
+  font-size: var(--text-sm);
+  color: var(--gray-500);
+}
+
+.metric-detail {
+  font-size: var(--text-xs);
+  color: var(--gray-400);
+  margin-top: 2px;
+}
+
+/* Indicateurs clés */
+.key-indicators {
+  display: flex;
+  gap: var(--gap-md);
+  margin-bottom: var(--gap-lg);
+}
+
+.indicator i {
+  font-size: var(--text-2xl);
+}
+
+.indicator-value {
+  font-size: var(--text-xl);
+  font-weight: 700;
+  line-height: 1;
+}
+
+.indicator-label {
+  font-size: var(--text-sm);
+  opacity: 0.9;
+}
+
+.indicator-detail {
+  font-size: var(--text-xs);
+  opacity: 0.7;
+  margin-top: 2px;
+}
+
+.indicator.success {
+  background-color: rgba(40, 167, 69, 0.1);
+  color: var(--success);
+}
+
+.indicator.efficiency {
+  background-color: rgba(255, 193, 7, 0.1);
+  color: var(--warning);
+}
+
+.indicator.purity {
+  background-color: rgba(220, 53, 69, 0.1);
+  color: var(--danger);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .stats-wrapper {
+    flex-direction: column;
+  }
+  
+  .stats-grid,
+  .metrics-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .key-indicators {
+    flex-direction: column;
+  }
+}
+
 

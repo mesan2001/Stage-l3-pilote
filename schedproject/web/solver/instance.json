@@ -1,0 +1,425 @@
+{
+    "timetabling": {
+        "courses": [
+            {
+                "id": 103,
+                "label": "coursename:Fondements de l'informatique 4 - P11,coursenumber:TIN3101U,elpccode:CHAR,elpname:Charges d'Enseignement,cnucode:27,cnuname:Informatique,periodname:P\u00e9riode 11,periodcode:P11,period_id:19,formation_id:TL3IN11,periodname:P\u00e9riode 11,periodcode:P11,period_id:19,formation_id:TL3INS11,periodname:P\u00e9riode 11,periodcode:P11,period_id:19,formation_id:TL3MAI11",
+                "parts": [
+                    {
+                        "allowedRooms": {
+                            "rooms": [38, 49, 59, 60, 25, 55, 39, 86],
+                            "sessionRooms": "single"
+                        },
+                        "allowedSlots": {
+                            "dailySlots": "480,540,600,660,720,780,840,900,960,1020,1080",
+                            "days": "1,2,3,4,5",
+                            "sessionLength": 80,
+                            "weeks": "1,2,3,4,5,6,7,8,9,10"
+                        },
+                        "allowedTeachers": {
+                            "sessionTeachers": "1",
+                            "teachers": [{ "id": 31, "nrSessions": "7" }]
+                        },
+                        "classes": {
+                            "items": [
+                                {
+                                    "id": 1,
+                                    "label": "name:Fondements de l'informatique 4 - P11-lecture-0[L3 Informatique-lecture-2, L3 Informatique-lecture-3, L3 Informatique-lecture-4, L3 Informatique-lecture-1],modality_id:148,modality_id:148,name:L3 Informatique-lecture-2,modality_id:148,name:L3 Informatique-lecture-3,modality_id:148,name:L3 Informatique-lecture-4,modality_id:148,name:L3 Informatique-lecture-1,session_teacher:None,session_rooms:None,session_length:None,hours:10,modality:lecture,course_id:103"
+                                }
+                            ],
+                            "maxHeadCount": 80
+                        },
+                        "id": 148,
+                        "label": "course_id:103,modality:lecture,hours:10,session_length:None,session_rooms:None,session_teacher:None,cnuname:Informatique,cnucode:27,elpname:Charges d'Enseignement,elpccode:CHAR,coursenumber:TIN3101U,coursename:Fondements de l'informatique 4 - P11",
+                        "nrSessions": 7,
+                        "sessionLength": 80,
+                        "sessionRooms": "single",
+                        "sessionTeachers": "1"
+                    },
+                    {
+                        "allowedRooms": {
+                            "rooms": [68, 31, 26],
+                            "sessionRooms": "single"
+                        },
+                        "allowedSlots": {
+                            "dailySlots": "480,540,600,660,720,780,840,900,960,1020,1080",
+                            "days": "1,2,3,4,5",
+                            "sessionLength": 80,
+                            "weeks": "1,2,3,4,5,6,7,8,9,10"
+                        },
+                        "allowedTeachers": {
+                            "sessionTeachers": "1",
+                            "teachers": [{ "id": 35, "nrSessions": "14" }]
+                        },
+                        "classes": {
+                            "items": [
+                                {
+                                    "id": 2,
+                                    "label": "name:Fondements de l'informatique 4 - P11-tutorial-0[L3 Informatique-tutorial-1, L3 Informatique-tutorial-4],modality_id:149,modality_id:149,name:L3 Informatique-tutorial-1,modality_id:149,name:L3 Informatique-tutorial-4,session_teacher:None,session_rooms:None,session_length:None,hours:10,modality:tutorial,course_id:103"
+                                },
+                                {
+                                    "id": 3,
+                                    "label": "name:Fondements de l'informatique 4 - P11-tutorial-1[L3 Informatique-tutorial-2, L3 Informatique-tutorial-3],modality_id:149,modality_id:149,name:L3 Informatique-tutorial-2,modality_id:149,name:L3 Informatique-tutorial-3,session_teacher:None,session_rooms:None,session_length:None,hours:10,modality:tutorial,course_id:103"
+                                }
+                            ],
+                            "maxHeadCount": 40
+                        },
+                        "id": 149,
+                        "label": "course_id:103,modality:tutorial,hours:10,session_length:None,session_rooms:None,session_teacher:None,cnuname:Informatique,cnucode:27,elpname:Charges d'Enseignement,elpccode:CHAR,coursenumber:TIN3101U,coursename:Fondements de l'informatique 4 - P11",
+                        "nrSessions": 7,
+                        "sessionLength": 80,
+                        "sessionRooms": "single",
+                        "sessionTeachers": "1"
+                    }
+                ]
+            }
+        ],
+        "name": "University Fall Semester 2023",
+        "nrDaysPerWeek": 5,
+        "nrSlotsPerDay": 12,
+        "nrWeeks": 15,
+        "rooms": [
+            {
+                "capacity": 44,
+                "id": 25,
+                "label": "name:I002,capacity:44,annee:2024,nosalle:143451,codesalle:I002,site:Angers - Belle-Beille,building:I,type:Salle de cours,departement:UFR_S"
+            },
+            {
+                "capacity": 44,
+                "id": 26,
+                "label": "name:I003,capacity:44,annee:2024,nosalle:143452,codesalle:I003,site:Angers - Belle-Beille,building:I,type:Salle de cours,departement:UFR_S"
+            },
+            {
+                "capacity": 2,
+                "id": 86,
+                "label": "name:A203,capacity:2,annee:2024,nosalle:324214,codesalle:A203 examen 1/3 tps,site:Angers - Belle-Beille,building:A,type:Salle d'examen,departement:UFR_S"
+            },
+            {
+                "capacity": 100,
+                "id": 31,
+                "label": "name:L001,capacity:100,annee:2024,nosalle:143458,codesalle:AMPHI L001,site:Angers - Belle-Beille,building:L,type:AMPHI,departement:UFR_S"
+            },
+            {
+                "capacity": 58,
+                "id": 38,
+                "label": "name:L004,capacity:58,annee:2024,nosalle:143461,codesalle:AMPHI L004,site:Angers - Belle-Beille,building:L,type:Salle d'examen,departement:UFR_S"
+            },
+            {
+                "capacity": 150,
+                "id": 39,
+                "label": "name:L005,capacity:150,annee:2024,nosalle:143462,codesalle:AMPHI L005,site:Angers - Belle-Beille,building:L,type:AMPHI,departement:UFR_S"
+            },
+            {
+                "capacity": 20,
+                "id": 49,
+                "label": "name:L107,capacity:20,annee:2024,nosalle:143470,codesalle:L107 Multim\u00e9dia & Visioconf\u00e9rence - M2 TEH (clef \u00e0 l'Accueil),site:Angers - Belle-Beille,building:L,type:Salle de conf\u00e9rences,departement:UFR_S"
+            },
+            {
+                "capacity": 46,
+                "id": 55,
+                "label": "name:L204,capacity:46,annee:2024,nosalle:143477,codesalle:L204 Multim\u00e9dia,site:Angers - Belle-Beille,building:L,type:Salle multi-m\u00e9dias,departement:UFR_S"
+            },
+            {
+                "capacity": 24,
+                "id": 59,
+                "label": "name:L207,capacity:24,annee:2024,nosalle:143480,codesalle:L207 Multim\u00e9dia,site:Angers - Belle-Beille,building:L,type:Salle multi-m\u00e9dias,departement:UFR_S"
+            },
+            {
+                "capacity": 24,
+                "id": 60,
+                "label": "name:L208,capacity:24,annee:2024,nosalle:143481,codesalle:L208 Multim\u00e9dia,site:Angers - Belle-Beille,building:L,type:Salle multi-m\u00e9dias,departement:UFR_S"
+            },
+            {
+                "capacity": 18,
+                "id": 68,
+                "label": "name:L230,capacity:18,annee:2024,nosalle:143490,codesalle:L230 Multim\u00e9dia A,site:Angers - Belle-Beille,building:L,type:Salle multi-m\u00e9dias,departement:UFR_S"
+            }
+        ],
+        "rules": [
+            {
+                "constraint": { "name": "noOverlap", "type": "hard" },
+                "id": 1,
+                "labels": ["student_no_overlap"],
+                "selector": [{ "filter": "", "generator": "(student, *)" }]
+            },
+            {
+                "constraint": { "name": "noOverlap", "type": "hard" },
+                "id": 2,
+                "labels": ["teacher_no_overlap"],
+                "selector": [{ "filter": "", "generator": "(teacher, *)" }]
+            },
+            {
+                "constraint": { "name": "noOverlap", "type": "hard" },
+                "id": 3,
+                "labels": ["room_no_overlap"],
+                "selector": [{ "filter": "", "generator": "(room, *)" }]
+            },
+            {
+                "constraint": { "name": "sameRooms", "type": "hard" },
+                "id": 4,
+                "labels": ["scheduling_rule"],
+                "selector": [
+                    { "filter": "course[id='103']", "generator": "(class, *)" }
+                ]
+            },
+            {
+                "constraint": {
+                    "name": "periodic",
+                    "parameters": [
+                        [
+                            { "type": "value", "value": "1" },
+                            { "type": "unit", "value": "week" }
+                        ]
+                    ],
+                    "type": "hard"
+                },
+                "id": 5,
+                "labels": ["lecture_spacing"],
+                "selector": [
+                    { "filter": "part[id='148']", "generator": "(class, {1})" }
+                ]
+            },
+            {
+                "constraint": { "name": "sequenced", "type": "hard" },
+                "id": 6,
+                "labels": ["tutorial_after_lecture"],
+                "selector": [
+                    { "filter": "part[id='148']", "generator": "(class, {1})" },
+                    { "filter": "part[id='149']", "generator": "(class, {2})" }
+                ]
+            }
+        ],
+        "solution": {
+            "groups": [
+                {
+                    "classes": [1],
+                    "headcount": 20,
+                    "id": 1,
+                    "students": [
+                        1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16,
+                        17, 18, 19, 20
+                    ]
+                },
+                {
+                    "classes": [1],
+                    "headcount": 20,
+                    "id": 2,
+                    "students": [
+                        21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34,
+                        35, 36, 37, 38, 39, 40
+                    ]
+                },
+                {
+                    "classes": [1],
+                    "headcount": 20,
+                    "id": 3,
+                    "students": [
+                        41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54,
+                        55, 56, 57, 58, 59, 60
+                    ]
+                },
+                {
+                    "classes": [1],
+                    "headcount": 20,
+                    "id": 4,
+                    "students": [
+                        61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74,
+                        75, 76, 77, 78, 79, 80
+                    ]
+                },
+                {
+                    "classes": [2],
+                    "headcount": 20,
+                    "id": 5,
+                    "students": [
+                        1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16,
+                        17, 18, 19, 20
+                    ]
+                },
+                {
+                    "classes": [3],
+                    "headcount": 20,
+                    "id": 6,
+                    "students": [
+                        21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34,
+                        35, 36, 37, 38, 39, 40
+                    ]
+                },
+                {
+                    "classes": [3],
+                    "headcount": 20,
+                    "id": 7,
+                    "students": [
+                        41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54,
+                        55, 56, 57, 58, 59, 60
+                    ]
+                },
+                {
+                    "classes": [2],
+                    "headcount": 20,
+                    "id": 8,
+                    "students": [
+                        61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74,
+                        75, 76, 77, 78, 79, 80
+                    ]
+                }
+            ]
+        },
+        "students": [
+            { "courses": [103], "id": 1, "name": "Th\u00e9r\u00e8se Maillot" },
+            { "courses": [103], "id": 2, "name": "Honor\u00e9 Carre-Jourdan" },
+            { "courses": [103], "id": 3, "name": "Jeannine Normand" },
+            { "courses": [103], "id": 4, "name": "Arnaude de la Rousseau" },
+            { "courses": [103], "id": 5, "name": "Capucine Peltier" },
+            { "courses": [103], "id": 6, "name": "Eug\u00e8ne Lucas" },
+            { "courses": [103], "id": 7, "name": "Sophie de Salmon" },
+            { "courses": [103], "id": 8, "name": "Daniel Deschamps" },
+            {
+                "courses": [103],
+                "id": 9,
+                "name": "Virginie-Marthe Mar\u00e9chal"
+            },
+            {
+                "courses": [103],
+                "id": 10,
+                "name": "Jacqueline Navarro-Hoareau"
+            },
+            { "courses": [103], "id": 11, "name": "Raymond-Marc Lecomte" },
+            { "courses": [103], "id": 12, "name": "Marie Salmon" },
+            { "courses": [103], "id": 13, "name": "Andr\u00e9e du Andre" },
+            { "courses": [103], "id": 14, "name": "Thomas Guillot" },
+            { "courses": [103], "id": 15, "name": "S\u00e9bastien Baron" },
+            { "courses": [103], "id": 16, "name": "Sophie de la Henry" },
+            {
+                "courses": [103],
+                "id": 17,
+                "name": "J\u00e9r\u00f4me De Sousa Le Pr\u00e9vost"
+            },
+            { "courses": [103], "id": 18, "name": "Gr\u00e9goire Guillon" },
+            { "courses": [103], "id": 19, "name": "Guy Renard" },
+            { "courses": [103], "id": 20, "name": "Victor Dupont" },
+            {
+                "courses": [103],
+                "id": 21,
+                "name": "St\u00e9phane Le Deschamps"
+            },
+            { "courses": [103], "id": 22, "name": "Maryse Chevalier" },
+            { "courses": [103], "id": 23, "name": "Andr\u00e9e Paul" },
+            { "courses": [103], "id": 24, "name": "Alix de Guillet" },
+            {
+                "courses": [103],
+                "id": 25,
+                "name": "Georges Martinez Le Briand"
+            },
+            { "courses": [103], "id": 26, "name": "Val\u00e9rie Samson" },
+            { "courses": [103], "id": 27, "name": "Louise de la Garcia" },
+            { "courses": [103], "id": 28, "name": "Benjamin Gosselin" },
+            {
+                "courses": [103],
+                "id": 29,
+                "name": "Fr\u00e9d\u00e9rique du Moreau"
+            },
+            { "courses": [103], "id": 30, "name": "Manon Pons" },
+            { "courses": [103], "id": 31, "name": "Margaux Torres" },
+            { "courses": [103], "id": 32, "name": "Zacharie Carpentier" },
+            { "courses": [103], "id": 33, "name": "Th\u00e9odore du Pierre" },
+            { "courses": [103], "id": 34, "name": "Georges Rodriguez" },
+            { "courses": [103], "id": 35, "name": "\u00c9lodie Huet" },
+            { "courses": [103], "id": 36, "name": "Michelle Coulon" },
+            { "courses": [103], "id": 37, "name": "G\u00e9rard Thomas" },
+            {
+                "courses": [103],
+                "id": 38,
+                "name": "St\u00e9phane Voisin-Buisson"
+            },
+            { "courses": [103], "id": 39, "name": "Victoire Bodin-Valentin" },
+            { "courses": [103], "id": 40, "name": "Marie Valette du Hardy" },
+            { "courses": [103], "id": 41, "name": "Hugues Garnier" },
+            { "courses": [103], "id": 42, "name": "Augustin Picard" },
+            {
+                "courses": [103],
+                "id": 43,
+                "name": "Henri-Beno\u00eet Charpentier"
+            },
+            {
+                "courses": [103],
+                "id": 44,
+                "name": "Fr\u00e9d\u00e9rique Chauveau"
+            },
+            { "courses": [103], "id": 45, "name": "Audrey Perez-Lefort" },
+            { "courses": [103], "id": 46, "name": "Georges Bousquet-Merle" },
+            { "courses": [103], "id": 47, "name": "Louis Fischer-Devaux" },
+            { "courses": [103], "id": 48, "name": "Hortense Pascal du Leleu" },
+            { "courses": [103], "id": 49, "name": "Joseph Thomas" },
+            {
+                "courses": [103],
+                "id": 50,
+                "name": "Fr\u00e9d\u00e9ric Dupr\u00e9"
+            },
+            { "courses": [103], "id": 51, "name": "C\u00e9cile Roy-Peltier" },
+            { "courses": [103], "id": 52, "name": "\u00c9ric Rocher" },
+            { "courses": [103], "id": 53, "name": "Ad\u00e8le Gu\u00e9rin" },
+            {
+                "courses": [103],
+                "id": 54,
+                "name": "G\u00e9rard Samson de la Dias"
+            },
+            {
+                "courses": [103],
+                "id": 55,
+                "name": "Christophe-\u00c9tienne Riou"
+            },
+            {
+                "courses": [103],
+                "id": 56,
+                "name": "Christiane Leli\u00e8vre du Ruiz"
+            },
+            { "courses": [103], "id": 57, "name": "Philippe Verdier" },
+            {
+                "courses": [103],
+                "id": 58,
+                "name": "Richard Guillaume de Chauveau"
+            },
+            {
+                "courses": [103],
+                "id": 59,
+                "name": "Alexandre-J\u00e9r\u00f4me Fernandes"
+            },
+            { "courses": [103], "id": 60, "name": "Alphonse Gr\u00e9goire" },
+            { "courses": [103], "id": 61, "name": "Zo\u00e9 Hamon" },
+            { "courses": [103], "id": 62, "name": "\u00c9dith Lagarde" },
+            { "courses": [103], "id": 63, "name": "G\u00e9rard Guyon-Denis" },
+            { "courses": [103], "id": 64, "name": "Lucas-Georges Bonnet" },
+            { "courses": [103], "id": 65, "name": "William Rolland" },
+            { "courses": [103], "id": 66, "name": "Louise Fran\u00e7ois" },
+            { "courses": [103], "id": 67, "name": "Pauline Lebreton" },
+            { "courses": [103], "id": 68, "name": "Jeannine Bouvier" },
+            { "courses": [103], "id": 69, "name": "Raymond Renaud" },
+            { "courses": [103], "id": 70, "name": "Philippe Chauvet" },
+            { "courses": [103], "id": 71, "name": "Martin Blanc-Leblanc" },
+            { "courses": [103], "id": 72, "name": "Benjamin Roche" },
+            { "courses": [103], "id": 73, "name": "Emmanuel Roux" },
+            { "courses": [103], "id": 74, "name": "Aim\u00e9e Le Couturier" },
+            { "courses": [103], "id": 75, "name": "Andr\u00e9 Mar\u00e9chal" },
+            {
+                "courses": [103],
+                "id": 76,
+                "name": "Henriette Guibert de la Andre"
+            },
+            { "courses": [103], "id": 77, "name": "Gabrielle Morin" },
+            { "courses": [103], "id": 78, "name": "Camille Duval" },
+            { "courses": [103], "id": 79, "name": "Louise Schmitt" },
+            { "courses": [103], "id": 80, "name": "Alain \u00c9tienne" }
+        ],
+        "teachers": [
+            {
+                "id": 35,
+                "label": "name:isaac,lastname:torres,volumehoraireannee:2024,oraganization_component:Facult\u00e9 des Sciences,hourly_volume:102,code_fonction:ENS,code_unite:DEP:P"
+            },
+            {
+                "id": 31,
+                "label": "name:olivier,lastname:maillard,volumehoraireannee:2024,oraganization_component:Facult\u00e9 des Sciences,hourly_volume:100,code_fonction:ENS,code_unite:DEP:I"
+            }
+        ]
+    }
+}

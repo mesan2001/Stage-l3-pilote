@@ -1,0 +1,137 @@
+.welcome-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: #f8f9fa;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    padding: 20px;
+  }
+  
+  .welcome-content {
+    max-width: 900px;
+    text-align: center;
+    background-color: white;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  }
+  
+  .welcome-content h1 {
+    color: #0d6efd;
+    margin-bottom: 20px;
+    font-size: 2.5rem;
+  }
+  
+  .welcome-description {
+    font-size: 1.2rem;
+    color: #6c757d;
+    margin-bottom: 40px;
+  }
+  
+  .options-container {
+    display: flex;
+    gap: 30px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  
+  .option-card {
+    flex: 1 1 300px;
+    max-width: 400px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    padding: 30px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s, box-shadow 0.3s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  
+  .option-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  }
+  
+  .option-icon {
+    font-size: 3rem;
+    margin-bottom: 20px;
+    height: 80px;
+    width: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+  }
+  
+  .option-card:first-child .option-icon {
+    color: #0d6efd;
+    background-color: rgba(13, 110, 253, 0.1);
+  }
+  
+  .option-card:last-child .option-icon {
+    color: #198754;
+    background-color: rgba(25, 135, 84, 0.1);
+  }
+  
+  .option-card h2 {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+    color: #212529;
+  }
+  
+  .option-card p {
+    color: #6c757d;
+    margin-bottom: 30px;
+    flex-grow: 1;
+  }
+  
+  .option-card .btn {
+    width: 100%;
+    padding: 10px 20px;
+  }
+  
+  .config-details {
+    background-color: #f8f9fa;
+    padding: 15px;
+    border-radius: 5px;
+    margin-top: 15px;
+  }
+  
+  .config-details h6 {
+    margin-bottom: 15px;
+    color: #0d6efd;
+  }
+  
+  .config-details dt {
+    font-weight: 600;
+    color: #495057;
+  }
+  
+  @media (max-width: 767px) {
+    .welcome-content {
+      padding: 30px 20px;
+    }
+    
+    .option-card {
+      padding: 20px;
+    }
+    
+    .welcome-content h1 {
+      font-size: 2rem;
+    }
+  }
+
+  .modal {
+    z-index: 10000;
+  }
+  
+  .modal-backdrop {
+    z-index: 9999;
+  }

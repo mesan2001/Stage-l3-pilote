@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS lecturers (id SERIAL PRIMARY KEY, name TEXT, lastname TEXT);

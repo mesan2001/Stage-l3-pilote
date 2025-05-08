@@ -1,0 +1,137 @@
+/* Styles pour les onglets principaux */
+.container .nav-tabs {
+    border-bottom: none;
+    background-color: #e9ecef;
+    border-radius: 8px 8px 0 0;
+    padding: 0.5rem 0.5rem 0;
+  }
+  
+  .container .nav-tabs .nav-link {
+    border: 1px solid #ced4da;
+    background-color: #f8f9fa;
+    border-bottom: none;
+    border-radius: 6px 6px 0 0;
+    margin-right: 4px;
+    color: #495057;
+    font-weight: 500;
+    padding: 0.75rem 1.25rem;
+  }
+  
+  .container .nav-tabs .nav-link.active {
+    background-color: #fff;
+    border-bottom: 1px solid #fff;
+    color: #3498db;
+    font-weight: 600;
+  }
+  
+  /* style pour les boutons de configuration */
+.card-header .btn-group .btn {
+  padding: 10px 20px !important;        
+  font-size: 1.1rem !important;         
+  font-weight: 600 !important;          
+}
+
+/*  style spécifique pour le groupe de boutons */
+.card-header .btn-group {
+  padding: 5px !important;             
+  margin-top: 15px !important;       
+}
+  /* Styles pour les sous-onglets de configuration */
+  .config-subtabs {
+    background-color: #f0f0f0;
+    border-radius: 4px;
+    padding: 10px 10px 0;
+    border-bottom: 1px solid #dee2e6;
+  }
+  
+  .config-subtabs .nav-link {
+    padding: 0.6rem 1rem;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    background-color: #f8f9fa;
+    color: #495057;
+    font-weight: 500;
+    transition: all 0.2s ease;
+  }
+  
+  .config-subtabs .nav-link.active {
+    background-color: #005a9c;
+    color: white;
+    border-color: #005a9c;
+  }
+  
+  .config-subtabs .nav-link:hover:not(.active) {
+    background-color: #e9ecef;
+    border-color: #ced4da;
+  }
+  
+  /* conteneur des sous-onglets */
+  #config-subtabs-content {
+    background-color: white;
+    border: 1px solid #dee2e6;
+    border-top: none;
+    border-radius: 0 0 4px 4px;
+  }
+  
+  /* titres dans les sections de configuration */
+  .card-header h3 {
+    font-size: 1.25rem;
+    margin-bottom: 0;
+    color: #343a40;
+  }
+  
+  /* les boutons d'action */
+  #start-solver, #launch-solver {
+    background-color: #28a745;
+    border-color: #28a745;
+    font-weight: 500;
+  }
+  
+  #start-solver:hover, #launch-solver:hover {
+    background-color: #218838;
+    border-color: #1e7e34;
+  }
+  
+  /* style pour les cards dans les sous-onglets */
+  #config-subtabs-content .card {
+    border: 1px solid #e9ecef;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  }
+  
+  #config-subtabs-content .card-header {
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #e9ecef;
+  }
+  
+  /* adaptation pour mobile */
+  @media (max-width: 768px) {
+    .config-subtabs {
+      flex-direction: column;
+    }
+    
+    .config-subtabs .nav-item {
+      margin-bottom: 5px;
+    }
+    
+    .config-subtabs .nav-link {
+      width: 100%;
+      text-align: center;
+    }
+  }
+
+/* styles très spécifiques pour les onglets principaux */
+#main-tabs .nav-link, 
+ul#main-tabs > li.nav-item > button.nav-link {
+  font-size: 1.2rem !important;
+  font-weight: 700 !important;
+  color: #3d5e5f !important;
+}
+
+#main-tabs .nav-link.active, 
+ul#main-tabs > li.nav-item > button.nav-link.active {
+  font-size: 1.2rem !important;
+  font-weight: 700 !important;
+  color: #1a73e8 !important;
+}

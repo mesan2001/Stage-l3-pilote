@@ -1,0 +1,15 @@
+controller:
+    type: postgresql
+
+posgresql-controller:
+    host: localhost
+    port: 5432
+    username: postgres
+    password: mysecretpassword
+    transaction-strategy : per-table
+
+database-api-controler:
+    host: 0.0.0.0
+    debug: True
+
+web:

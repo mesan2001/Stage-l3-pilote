@@ -1,0 +1,3 @@
+stage_lecturer_1.unit,NEW.code_fonction,stage_lecturer_1.unit,NEW.code_unite,stage_lecturer_1.unit,DELETE.unit,stage_lecturer_1.codeserviceaffectation,DELETE.codeserviceaffectation,stage_lecturer_1.type,DELETE.type,stage_lecturer_1.uuidenseignant,DELETE.uuidenseignant
+^.*\[ENS\]$,ENS,^DEP:(.)\[.*\]$,DEP:$1,,,,,,,,
+^.*\[SEC\]$,SEC,^DEP:(..)\[.*\]$,DEP:$1,,,,,,,,

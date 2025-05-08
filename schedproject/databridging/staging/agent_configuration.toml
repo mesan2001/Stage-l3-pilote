@@ -1,0 +1,14 @@
+[MAIN]
+name = "Agent staging"
+workdir = "."
+
+[IO]
+datasources = ["raw_agent"]
+datamarts = ["stage_lecturer_2 as lecturers"]
+
+[STAGING]
+files = [
+    "sql/staging_agent_filtering.sql",
+    "csv/stage_lecturer_1.csv",
+    "csv/stage_lecturer_2.csv",
+]

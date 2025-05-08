@@ -1,0 +1,8 @@
+pyrightconfig.json
+staging/**
+**/__pycache__/**
+populating_database.py
+key
+data/**
+./staging
+data

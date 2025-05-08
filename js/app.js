@@ -51,7 +51,8 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   // Fonction pour générer le JSON de configuration 
-  function generateConfigJSON() {
+  //window.generateConfigJSON = function(){} rend la fonction accessible de maniere global
+  window.generateConfigJSON = function() {
     const config = {
       time_out: document.getElementById("time-out").value + "s",
       vars: getVarsStrategies(),
@@ -88,10 +89,9 @@ document.addEventListener("DOMContentLoaded", function () {
     if (jsonTextarea) {
       jsonTextarea.value = JSON.stringify(config, null, 2);
     }
-
+    
     return config;
   }
-
   // Fonction pour récupérer les stratégies des variables
   function getVarsStrategies() {
     const strategies = [];
@@ -347,7 +347,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
   ////  Fonction pour charger la config dans le formulaire 
-  function loadConfigIntoForm(config) {
+  window.loadConfigIntoForm = function(config){
     // Activer le mode avancé pour montrer le JSON
     if (advancedModeToggle && advancedModeSection) {
       advancedModeToggle.checked = true;
@@ -456,47 +456,55 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  ////  Gestion du lancement du solveur 
  // const startSolverBtn = document.getElementById("start-solver");
-  if (startSolverBtn) {
-    startSolverBtn.addEventListener("click", function (e) {
-      if (!handleButtonAction(e)) return; // Bloquer si erreurs
-      // Afficher la section résultats
-      const resultsContent = document.getElementById("results-content");
-      if (resultsContent) {
-        resultsContent.style.display = "block";
+// Gestionnaire pour le bouton "Lancer le solveur"
+if (startSolverBtn) {
+  startSolverBtn.addEventListener("click", function (e) {
+    if (!handleButtonAction(e)) return; // Bloquer si erreurs
+
+    // Activer l'onglet Résultats en utilisant Bootstrap Tab
+    const resultsTab = document.getElementById('results-tab');
+    if (resultsTab) {
+      const tab = new bootstrap.Tab(resultsTab);
+      tab.show();
+    }
+
+    // Afficher la section résultats
+    const resultsContent = document.getElementById("results-content");
+    if (resultsContent) {
+      resultsContent.classList.add('show', 'active');
+    }
+
+    // Afficher le panneau de résumé de la solution
+    const resultsContentPanel = document.getElementById("results-content-panel");
+    if (resultsContentPanel) {
+      resultsContentPanel.style.display = "block";
+    }
+
+    // Mettre à jour le statut
+    const solverStatus = document.getElementById("solver-status");
+    if (solverStatus) {
+      solverStatus.textContent = "En cours...";
+      solverStatus.className = "badge bg-warning";
+    }
+
+    // Réinitialiser la barre de progression
+    const progressBar = document.getElementById("solver-progress");
+    if (progressBar) {
+      progressBar.style.width = "0%";
+      progressBar.setAttribute("aria-valuenow", "0");
+    }
+
+    // Appeler le solveur avec délai simulé
+    setTimeout(() => {
+      if (typeof chargerResultatSolveur === "function") {
+        chargerResultatSolveur();
+      } else {
+        console.error("La fonction chargerResultatSolveur() n'est pas disponible.");
       }
-
-      // Mettre à jour le statut
-      const solverStatus = document.getElementById("solver-status");
-      if (solverStatus) {
-        solverStatus.textContent = "En cours...";
-        solverStatus.className = "badge bg-warning";
-      }
-
-      // Réinitialiser la barre de progression
-      const progressBar = document.getElementById("solver-progress");
-      if (progressBar) {
-        progressBar.style.width = "0%";
-        progressBar.setAttribute("aria-valuenow", "0");
-      }
-
-      /*// Simuler la progression
-      let progress = 0;
-      const elapsedTime = document.getElementById("elapsed-time");
-      let startTime = Date.now();*/
-      // Appeler le solveur avec délai simulé 
-      setTimeout(() => {
-        if (typeof chargerResultatSolveur === "function") {
-          chargerResultatSolveur();
-        } else {
-          console.error("La fonction chargerResultatSolveur() n'est pas disponible.");
-        }
-      }, 3000);
-
-
-    });
-  }
+    }, 3000);
+  });
+}
 
   
   // Mettre à jour le compteur d'instances sélectionnées
@@ -513,3 +521,5 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 });
+
+

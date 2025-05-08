@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<FeatureModel name="feature model for UTP" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="featureModel-schema.xsd">
+
+    
+
+
+   <Features>         
+    <Feature name="Timetabling problem" > 
+    <subFeature>
+    <Feature name="courses" mandatory="true">
+        <!-- Features for managing course -->
+        <subFeature>
+            <Feature name="course-hierarchy" optional="true"/>
+            <Feature name="event" optional="true"/>
+        </subFeature>
+    </Feature>
+    <Feature name="timing" mandatory="true">
+        <!-- Timing features for scheduling -->
+        <subFeature>
+            <Feature name="full-period" optional="true" />
+               <Feature name="single-week" optional="true"/>
+            <Feature name="full-week" optional="true"/>
+        </subFeature>
+    </Feature>
+    <Feature name="hosting" mandatory="False">
+        <!-- Hosting features  -->
+    <subFeature>
+        <subFeature type="OR">
+            <Feature name="no-room" />
+            <Feature name="single-room" />
+            <Feature name="multi-room" />
+        </subFeature>
+        <Feature name="room-capacity" optional="true"/>
+        <subFeature type="XOR">
+            <Feature name="all-exclusive"/>
+            <Feature name="none-exclusive" />
+            <Feature name="some-exclusive"/>
+        </subFeature>
+    </subFeature>
+    </Feature>
+        <Feature name="teaching" mandatory="False">
+        <!-- Teaching features -->
+        <subFeature>
+        <subFeature type="OR">
+            <Feature name="no-teacher" />
+            <Feature name="single-teacher" />
+            <Feature name="multi-teacher"/>
+        </subFeature>
+        <Feature name="session-overlap" optional="true"/>
+        <Feature name="service" optional="true"/>
+        </subFeature>
+    </Feature>
+    <Feature name="crosscutting" mandatory="true">
+        <!-- Features related to across various aspects of the UTP -->
+    <subFeature >
+        <Feature name="calendar" optional="true"/>
+        <Feature name="regularity" optional="true"/>
+        <Feature name="orchestration" optional="true"/>
+        <Feature name="workload" optional="true"/>
+        <Feature name="logistics" optional="true"/>
+        <Feature name="resourcing" optional="true"/>
+    </subFeature >
+   </Feature>
+    <Feature name="scheduling" mandatory="true">
+        <subFeature>
+            <Feature name="no-overlap" optional="true"/>
+            <Feature name="same-duration" optional="true"/>
+            <Feature name="modular" optional="true"/>
+        </subFeature>
+    </Feature>
+    <Feature name="attending" mandatory="true">
+        <!-- Features related to session attendance -->
+    <subFeature >
+        <Feature name="session-overlap " optional="true"/>
+        <Feature name="sectioning" optional="true"/>
+    </subFeature >
+    </Feature>
+   
+        
+    </subFeature>
+    </Feature> 
+</Features> 
+
+
+<Parameters>
+    <Parameter feature="full-period" type="number">
+        <value key="nrPeriods">20</value>
+    </Parameter>
+    <Parameter feature="service" type="boolean">
+        <value key="random">false</value>
+    </Parameter>
+    <Parameter feature="service" type="number">
+        <value key="serviceMax">192</value>
+    </Parameter>
+    <Parameter feature="feature model for UTP" type="number">
+        <value key="nrFormations">15</value>
+    </Parameter>
+    <Parameter feature="feature model for UTP" type="probabilityForm">
+        <value key="CM"/>
+        <value key="TD"/>
+        <value key="TP"/>
+        <value key="CMTD"/> 
+        <configurations>
+            <configuration>
+                <configurations>no-room_no-teacher</configurations>
+                <configurations>no-room_single-teacher</configurations>
+                <configurations>no-room_multi-teacher</configurations>
+                <configurations>single-room_no-teacher</configurations>
+                <configurations>single-room_single-teacher</configurations>
+                <configurations>single-room_multi-teacher</configurations>
+                <configurations>multi-room_no-teacher</configurations>
+                <configurations>multi-room_single-teacher</configurations>
+                <configurations>multi-room_multi-teacher</configurations>
+            </configuration>
+        </configurations>
+    </Parameter>
+
+</Parameters>
+</FeatureModel>
