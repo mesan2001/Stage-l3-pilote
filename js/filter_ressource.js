@@ -415,7 +415,6 @@ function sortTable(tableId, field, direction) {
 
   // Configuration des boutons pour les cours
 
-
 function setupCoursesButtons() {
   const selectAllCheckbox = document.getElementById('select-all-courses-checkbox');
   

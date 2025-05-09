@@ -359,24 +359,6 @@ async function fetchPerimetersData() {
   }
 }
 
-// 2.   fetchPerimetersData() pour charger les données : je modifie cette partie
-/*async function loadDataAndInitUI() {
-  try {
-    const data = await fetchPerimetersData();
-    //console.log("test des regles :", data.timetabling.rules);
-    if (!data || !data.timetabling.rules) {
-      // data sans regles
-      throw new Error("Données reçues invalides");
-    }
-
-    universityData = data;
-    handleApiData(data);
-    console.log("Données chargées avec succès !");
-  } catch (error) {
-    console.error("Erreur:", error);
-    alert("Erreur lors du chargement des données");
-  }
-}*/
 
 async function loadDataAndInitUI() {
   try {
@@ -393,22 +375,6 @@ async function loadDataAndInitUI() {
   }
 }
 
-/*
-function handleFileUpload(event) {
-    const file = event.target.files[0];
-    const reader = new FileReader();
-    
-    reader.onload = function(e) {
-        try {
-            const apiData = JSON.parse(e.target.result);
-            handleApiData(apiData);
-        } catch (error) {
-            console.error("Erreur lors du parsing du fichier:", error);
-        }
-    };
-    
-    reader.readAsText(file);
-}*/
 
 async function handleApiData(apiData) {
   try {
@@ -851,6 +817,7 @@ function renderRulesDetails(data) {
         row.classList.remove("inactive");
         selectedRuleIds.add(ruleId);
         removeFromManualInput(ruleId);
+        
       } else {
         badge.className = "badge bg-danger";
         badge.textContent = "Inactif";
@@ -872,29 +839,8 @@ function renderRulesDetails(data) {
   initSorting();
 }
 
-function removeFromManualInput(ruleId) {
-  const manualInput = document.getElementById("deactivate-rules");
-  if (!manualInput) return;
 
-  let currentRules = manualInput.value
-    .split(",")
-    .map((r) => r.trim())
-    .filter((r) => r);
-  currentRules = currentRules.filter((r) => r !== ruleId);
-  manualInput.value = currentRules.join(", ");
-}
 
-// Ajouter cette nouvelle fonction pour mettre à jour le compteur
-// attention deux definitions de cette fonction (quoi choisir ?)
-// regarde la ligne 887
-/*function updateRulesCounter() {
-  const totalRules = document.querySelectorAll('.rule-checkbox').length;
-  const activeRules = document.querySelectorAll('.rule-checkbox:checked').length;
-  const counterElement = document.querySelector('.rules-counter');
-  if (counterElement) {
-      counterElement.textContent = `${activeRules} / ${totalRules} règles actives`;
-  }
-}*/
 
 // Nouvelle fonction pour ajouter une règle à la saisie manuelle
 function addToManualInput(ruleId) {
@@ -913,17 +859,25 @@ function addToManualInput(ruleId) {
 }
 
 // Nouvelle fonction pour retirer une règle de la saisie manuelle
+
+
+
 function removeFromManualInput(ruleId) {
   const manualInput = document.getElementById("deactivate-rules");
   if (!manualInput) return;
+
+  // Convertir ruleId en string pour la comparaison (car split retourne des strings)
+  const ruleIdStr = String(ruleId);
 
   let currentRules = manualInput.value
     .split(",")
     .map((r) => r.trim())
     .filter((r) => r);
-  currentRules = currentRules.filter((r) => r !== ruleId);
+
+  currentRules = currentRules.filter((r) => r !== ruleIdStr);
   manualInput.value = currentRules.join(", ");
 }
+
 
 // Nouvelle fonction pour mettre à jour le compteur de règles
 function updateRulesCounter(activeCount, totalCount) {
@@ -936,31 +890,7 @@ function updateRulesCounter(activeCount, totalCount) {
   }
 }
 
-// Nouveaux écouteurs d'événements pour les boutons de sélection
-/*document.getElementById("select-all-rules")?.addEventListener("click", () => {
-  const checkboxes = document.querySelectorAll(".rule-checkbox");
-  const totalRules = checkboxes.length;
-
-  checkboxes.forEach((checkbox) => {
-    checkbox.checked = true;
-    checkbox.dispatchEvent(new Event("change"));
-  });
-
-  updateRulesCounter(totalRules, totalRules);
-});
-
-document.getElementById("deselect-all-rules")?.addEventListener("click", () => {
-  const checkboxes = document.querySelectorAll(".rule-checkbox");
-  const totalRules = checkboxes.length;
-
-  checkboxes.forEach((checkbox) => {
-    checkbox.checked = false;
-    checkbox.dispatchEvent(new Event("change"));
-  });
-
-  updateRulesCounter(0, totalRules);
-});*/
-
+// changement de l'état de la case à cocher "Tout sélectionner"
 document.getElementById("select-all-rules-checkbox")?.addEventListener("change", function () {
   const checkboxes = document.querySelectorAll(".rule-checkbox");
   const totalRules = checkboxes.length;
@@ -976,9 +906,6 @@ document.getElementById("select-all-rules-checkbox")?.addEventListener("change",
   updateRulesCounter(selectedCount, totalRules);
 });
 
-
-
-
 // Recherche dans la liste des règles
 document.getElementById("rules-search")?.addEventListener("input", function () {
   const searchTerm = this.value.toLowerCase();
@@ -990,16 +917,41 @@ document.getElementById("rules-search")?.addEventListener("input", function () {
     row.style.display = text.includes(searchTerm) ? "" : "none";
   });
 });
+ 
 
-// Ajouter cet écouteur avec les autres écouteurs d'événements
-document
+function parseRuleRanges(input) {
+  const rules = new Set();
+  const parts = input.split(',').map(part => part.trim()).filter(part => part);
+
+  parts.forEach(part => {
+    if (part.includes('-')) {
+      // C'est une plage
+      const [start, end] = part.split('-').map(num => parseInt(num.trim()));
+      if (!isNaN(start) && !isNaN(end)) {
+        const min = Math.min(start, end);
+        const max = Math.max(start, end);
+        for (let i = min; i <= max; i++) {
+          rules.add(i.toString());
+        }
+      }
+    } else {
+      // C'est un ID simple
+      if (!isNaN(parseInt(part))) {
+        rules.add(part);
+      }
+    }
+  });
+
+  return Array.from(rules);
+}
+
+  document
   .getElementById("deactivate-rules")
   ?.addEventListener("input", function () {
-    const manualRules = this.value
-      .split(",")
-      .map((r) => r.trim())
-      .filter((r) => r);
-
+    const manualRules = parseRuleRanges(this.value);
+    
+    let activeCount = 0;
+    
     document.querySelectorAll(".rule-checkbox").forEach((checkbox) => {
       const ruleId = checkbox.dataset.ruleId;
       const row = checkbox.closest("tr");
@@ -1009,13 +961,29 @@ document
         checkbox.checked = false;
         badge.className = "badge bg-danger";
         badge.textContent = "Inactif";
+        selectedRuleIds.delete(parseInt(ruleId));
       } else {
         checkbox.checked = true;
         badge.className = "badge bg-success";
         badge.textContent = "Actif";
+        selectedRuleIds.add(parseInt(ruleId));
+        activeCount++;
       }
     });
+
+    // Mettre à jour le compteur
+    const activeRulesCount = document.getElementById("active-rules-count");
+    if (activeRulesCount) {
+      activeRulesCount.textContent = selectedRuleIds.size;
+    }
+    
+    // Mettre à jour la case "Tout sélectionner"
+    const selectAllCheckbox = document.getElementById("select-all-rules-checkbox");
+    if (selectAllCheckbox) {
+      selectAllCheckbox.checked = selectedRuleIds.size === document.querySelectorAll(".rule-checkbox").length;
+    }
   });
+
 
 /* === PARTIE FILTRAGE AVANCE === */
 
@@ -1115,7 +1083,7 @@ function renderFilteredResults(filteredRules) {
 
   // Réutilise la même fonction de rendu mais avec les données filtrées
   // @THI VI regarde bien ici et la maniere dont tu fais l'appel
-  // c'est completement faux , renderRulesDetails attends les données de universityData
+  // renderRulesDetails attends les données de universityData
   const filteredData = {
     timetabling: {
       ...universityData.timetabling,
@@ -1145,6 +1113,8 @@ function resetFilters() {
   document.getElementById("filter-generator").value = "";
   document.getElementById("filter-selector").value = "";
   document.getElementById("filter-parameter").value = "";
+  document.getElementById("deactivate-rules").value = "";
+  
 
   // Réaffiche toutes les règles
   renderRulesDetails(universityData);
@@ -1187,7 +1157,7 @@ function parseRuleInput(input) {
 }
 
 // Applique la sélection manuelle
-function applyManualSelection() {
+/*function applyManualSelection() {
   const input = document.getElementById("deactivate-rules").value;
   const ruleIds = parseRuleInput(input);
 
@@ -1206,7 +1176,7 @@ function applyManualSelection() {
 
   // Affiche les résultats
   renderManualSelectionResults(filteredRules, ruleIds);
-}
+}*/
 
 // Affiche les résultats de la sélection manuelle
 function renderManualSelectionResults(filteredRules, selectedIds) {
@@ -1257,6 +1227,7 @@ function resetManualSelection() {
 }
 
 // Écouteurs d'événements
+/*
 document
   .getElementById("deactivate-rules")
   .addEventListener("keypress", (e) => {
@@ -1264,5 +1235,5 @@ document
       applyManualSelection();
     }
   });
-
+*/
 /* === FIN PARTIE SAISIE MANUELLE === */
