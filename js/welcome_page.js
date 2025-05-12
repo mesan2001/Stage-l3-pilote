@@ -1,169 +1,3 @@
-/*document.addEventListener("DOMContentLoaded", function () {
-  // Éléments DOM communs
-  const welcomeScreen = document.getElementById("welcome-screen");
-  const mainApp = document.querySelector("main.container");
-  const newConfigBtn = document.getElementById("new-config");
-  const loadConfigBtn = document.getElementById("load-existing-config");
-
-  // Éléments modale
-  const configList = document.getElementById("config-list");
-  const configDetails = document.getElementById("config-details");
-  const configName = document.getElementById("config-name");
-  const configDate = document.getElementById("config-date");
-  //const configFormations = document.getElementById("config-formations");
-  const confirmLoadBtn = document.getElementById("confirm-load-config");
-
-  // Masquer l'application principale au départ
-  if (mainApp && welcomeScreen) {
-    mainApp.style.display = "none";
-  }
-
-  //  Bouton "Nouvelle configuration"
-  if (newConfigBtn) {
-    newConfigBtn.addEventListener("click", function () {
-      welcomeScreen.style.display = "none";
-      if (mainApp) {
-        mainApp.style.display = "block";
-      }
-      const selectionTab = document.getElementById("selection-tab");
-      if (selectionTab) {
-        const tabTrigger = new bootstrap.Tab(selectionTab);
-        tabTrigger.show();
-      }
-    });
-  }
-
-  // Bouton "Charger une configuration existante"
-  if (loadConfigBtn) {
-    loadConfigBtn.addEventListener("click", function () {
-      console.log("Bouton 'Configuration existante' cliqué");
-
-      if (welcomeScreen) {
-        welcomeScreen.style.display = "none";
-      }
-
-      // Afficher la modale
-      const loadConfigModal = new bootstrap.Modal(
-        document.getElementById("load-config-modal")
-      );
-      loadConfigModal.show();
-
-      // Réinitialiser la liste
-      configList.innerHTML =
-        '<option value="" selected disabled>-- Sélectionnez une configuration --</option>';
-      configDetails.classList.add("d-none");
-      confirmLoadBtn.disabled = true;
-
-      // Charger les configs depuis le backend
-      fetch("http://localhost:8080/solver/all")
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error("Erreur lors du chargement des configurations.");
-          }
-          return response.json();
-        })
-        .then((data) => {
-          data.forEach((config) => {
-            const option = document.createElement("option");
-            option.value = config.id;
-            option.textContent = config.name || `Configuration ${config.id}`;
-            option.dataset.details = JSON.stringify(config);
-            configList.appendChild(option);
-          });
-        })
-        .catch((error) => {
-          console.error(
-            "Erreur lors de la récupération des configurations :",
-            error
-          );
-          configList.innerHTML =
-            '<option value="" disabled selected>Erreur de chargement</option>';
-        });
-    });
-  }
-
-  // ➤ Sélection dans la liste déroulante
-  if (configList) {
-    configList.addEventListener("change", function () {
-      const selectedOption = configList.options[configList.selectedIndex];
-      const config = JSON.parse(selectedOption.dataset.details);
-
-      // Afficher les détails
-      configName.textContent = config.name || "Non défini";
-      configDate.textContent = config.date || "Non définie";
-      //configFormations.textContent = (config.formations || []).join(", ");
-
-      configDetails.classList.remove("d-none");
-      confirmLoadBtn.disabled = false;
-
-      // Stocker la config choisie temporairement
-      configList.dataset.selectedConfig = JSON.stringify(config);
-    });
-  }
-
-  //  Bouton "Charger"
-  if (confirmLoadBtn) {
-    confirmLoadBtn.addEventListener("click", function () {
-        const selectedConfig = JSON.parse(configList.dataset.selectedConfig || "{}");
-        const instanceId = selectedConfig.id;
-
-        if (!instanceId) {
-            console.error("ID de configuration introuvable.");
-            return;
-        }
-
-        // Fermer la modale
-        const loadConfigModal = bootstrap.Modal.getInstance(document.getElementById("load-config-modal"));
-        loadConfigModal.hide();
-
-        // Afficher l'application principale
-        if (mainApp) {
-            mainApp.style.display = "block";
-        }
-
-        // Activer l'onglet de sélection
-        const selectionTab = document.getElementById("selection-tab");
-        if (selectionTab) {
-            const tabTrigger = new bootstrap.Tab(selectionTab);
-            tabTrigger.show();
-        }
-
-        // Récupérer les données d'instance
-        fetch(`http://localhost:8080/solver/${instanceId}/instance`)
-            .then(res => res.json())
-            .then(instanceData => {
-                console.log("Données de l'instance je suis là :", instanceData.instance);
-                
-                //universityData = instanceData.instance ;
-                initUIWithData(instanceData.instance);
-
-                // Activez aussi l'onglet des règles
-                const rulesTab = document.getElementById("rules-tab");
-                if (rulesTab) {
-                    const tabTrigger = new bootstrap.Tab(rulesTab);
-                    tabTrigger.show();
-                }
-
-            })
-            .catch(error => {
-                console.error("Erreur lors de la récupération de l'instance :", error);
-            });
-
-        // Récupérer les données de stratégie
-        fetch(`http://localhost:8080/solver/${instanceId}/strategy`)
-            .then(res => res.json())
-            .then(strategyData => {
-                console.log("Données de la stratégie :", strategyData.strategy);
-                loadConfigIntoForm(strategyData.strategy);
-            })
-            .catch(error => {
-                console.error("Erreur lors de la récupération de la stratégie :", error);
-            });
-    });
-}
-
-});*/
-
 
 document.addEventListener("DOMContentLoaded", function() {
   // Éléments DOM
@@ -223,36 +57,46 @@ document.addEventListener("DOMContentLoaded", function() {
     });
   }
 
-  // Bouton "Charger une configuration existante"
-  if (loadConfigBtn) {
-    loadConfigBtn.addEventListener("click", function() {
-      const loadConfigModal = new bootstrap.Modal(
-        document.getElementById("load-config-modal")
-      );
-      loadConfigModal.show();
-      
-      // Charger les configurations
-      fetch("http://localhost:8080/solver/all")
-        .then(response => {
-          if (!response.ok) throw new Error("Erreur de chargement");
-          return response.json();
-        })
-        .then(data => {
-          configList.innerHTML = '<option value="" selected disabled>-- Sélectionnez une configuration --</option>';
-          data.forEach(config => {
-            const option = document.createElement("option");
-            option.value = config.id;
-            option.textContent = config.name || `Configuration ${config.id}`;
-            option.dataset.details = JSON.stringify(config);
-            configList.appendChild(option);
+if (loadConfigBtn) {
+  loadConfigBtn.addEventListener("click", function() {
+    const loadConfigModal = new bootstrap.Modal(
+      document.getElementById("load-config-modal")
+    );
+    loadConfigModal.show();
+    
+    // Charger les configurations
+    fetch("http://localhost:8080/solver/all")
+      .then(response => {
+        if (!response.ok) throw new Error("Erreur de chargement");
+        return response.json();
+      })
+      .then(data => {
+        configList.innerHTML = '<option value="" selected disabled>-- Sélectionnez une configuration --</option>';
+        
+        data.forEach(config => {
+          const option = document.createElement("option");
+          option.value = config.id;
+          
+          // Vérifier si une solution existe
+          const hasSolution = config.solution_path !== null && config.status === "FINISHED";
+          
+          option.textContent = (config.name || `Configuration ${config.id}`) + 
+                              (hasSolution ? " ✅ (solution disponible)" : " ❌ (pas de solution)");
+          
+          option.dataset.details = JSON.stringify({
+            ...config,
+            hasSolution: hasSolution
           });
-        })
-        .catch(error => {
-          console.error("Erreur:", error);
-          configList.innerHTML = '<option value="" disabled selected>Erreur de chargement</option>';
+          configList.appendChild(option);
         });
-    });
-  }
+      })
+      .catch(error => {
+        console.error("Erreur:", error);
+        configList.innerHTML = '<option value="" disabled selected>Erreur de chargement</option>';
+      });
+  });
+}
+  
   // Fonction pour formater la date ( pas d'importance ici )
   function formatCurrentDate() {
     const now = new Date();
@@ -261,22 +105,40 @@ document.addEventListener("DOMContentLoaded", function() {
     const year = now.getFullYear();
     return `${day}/${month}/${year}`;
   }
-  // Gestion de la sélection dans la liste
-  if (configList) {
-    configList.addEventListener("change", function() {
-      const selectedOption = this.options[this.selectedIndex];
-      if (!selectedOption.value) return;
-      
-      const config = JSON.parse(selectedOption.dataset.details);
-      document.getElementById("config-name").textContent = config.name || "Non défini";
-      document.getElementById("config-date").textContent = config.date || formatCurrentDate();
-      document.getElementById("config-details").classList.remove("d-none");
-      confirmLoadBtn.disabled = false;
-      this.dataset.selectedConfig = JSON.stringify(config);
-    });
-  }
+
+if (configList) {
+  configList.addEventListener("change", function() {
+    const selectedOption = this.options[this.selectedIndex];
+    if (!selectedOption.value) return;
+    
+    const config = JSON.parse(selectedOption.dataset.details);
+    document.getElementById("config-name").textContent = config.name || "Non défini";
+    document.getElementById("config-date").textContent = config.date || formatCurrentDate();
+    
+    // Ajouter l'information sur la solution si elle existe
+    const solutionInfo = document.createElement("small");
+    solutionInfo.className = "text-muted d-block";
+    solutionInfo.textContent = config.hasSolution 
+      ? "⚠️ Une solution existe déjà pour cette configuration" 
+      : "Aucune solution existante pour cette configuration";
+    
+    const detailsDiv = document.getElementById("config-details");
+    detailsDiv.classList.remove("d-none");
+    
+    // Nettoyer les infos précédentes sur la solution
+    const existingSolutionInfo = detailsDiv.querySelector(".solution-info");
+    if (existingSolutionInfo) existingSolutionInfo.remove();
+    
+    solutionInfo.classList.add("solution-info");
+    detailsDiv.appendChild(solutionInfo);
+    
+    confirmLoadBtn.disabled = false;
+    this.dataset.selectedConfig = JSON.stringify(config);
+  });
+}
 
   // Bouton "Charger" dans la modale
+
   if (confirmLoadBtn) {
     confirmLoadBtn.addEventListener("click", function() {
       const selectedConfig = JSON.parse(configList.dataset.selectedConfig || "{}");
@@ -298,19 +160,55 @@ document.addEventListener("DOMContentLoaded", function() {
         if (!instanceRes.ok || !strategyRes.ok) throw new Error("Erreur de chargement");
         return Promise.all([instanceRes.json(), strategyRes.json()]);
       })
-      .then(([instanceData, strategyData]) => {
+      .then(async ([instanceData, strategyData]) => {
         initUIWithData(instanceData.instance);
         loadConfigIntoForm(strategyData.strategy);
-        
+  
+        // Si une solution existe, la charger
+        if (selectedConfig.hasSolution) {
+          try {
+            await chargerResultatSolveur(selectedConfig.id);
+            
+            // Activer l'onglet des résultats si disponible
+            const resultsTab = document.getElementById("results-tab");
+            if (resultsTab) {
+              new bootstrap.Tab(resultsTab).show();
+            }
+          } catch (error) {
+            console.error("Erreur lors du chargement de la solution:", error);
+          }
+        }
+  
+        // Générer le XML et mettre à jour generatedData pour le téléchargement
+        generateCompleteTimetabling()
+          .then(xmlContent => {
+            generatedData = {
+              xml: xmlContent,
+              json: {
+                instance: instanceData.instance,
+                strategy: strategyData.strategy
+              }
+            };
+          })
+          .catch(error => {
+            console.error("Erreur lors de la génération du XML:", error);
+            generatedData = {
+              xml: null,
+              json: {
+                instance: instanceData.instance,
+                strategy: strategyData.strategy
+              }
+            };
+          });
+  
         // Vérification de l'existence de l'onglet avant de l'activer
         const rulesTabElement = document.getElementById("rules-tab");
         if (rulesTabElement) {
-          // Vérification supplémentaire que Bootstrap est chargé
           if (typeof bootstrap !== 'undefined' && bootstrap.Tab) {
             new bootstrap.Tab(rulesTabElement).show();
           } else {
             console.error("Bootstrap Tab n'est pas disponible");
-            rulesTabElement.classList.add("active"); // Solution de repli
+            rulesTabElement.classList.add("active");
           }
         }
       })

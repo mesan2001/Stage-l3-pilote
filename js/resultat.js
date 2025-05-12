@@ -4,15 +4,12 @@ let instance_id = null;
 
 document.getElementById("start-solver").addEventListener("click", async () => {
   try {
-    
     const { instance, strategy } = await chargerInstanceEtStrategie();
-
     const creationResponse = await fetch("http://localhost:8080/solver/new", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ instance, strategy })
     });
-    
     const creationJson = await creationResponse.json();
     //console.log("Réponse de création :", creationJson); // Ajoute ce log
     if (!creationJson.success) throw new Error("Erreur de création de l'instance.");
@@ -20,7 +17,7 @@ document.getElementById("start-solver").addEventListener("click", async () => {
     instance_id = creationJson.controller.id;
     console.log(`Instance créée avec ID : ${instance_id}`);
 
-    
+    enableStopButton(true);
     await attendreEtat("READY");
 
     const startResponse = await fetch(`http://localhost:8080/solver/${instance_id}/start`, {
@@ -29,105 +26,79 @@ document.getElementById("start-solver").addEventListener("click", async () => {
     if (!startResponse.ok) throw new Error("Erreur lors du démarrage du solveur.");
 
     //console.log("Solveur démarré.");
-
+    
     await attendreEtat("FINISHED");
+    enableStopButton(false);
 
-    await chargerResultatSolveur();
+    await chargerResultatSolveur(instance_id);
 
   } catch (error) {
     console.error("Erreur :", error);
     alert(error.message);
   }
-
-
-  
-  // Partie sauvegarde de la solution
-  const saveButton = document.getElementById("save-solution");
-  const solutionNameInput = document.getElementById("solution-name");
-
-  // Gestionnaire pour le bouton "Enregistrer"
-  if (saveButton) {
-      saveButton.addEventListener("click", async function() {
-          try {
-              const solutionName = solutionNameInput.value.trim();
-              
-              // vérifier si un nom a été saisi
-              if (!solutionName) {
-                  alert("Veuillez saisir un nom pour la solution");
-                  solutionNameInput.focus();
-                  return;
-              }
-
-              // vérifier si l'instance_id existe
-              if (!instance_id) {
-                  alert("Aucune instance de solution active");
-                  return;
-              }
-
-              //afficher un indicateur de chargement
-              saveButton.disabled = true;
-              saveButton.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Sauvegarde...';
-
-
-              const requestData = {
-                  name: solutionName,
-              };
-
-              // Utiliser l'endpoint pour renommer l'instance
-              const response = await fetch(`http://localhost:8080/solver/${instance_id}/rename`, {
-                  method: "POST",
-                  headers: {
-                      "Content-Type": "application/json"
-                  },
-                  body: JSON.stringify(requestData)
-              });
-
-              if (!response.ok) {
-                  throw new Error(`Erreur lors de la sauvegarde: ${response.status} ${response.statusText}`);
-              }
-
-              const result = await response.json();
-              console.log("Résultat de la sauvegarde:", result);
-              
-              // Afficher un message de succès
-              alert("Solution sauvegardée avec succès sous le nom: " + solutionName);
-              
-          } catch (error) {
-              console.error("Erreur lors de la sauvegarde:", error);
-              alert("Erreur lors de la sauvegarde: " + error.message);
-          } finally {
-              // Réactiver le bouton
-              saveButton.disabled = false;
-              saveButton.innerHTML = '<i class="bi bi-save"></i> Enregistrer';
-          }
-      });
-  }
-
-
 });
 
-/*
-document.getElementById("stop-solver").addEventListener("click", async () => {
+  
+
+
+
+// Référence au bouton
+const stopSolverBtn = document.getElementById("stop-solver");
+
+// Fonction pour activer/désactiver le bouton
+function setStopButtonState(active) {
+  stopSolverBtn.disabled = !active;
+  stopSolverBtn.innerHTML = active 
+    ? '<i class="bi bi-stop-circle"></i> Arrêter le solveur' 
+    : '<i class="bi bi-hourglass"></i> Arrêt en cours...';
+}
+
+// Gestionnaire d'arrêt du solveur
+stopSolverBtn.addEventListener("click", async () => {
   if (!instance_id) {
     alert("Aucune instance active.");
     return;
   }
 
+  setStopButtonState(false); // Désactive le bouton pendant la requête
+  
   try {
     const response = await fetch(`http://localhost:8080/solver/${instance_id}/stop`, {
       method: "POST"
     });
-    if (response.ok) {
-      console.log("Solveur arrêté.");
-    } else {
-      throw new Error("Erreur lors de l'arrêt du solveur.");
+
+    if (!response.ok) {
+      throw new Error(response.status === 404 
+        ? "Instance introuvable" 
+        : "Erreur lors de l'arrêt du solveur");
     }
+
+    // Mise à jour de l'interface
+    document.getElementById("solver-status").textContent = "Arrêté";
+    document.getElementById("solver-status").className = "badge bg-warning";
+    console.log("Solveur arrêté avec succès");
+
   } catch (error) {
     console.error("Erreur :", error);
-    alert(error.message);
+    alert(`Échec de l'arrêt : ${error.message}`);
+    
+    // Réactive le bouton en cas d'erreur
+    setStopButtonState(true);
   }
 });
 
+// Exposer cette fonction pour pouvoir l'utiliser ailleurs
+function enableStopButton(enable) {
+  if (enable) {
+    stopSolverBtn.style.display = 'block'; // Change de 'hidden' à 'block'
+    setStopButtonState(true);
+  } else {
+    stopSolverBtn.style.display = 'none'; // Cache complètement l'élément
+  }
+}
+
+
+/*
 document.getElementById("clear-instance").addEventListener("click", async () => {
   if (!instance_id) {
     alert("Aucune instance à supprimer.");
@@ -177,66 +148,62 @@ async function attendreEtat(etatVise) {
   }
 }
 
-async function chargerResultatSolveur() {
-  const solverStatus = document.getElementById("solver-status");
-  const elapsedElem = document.getElementById("elapsed-time");
+// Fonction pour récupérer le résultat du solveur
+async function recupererResultatSolveur(id) {
+  if (!id) throw new Error("ID d'instance manquant");
 
-  const startTime = performance.now();
-  if (solverStatus) {
-    solverStatus.textContent = "En cours...";
-    solverStatus.className = "badge bg-warning";
+  const response = await fetch(`http://localhost:8080/solver/${id}/result`);
+  const json = await response.json();
+  console.log("Contenu de la réponse du solveur:", JSON.stringify(json, null, 2));
+
+  let solution = json.solution || json; 
+  let statistics = json.statistics || json;
+
+  if (typeof solution === "string") {
+    try {
+      solution = JSON.parse(solution);
+    } catch (e) {
+      throw new Error("La solution est invalide (JSON mal formé).");
+    }
   }
 
+  if (typeof statistics === "string") {
+    try {
+      statistics = parseStatistics(statistics);
+      console.log("statistique 2 :", statistics);
+    } catch (e) {
+      throw new Error("Les statistiques sont invalides (mal formées).");
+    }
+  }
+
+  return { solution, statistics };
+}
+
+
+function afficherResultatsSolveur(solution, statistics) {
+  afficherStatsSolution(solution, statistics);
+
+  const solverStatus = document.getElementById("solver-status");
+  if (solverStatus) {
+    solverStatus.textContent = "Terminé";
+    solverStatus.className = "badge bg-success";
+  }
+
+  document.getElementById("results-content").style.display = "block";
+
+  const exportBtn = document.getElementById("export-solution");
+  if (exportBtn) {
+    exportBtn.disabled = false;
+    exportBtn.onclick = () => exporterSolutionJSON(solution); 
+  }
+}
+
+async function chargerResultatSolveur(id) {
+  const solverStatus = document.getElementById("solver-status");
+
   try {
-    if (!instance_id) throw new Error("ID d'instance manquant");
-    const response = await fetch(`http://localhost:8080/solver/${instance_id}/result`);
-    const json = await response.json();
-    //console.log("Contenu de la réponse du solveur :", json);
-    console.log("Contenu de la réponse du solveur:", JSON.stringify(json, null, 2));
-
-    //getNrSolutions pour veriifier si le solveur a trouvé une solution
-    //const getNrSolutions = json.controller?.getNrSolutions;
-    
-    let solution = json.solution || json; 
-    let statistics = json.statistics || json;
-    if (typeof solution === "string") {
-      try {
-        solution = JSON.parse(solution);
-      } catch (e) {
-        throw new Error("La solution est invalide (JSON mal formé).");
-      }
-    }
-    if (typeof statistics === "string") {
-      try {
-        statistics = parseStatistics(statistics);
-        console.log("statistique 2 :", statistics);
-      } catch (e) {
-        throw new Error("La solution est invalide (statistiques mal formées).");
-      }
-    }
-    
-    const endTime = performance.now();
-    let elapsed = ((endTime - startTime) / 1000).toFixed(2);
-
-
-    afficherStatsSolution(solution,statistics);
-
-    if (solverStatus) {
-      solverStatus.textContent = "Terminé";
-      solverStatus.className = "badge bg-success";
-    }
-
-    if (elapsedElem) {
-      elapsedElem.textContent = `${elapsed}s`;
-    }
-
-    document.getElementById("results-content").style.display = "block";
-
-    const exportBtn = document.getElementById("export-solution");
-    if (exportBtn) {
-      exportBtn.disabled = false;
-      exportBtn.onclick = () => exporterSolutionJSON(solution); 
-    }
+    const { solution, statistics } = await recupererResultatSolveur(id);
+    afficherResultatsSolveur(solution, statistics);
 
   } catch (error) {
     console.error("Erreur lors du chargement du résultat :", error);
@@ -248,6 +215,31 @@ async function chargerResultatSolveur() {
     document.getElementById("results-content").style.display = "block";
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 function exporterSolutionJSON(data) {
   const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
@@ -428,4 +420,68 @@ function afficherStatsSolution(solution, statistics) {
       </div>
     </div>
   `;
+}
+
+
+
+// Partie sauvegarde de la solution
+const saveButton = document.getElementById("save-solution");
+const solutionNameInput = document.getElementById("solution-name");
+
+// Gestionnaire pour le bouton "Enregistrer"
+if (saveButton) {
+    saveButton.addEventListener("click", async function() {
+        try {
+            const solutionName = solutionNameInput.value.trim();
+            
+            // vérifier si un nom a été saisi
+            if (!solutionName) {
+                alert("Veuillez saisir un nom pour la solution");
+                solutionNameInput.focus();
+                return;
+            }
+
+            // vérifier si l'instance_id existe
+            if (!instance_id) {
+                alert("Aucune instance de solution active");
+                return;
+            }
+
+            //afficher un indicateur de chargement
+            saveButton.disabled = true;
+            saveButton.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Sauvegarde...';
+
+
+            const requestData = {
+                name: solutionName,
+            };
+
+            // Utiliser l'endpoint pour renommer l'instance
+            const response = await fetch(`http://localhost:8080/solver/${instance_id}/rename`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(requestData)
+            });
+
+            if (!response.ok) {
+                throw new Error(`Erreur lors de la sauvegarde: ${response.status} ${response.statusText}`);
+            }
+
+            const result = await response.json();
+            console.log("Résultat de la sauvegarde:", result);
+            
+            // Afficher un message de succès
+            alert("Solution sauvegardée avec succès sous le nom: " + solutionName);
+            
+        } catch (error) {
+            console.error("Erreur lors de la sauvegarde:", error);
+            alert("Erreur lors de la sauvegarde: " + error.message);
+        } finally {
+            // Réactiver le bouton
+            saveButton.disabled = false;
+            saveButton.innerHTML = '<i class="bi bi-save"></i> Enregistrer';
+        }
+    });
 }

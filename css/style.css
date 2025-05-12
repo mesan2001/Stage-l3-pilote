@@ -400,33 +400,17 @@ main.container > section.card:last-child {
 }
 
 /*style pour les détails d'instance*/
+/*
 .instance-details {
   border-left: 4px solid #005a9c;
-}
+  color: red;
+}*/
 
 /*style pour la boîte de suggestions*/
 .row.mb-3 {
   position: relative;
 }
 
-.suggestions-box {
-  position: absolute;
-  top: 100%;  
-  left: 0;
-  background: white;
-  border: 1px solid #ccc;
-  width: 49%; 
-  max-height: 150px;
-  overflow-y: auto;
-  display: none;
-  cursor: pointer;
-  z-index: 10;
-}
-
-/*effet de survol sur les suggestions */
-.suggestion:hover {
-  background: #f0f0f0;
-}
 
 /*style du conteneur de confirmation*/
 #confirmation-container {
@@ -479,6 +463,8 @@ main.container > section.card:last-child {
   border-top: 12px solid #3498db;
 }
 
+
+
 /* Ajout d'espacement pour les éléments à l'intérieur des sections */
 .card {
   margin-bottom: 30px;         /* epacement entre les cartes */
@@ -490,6 +476,7 @@ main.container > section.card:last-child {
 
 .card-body {
   padding: 30px;              /* d'espace dans le corps des cartes */
+  /*background-color: red;*/
 }
 
 /* Espacement pour les groupes de formulaires */
@@ -951,3 +938,23 @@ tr.inactive {
 }
 
 
+/**/
+.select-with-search-container {
+  width: 50%;
+}
+
+.select-dropdown {
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+}
+
+.select-option:hover {
+  background-color: #f8f9fa;
+}
+
+.select-option {
+  transition: background-color 0.2s;
+}
+
+
+
+/* */ 

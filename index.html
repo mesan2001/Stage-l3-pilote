@@ -113,26 +113,30 @@
         </div>
         <div class="card-body">
           <div class="row mb-3">
-            <div class="col-md-6">
-              <input type="text" id="instance-search" class="form-control" placeholder="Rechercher une formation...">
-            </div>
-            <!--modif-->
-            <div id="suggestions" class="suggestions-box"></div>
-
+            <select id="instance-type-filter" class="form-select">
+              <option value="all">Sélectionner les formations</option>
+              <!-- Les options seront ajoutées dynamiquement -->
+            </select>
             <div class="col-md-3">
-              <select id="instance-type-filter" class="form-select"></select>
-            </div>
-            <div class="col-md-3">
-              <button id="search-button" class="btn btn-primary">Lancer la rechercher des données</button>
+              <button id="search-button" class="btn btn-primary">Lancer la recherche</button>
             </div>
             
             <div class="col-md-2">
-              <button id="download-xml" class="btn btn-success" disabled>Visualiser le XML</button>
+              <div class="btn-group">
+                <button id="download-btn" class="btn btn-success dropdown-toggle" disabled data-bs-toggle="dropdown" aria-expanded="false">
+                  Visualiser
+                </button>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="#" id="download-xml"> XML</a></li>
+                  <li><a class="dropdown-item" href="#" id="download-json"> JSON</a></li>
+                </ul>
+              </div>
             </div>
           </div>
+
           <!--ajout des périodes-->
           <!--Une Affichage des périodes-->
-          <div id="period-container" style="display: none;">
+          <div id="period-container" style="display: none; max-width: 750px;">
             <label for="period-select">Sélectionner les périodes :</label>
             <div class="row">
               <div class="col-md-9">
@@ -148,26 +152,14 @@
             </div>
           </div>
           <!-- Résumé de la sélection -->
-          <div id="summary-container" style="display: none;">
+          <div id="summary-container" style="display: none;max-width: 570px">
             <h4>Vos sélections :</h4>
             <div id="selection-items-container"></div>
           </div>
-          <div class="alert alert-info mt-3" id="selected-instances-info" style="display: none;">
-            <strong>Instances sélectionnées:</strong> <span id="selected-instances-count">0</span>
-          </div>
-
-          <div class="card mt-3" id="instance-details" style="display: none;">
-            <div class="card-header">
-              <h3 class="mb-0">Détails de l'instance sélectionnée</h3>
-            </div>
-            <div class="card-body" id="instance-info">
-              <!-- Informations sur l'instance sélectionnée -->
-            </div>
-          </div>
         </div>
         <!-- Boutons de navigation -->
-        <div class="d-flex justify-content-end mt-3">
-          <button class="btn btn-primary next-tab" data-next="filtering-tab">Suivant</button>
+        <div  class="d-flex justify-content-end mt-3">
+          <button id="filtering-next-btn" class="btn btn-primary next-tab" data-next="filtering-tab">Suivant</button>
         </div>
       </div>
 
@@ -207,41 +199,7 @@
                   <div class="collapse show" id="core-constraints-body">
                     <div class="card-body">
                       <div id="core-constraints-list" class="constraint-list">
-                        <div class="constraint-item">
-                          <input type="checkbox" id="core-implicite_sequenced_sessions" name="core_constraint[]"
-                            value="implicite_sequenced_sessions" checked>
-                          <label for="core-implicite_sequenced_sessions">implicite_sequenced_sessions</label>
-                        </div>
-                        <div class="constraint-item">
-                          <input type="checkbox" id="core-teacher_service" name="core_constraint[]" value="teacher_service"
-                            checked>
-                          <label for="core-teacher_service">teacher_service</label>
-                        </div>
-                        <div class="constraint-item">
-                          <input type="checkbox" id="core-disjunctive_teacher" name="core_constraint[]"
-                            value="disjunctive_teacher" checked>
-                          <label for="core-disjunctive_teacher">disjunctive_teacher</label>
-                        </div>
-                        <div class="constraint-item">
-                          <input type="checkbox" id="core-disjunctive_group" name="core_constraint[]"
-                            value="disjunctive_group" checked>
-                          <label for="core-disjunctive_group">disjunctive_group</label>
-                        </div>
-                        <div class="constraint-item">
-                          <input type="checkbox" id="core-disjunctive_room" name="core_constraint[]" value="disjunctive_room"
-                            checked>
-                          <label for="core-disjunctive_room">disjunctive_room</label>
-                        </div>
-                        <div class="constraint-item">
-                          <input type="checkbox" id="core-size_of_multiroom" name="core_constraint[]"
-                            value="size_of_multiroom" checked>
-                          <label for="core-size_of_multiroom">size_of_multiroom</label>
-                        </div>
-                        <div class="constraint-item">
-                          <input type="checkbox" id="core-bench_class_equilibrate" name="core_constraint[]"
-                            value="bench_class_equilibrate" checked>
-                          <label for="core-bench_class_equilibrate">bench_class_equilibrate</label>
-                        </div>
+                        <!-- Liste des contraintes fondamentales ici dans le fichier tabs_navigation.js -->
                       </div>
                     </div>
                   </div>
@@ -265,86 +223,7 @@
                   <div class="collapse show" id="user-constraints-body">
                     <div class="card-body">
                       <div id="user-constraints-list" class="constraint-list">
-                        <div class="constraint-item">
-                          <input type="checkbox" id="user-sameRooms" name="user_constraint[]" value="sameRooms" checked>
-                          <label for="user-sameRooms">sameRooms</label>
-                        </div>
-                        <div class="constraint-item">
-                          <input type="checkbox" id="user-sameTeachers" name="user_constraint[]" value="sameTeachers"
-                            checked>
-                          <label for="user-sameTeachers">sameTeachers</label>
-                        </div>
-                        <div class="constraint-item">
-                          <input type="checkbox" id="user-allowedPeriod" name="user_constraint[]" value="allowedPeriod"
-                            checked>
-                          <label for="user-allowedPeriod">allowedPeriod</label>
-                        </div>
-                        <div class="constraint-item">
-                          <input type="checkbox" id="user-forbiddenPeriod" name="user_constraint[]" value="forbiddenPeriod"
-                            checked>
-                          <label for="user-forbiddenPeriod">forbiddenPeriod</label>
-                        </div>
-                        <div class="constraint-item">
-                          <input type="checkbox" id="user-weekly" name="user_constraint[]" value="weekly" checked>
-                          <label for="user-weekly">weekly</label>
-                        </div>
-                        <div class="constraint-item">
-                          <input type="checkbox" id="user-sameWeek" name="user_constraint[]" value="sameWeek" checked>
-                          <label for="user-sameWeek">sameWeek</label>
-                        </div>
-                        <div class="constraint-item">
-                          <input type="checkbox" id="user-assignRoom" name="user_constraint[]" value="assignRoom" checked>
-                          <label for="user-assignRoom">assignRoom</label>
-                        </div>
-                        <div class="constraint-item">
-                          <input type="checkbox" id="user-forbiddenRooms" name="user_constraint[]" value="forbiddenRooms"
-                            checked>
-                          <label for="user-forbiddenRooms">forbiddenRooms</label>
-                        </div>
-                        <div class="constraint-item">
-                          <input type="checkbox" id="user-sameWeekDay" name="user_constraint[]" value="sameWeekDay" checked>
-                          <label for="user-sameWeekDay">sameWeekDay</label>
-                        </div>
-                        <div class="constraint-item">
-                          <input type="checkbox" id="user-differentWeekDay" name="user_constraint[]"
-                            value="differentWeekDay" checked>
-                          <label for="user-differentWeekDay">differentWeekDay</label>
-                        </div>
-                        <div class="constraint-item">
-                          <input type="checkbox" id="user-differentSlots" name="user_constraint[]" value="differentSlots"
-                            checked>
-                          <label for="user-differentSlots">differentSlots</label>
-                        </div>
-                        <div class="constraint-item">
-                          <input type="checkbox" id="user-disjunct" name="user_constraint[]" value="disjunct" checked>
-                          <label for="user-disjunct">disjunct</label>
-                        </div>
-                        <div class="constraint-item">
-                          <input type="checkbox" id="user-sameWeeklySlot" name="user_constraint[]" value="sameWeeklySlot"
-                            checked>
-                          <label for="user-sameWeeklySlot">sameWeeklySlot</label>
-                        </div>
-                        <div class="constraint-item">
-                          <input type="checkbox" id="user-differentWeek" name="user_constraint[]" value="differentWeek"
-                            checked>
-                          <label for="user-differentWeek">differentWeek</label>
-                        </div>
-                        <div class="constraint-item">
-                          <input type="checkbox" id="user-sameSlot" name="user_constraint[]" value="sameSlot" checked>
-                          <label for="user-sameSlot">sameSlot</label>
-                        </div>
-                        <div class="constraint-item">
-                          <input type="checkbox" id="user-sameSlots" name="user_constraint[]" value="sameSlots" checked>
-                          <label for="user-sameSlots">sameSlots</label>
-                        </div>
-                        <div class="constraint-item">
-                          <input type="checkbox" id="user-periodic" name="user_constraint[]" value="periodic" checked>
-                          <label for="user-periodic">periodic</label>
-                        </div>
-                        <div class="constraint-item">
-                          <input type="checkbox" id="user-sequenced" name="user_constraint[]" value="sequenced" checked>
-                          <label for="user-sequenced">sequenced</label>
-                        </div>
+                        <!-- #region Liste des contraintes métiers ici dans le fichier tabs_navigation -->
                       </div>
                     </div>
                   </div>
@@ -378,13 +257,10 @@
                             <div class="d-flex align-items-center gap-2">
                               <input type="text" id="rules-search" class="form-control form-control-sm" 
                                 placeholder="Rechercher une règle..." style="min-width: 200px;">
-                              <!--
-                              <button id="select-all-rules" class="btn btn-sm btn-outline-secondary">Tout sélectionner</button>
-                              <button id="deselect-all-rules" class="btn btn-sm btn-outline-secondary">Tout désélectionner</button>
-                              -->
                             </div>
                           </div>
-                          <div class="card-body">
+                          <div class="card-bod">
+                            
                             <div class="rules-counter mb-3">
                               <span id="active-rules-count">0</span> / <span id="total-rules-count">0</span> règles actives
                             </div>
@@ -405,7 +281,7 @@
                                   </tr>
                                 </thead>
                                 <tbody id="rules-list">
-                                  
+                                 
                                 </tbody>
                               </table>
                             </div>
@@ -489,18 +365,6 @@
                             <i class="bi bi-arrow-counterclockwise"></i> Réinitialiser
                           </button>
                         </div>
-
-                        <div class="border p-3 rounded bg-light" id="filter-results-container" style="display: none;">
-                          <h6 class="mb-3">Résultats du filtrage :</h6>
-                          <div class="mb-3">
-                            <select id="filtered-rules-select" class="form-select" multiple size="5">
-                              <!-- Résultats apparaîtront ici -->
-                            </select>
-                          </div>
-                          <button class="btn btn-sm btn-danger" id="deactivate-filtered">
-                            <i class="bi bi-toggle-off"></i> Désactiver la sélection filtrée
-                          </button>
-                        </div>
                       </div>
 
                       <!-- Onglet 3: Saisie manuelle -->
@@ -558,10 +422,6 @@
                   <h3>Liste des cours</h3>
                   <div class="d-flex align-items-center gap-2">
                     <input type="text" id="courses-search" class="form-control form-control-sm" placeholder="Rechercher un cours..." style="min-width: 200px;">
-                    <!--
-                    <button id="select-all-courses" class="btn btn-sm btn-outline-secondary">Tout sélectionner</button>
-                    <button id="deselect-all-courses" class="btn btn-sm btn-outline-secondary">Tout désélectionner</button>
-                    -->
                   </div>
                 </div>
                 <div class="card-body">
@@ -593,10 +453,6 @@
                   <h3>Liste des enseignants</h3>
                   <div class="d-flex align-items-center gap-2">
                     <input type="text" id="teachers-search" class="form-control form-control-sm" placeholder="Rechercher un enseignant..." style="min-width: 200px;">
-                    <!--
-                    <button id="select-all-teachers" class="btn btn-sm btn-outline-secondary">Tout sélectionner</button>
-                    <button id="deselect-all-teachers" class="btn btn-sm btn-outline-secondary">Tout désélectionner</button>
-                    -->
                   </div>
                 </div>
                 <div class="card-body">
@@ -629,10 +485,6 @@
                   <h3>Liste des salles</h3>
                   <div class="d-flex align-items-center gap-2">
                     <input type="text" id="rooms-search" class="form-control form-control-sm" placeholder="Rechercher une salle..." style="min-width: 200px;">
-                    <!--
-                    <button id="select-all-rooms" class="btn btn-sm btn-outline-secondary">Tout sélectionner</button>
-                    <button id="deselect-all-rooms" class="btn btn-sm btn-outline-secondary">Tout désélectionner</button>
-                    -->
                   </div>
                 </div>
                 <div class="card-body">
@@ -762,13 +614,15 @@
                     </div>
                     <div class="mb-3">
                       <label for="advanced-config-json" class="form-label">Configuration JSON:</label>
-                      <textarea id="advanced-config-json" class="form-control" rows="10">{
-                "time_out": "40s",
-                "vars": [],
-                "core_constraint": [],
-                "user_constraint": [],
-                "deactivate_rules": []
-              }</textarea>
+                      <textarea id="advanced-config-json" class="form-control" rows="10">
+                        {
+                        "time_out": "40s",
+                        "vars": [],
+                        "core_constraint": [],
+                        "user_constraint": [],
+                        "deactivate_rules": []
+                        }
+                      </textarea>
                     </div>
                   </div>
                 </div>
@@ -804,7 +658,9 @@
                     <p>État: <span id="solver-status" class="badge bg-secondary">Inactif</span></p>
                   </div>
                   <div class="col-md-6">
-                    <p>Temps écoulé: <span id="elapsed-time">0s</span></p>
+                    <button id="stop-solver" class="btn btn-danger btn-sm" disabled>
+                      <i class="bi bi-stop-circle"></i> Arrêter le solveur
+                    </button>
                   </div>
                 </div>
                 <div class="progress">
@@ -862,7 +718,6 @@
 
   <script src="js/app.js"></script>
   <script src="js/app_instance.js"></script>
-  <!-- JS pour la navigation par onglets -->
   <script src="js/tabs_navigation.js"></script>
   <script src="js/config_Tabs.js"></script>
   <script src="js/resultat.js"></script>

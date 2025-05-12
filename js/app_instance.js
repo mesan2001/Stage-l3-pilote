@@ -20,7 +20,7 @@ async function initUIWithData(data) {
 
 // DOM
 document.addEventListener("DOMContentLoaded", function () {
-  // ➤ Seulement préparer les listeners, NE RIEN EXÉCUTER DIRECTEMENT
+  //  Seulement préparer les listeners, NE RIEN EXÉCUTER DIRECTEMENT
   prepareEventListeners();
 });
 function prepareEventListeners() {
@@ -28,6 +28,7 @@ function prepareEventListeners() {
   // Au démarrage les formations sont chargées en premier
   //charger les formations
   fetchFormations();
+  transformSelectWithSearch();
   // Désactiver le bouton au chargement initial
   document.getElementById("search-button").disabled = true;
 }
@@ -35,64 +36,154 @@ function prepareEventListeners() {
 //PARTIE 1 à modifier apres la mise à jour de l'API par mr SIMON
 /* Gestion de la complétion des textes et le chargement des formations depuis l'API*/
 
-const apiBaseUrl = "http://localhost:8080/api"; // Base de l'API (ici url vers l'api avec le port 8080 , et 8081 pour une modif par exemple)
+const apiBaseUrl = "http://localhost:8080/api";
+const instanceSelect = document.getElementById("instance-type-filter");
+const periodContainer = document.getElementById("period-container");
+const periodSelect = document.getElementById("period-select");
+const selectAllButton = document.getElementById("select-all");
 
-const searchInput = document.getElementById("instance-search"); // Barre de recherche
-const suggestionsBox = document.getElementById("suggestions"); // Boîte des suggestions
-const instanceSelect = document.getElementById("instance-type-filter"); // Select des formations
-const periodContainer = document.getElementById("period-container"); // Conteneur des périodes
-const periodSelect = document.getElementById("period-select"); // Select des périodes
-const selectAllButton = document.getElementById("select-all"); // Bouton "Tout sélectionner"
-
-let formationsList = []; // Stockage des formations pour la recherche
+let formationsList = [];
 
 // Fonction pour récupérer les formations depuis l'API
-// On utilise l'endpoint /api/formations/ [GET] pour récupérer toutes les formations
-// On peut aussi utiliser l'endpoint /api/steps/formation/<formation_id> [GET] pour récupérer les périodes d'une formation
 async function fetchFormations() {
   try {
-    // ici on précise bien qu'on recupere les formations parmis les données
     const response = await fetch(`${apiBaseUrl}/formations/`);
-    if (!response.ok)
-      throw new Error("Erreur lors de la récupération des formations");
+    if (!response.ok) throw new Error("Erreur lors de la récupération des formations");
 
     const formations = await response.json();
-    formationsList = formations; // Stocker pour la barre de suggestion
+    formationsList = formations;
 
     // Ajout dynamique des formations au <select>
-    instanceSelect.innerHTML =
-      '<option value="all">Sélectionner les formations</option>';
-    formations.forEach((formation) => {
-      let option = document.createElement("option");
-      option.value = formation.id; // Utilise l'ID comme valeur
-      option.textContent = formation.name; // Utilise le nom comme texte
-      instanceSelect.appendChild(option);
-    });
+    instanceSelect.innerHTML = `
+      <option value="all">Sélectionner une formation...</option>
+      ${formations.map(formation => `
+        <option value="${formation.id}">${formation.name}</option>
+      `).join('')}
+    `;
+
+    // Transforme le select en select avec recherche
+    //transformSelectWithSearch();
   } catch (error) {
     console.error("Erreur :", error);
   }
 }
 
-// Fonction pour récupérer les périodes d'une formation depuis l'API
-// avec l'endpoint /api/steps/formation/<formation_id> [GET]
-// on passe l'id et on a toutes les pérides(ou semestre) de la formation
+// Transforme le select en select avec recherche intégrée
+function transformSelectWithSearch() {
+  // Crée un conteneur pour notre faux select
+  const selectContainer = document.createElement('div');
+  selectContainer.className = 'select-with-search-container';
+  selectContainer.style.position = 'relative';
+  
+  // Crée le bouton d'affichage du select
+  const selectButton = document.createElement('button');
+  selectButton.className = 'form-select text-start';
+  selectButton.textContent = 'Sélectionner une formation...';
+  selectButton.style.cursor = 'pointer';
+  
+  // Crée le dropdown (qui contiendra la recherche et les options)
+  const dropdown = document.createElement('div');
+  dropdown.className = 'select-dropdown bg-white border rounded mt-1 p-2';
+  dropdown.style.position = 'absolute';
+  dropdown.style.width = '95%';
+  dropdown.style.zIndex = '1000';
+  dropdown.style.display = 'none';
+  dropdown.style.maxHeight = '120px';
+  dropdown.style.overflowY = 'auto';
+  
+  // Ajoute le champ de recherche
+  const searchInput = document.createElement('input');
+  searchInput.type = 'text';
+  searchInput.placeholder = 'Rechercher...';
+  searchInput.className = 'form-control form-control-sm mb-2';
+  
+  // Ajoute la liste des options
+  const optionsList = document.createElement('div');
+  optionsList.className = 'options-list';
+  
+  // Remplit les options initiales
+  updateOptionsList(optionsList, '');
+  
+  // Assemble les éléments
+  dropdown.appendChild(searchInput);
+  dropdown.appendChild(optionsList);
+  selectContainer.appendChild(selectButton);
+  selectContainer.appendChild(dropdown);
+  
+  // Remplace le select original par notre construction
+  instanceSelect.parentNode.insertBefore(selectContainer, instanceSelect);
+  instanceSelect.style.display = 'none';
+  
+  // Gestion des événements
+  selectButton.addEventListener('click', function(e) {
+    e.stopPropagation();
+    dropdown.style.display = dropdown.style.display === 'none' ? 'block' : 'none';
+  });
+  
+  searchInput.addEventListener('input', function() {
+    updateOptionsList(optionsList, this.value);
+  });
+  
+  // Ferme le dropdown quand on clique ailleurs
+  document.addEventListener('click', function() {
+    dropdown.style.display = 'none';
+  });
+  
+  // Empêche la fermeture quand on clique dans le dropdown
+  dropdown.addEventListener('click', function(e) {
+    e.stopPropagation();
+  });
+}
+
+// Met à jour la liste des options filtrées
+function updateOptionsList(container, filter) {
+  const filterLower = filter.toLowerCase();
+  const options = Array.from(instanceSelect.options)
+    .filter(option => option.value === 'all' || 
+           option.textContent.toLowerCase().includes(filterLower));
+  
+  container.innerHTML = '';
+  
+  if (options.length === 0) {
+    container.innerHTML = '<div class="text-muted p-2">Aucun résultat</div>';
+    return;
+  }
+  
+  options.forEach(option => {
+    const optionElement = document.createElement('div');
+    optionElement.className = 'select-option p-2';
+    optionElement.textContent = option.textContent;
+    optionElement.style.cursor = 'pointer';
+    
+    optionElement.addEventListener('click', function() {
+      instanceSelect.value = option.value;
+      document.querySelector('.select-with-search-container button').textContent = option.textContent;
+      
+      if (option.value !== 'all') {
+        fetchPeriods(option.value);
+      } else {
+        periodContainer.style.display = 'none';
+      }
+      
+      document.querySelector('.select-dropdown').style.display = 'none';
+    });
+    
+    container.appendChild(optionElement);
+  });
+}
+
+// Le reste du code reste inchangé
 async function fetchPeriods(formationId) {
   try {
-    const response = await fetch(
-      `${apiBaseUrl}/steps/formation/${formationId}`
-    );
-    if (!response.ok)
-      throw new Error("Erreur lors de la récupération des périodes");
+    const response = await fetch(`${apiBaseUrl}/steps/formation/${formationId}`);
+    if (!response.ok) throw new Error("Erreur lors de la récupération des périodes");
 
     const steps = await response.json();
-
-    // Maintenant steps contient les données complètes pour cette formation
     const periods = steps
       .filter((step) => step.periodcode !== "None")
       .map((step) => ({
-        id: step.id, // L'ID unique de la période
-        code: step.periodcode, // Le code (ex: "P1")
-        //name: step.periodname || step.periodcode  // on peut aussi envisager de prendre le nom entier de la formation( à voir lundi avec les encadrants)
+        id: step.id,
+        code: step.periodcode,
       }));
 
     updatePeriods(periods);
@@ -101,17 +192,14 @@ async function fetchPeriods(formationId) {
   }
 }
 
-// Mise à jour dynamique du select des périodes
-// Cette fonction est appelée après la récupération des périodes
 function updatePeriods(periods) {
-  periodSelect.innerHTML = ""; // Vider la liste des périodes
+  periodSelect.innerHTML = "";
 
   if (periods.length > 0) {
     periodContainer.style.display = "block";
     periods.forEach((period) => {
       let option = document.createElement("option");
       option.value = period.id;
-      //console.log("valeur id : " + period.id)
       option.textContent = period.code;
       periodSelect.appendChild(option);
     });
@@ -120,72 +208,14 @@ function updatePeriods(periods) {
   }
 }
 
-// Écouteur d'événement sur la sélection d'une formation
-instanceSelect.addEventListener("change", function () {
-  const selectedFormationId = instanceSelect.value;
-  if (selectedFormationId !== "all") {
-    fetchPeriods(selectedFormationId);
-  } else {
-    updatePeriods([]); // Vide les périodes si "séléctionner une formation" est sélectionné
-  }
-});
-
-/*
-Cette partie correspond à la barre de suggestion qui prends juste le ou les caractere selectionné et faire un regex sur la liste des formation
-en gros ( debut* == formation.name) 
-*/
-// Fonction pour mettre à jour la barre de suggestion
-searchInput.addEventListener("input", function () {
-  const query = this.value.trim().toLowerCase();
-  suggestionsBox.innerHTML = "";
-
-  if (query.length === 0) {
-    suggestionsBox.style.display = "none";
-    return;
-  }
-
-  // Filtrage des formations correspondant à la recherche
-  const filteredInstances = formationsList.filter((inst) =>
-    inst.name.toLowerCase().includes(query)
-  );
-
-  if (filteredInstances.length > 0) {
-    suggestionsBox.style.display = "block";
-    filteredInstances.forEach((inst) => {
-      const suggestionItem = document.createElement("div");
-      suggestionItem.classList.add("suggestion");
-      suggestionItem.textContent = inst.name;
-
-      suggestionItem.addEventListener("click", function () {
-        searchInput.value = inst.name;
-        instanceSelect.value = inst.id;
-        fetchPeriods(inst.id);
-        suggestionsBox.style.display = "none";
-      });
-
-      suggestionsBox.appendChild(suggestionItem);
-    });
-  } else {
-    suggestionsBox.style.display = "none";
-  }
-});
-
-//  Masque(rendre le style display = "none") les suggestions lorsqu'on clique ailleurs
-document.addEventListener("click", function (e) {
-  if (!searchInput.contains(e.target) && !suggestionsBox.contains(e.target)) {
-    suggestionsBox.style.display = "none";
-  }
-});
-
-// Sélectionner toutes les périodes disponibles
-selectAllButton.addEventListener("click", function () {
+selectAllButton.addEventListener("click", function() {
   for (let option of periodSelect.options) {
     option.selected = true;
   }
-  // Afficher le bouton de confirmation après la sélection
-  document.getElementById("confirmation-container").style.display =
-    "inline-block";
+  document.getElementById("confirmation-container").style.display = "inline-block";
 });
+
+
 
 // PARTIE 2 : VISUALISATION DE LA/LES FORMATION.S SELECTIONNÉE
 /* Gestion des sélections de formations et périodes */
@@ -241,8 +271,33 @@ function checkSelections() {
     searchButton.disabled = false;
   } else {
     searchButton.disabled = true;
+    document.getElementById("summary-container").style.display = "none";
   }
 }
+
+
+// Gestion STRICTE du bouton "Suivant" vers filtering-tab
+document.getElementById('filtering-next-btn')?.addEventListener('click', function(e) {
+  // 1. Bloquer TOUJOURS la navigation par défaut
+  e.preventDefault();
+  e.stopImmediatePropagation(); // Empêche les autres listeners de s'exécuter
+
+  // 2. Vérification stricte des données
+  if (!universityData) {
+    alert("Action bloquée : Vous devez d'abord chaarger le périmètre.");
+    return;
+  }
+
+  // 3. Navigation MANUELLE seulement si les données sont prêtes
+  const nextTab = document.getElementById(this.dataset.next);
+  if (nextTab) {
+    new bootstrap.Tab(nextTab).show();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+}, true); // Capture phase pour s'exécuter en premier
+
+
+
 
 // Mise à jour de l'affichage du résumé
 function updateSummaryDisplay() {
@@ -342,7 +397,9 @@ async function fetchPerimetersData() {
 
     // 2. Construire l'URL avec les paramètres
     // On va faire une requete sur l'endpoint /api/perimeters/?steps=1&steps=2&steps=3 etc...
-    const queryParams = allPeriodIds.map((id) => `steps=${id}`).join("&");
+    /*const queryParams = allPeriodIds.map((id) => `steps=${id}`).join("&");
+    const url = `${apiBaseUrl}/perimeters/?${queryParams}`;*/
+    const queryParams = `steps=${allPeriodIds.join(",")}`;
     const url = `${apiBaseUrl}/perimeters/?${queryParams}`;
 
     // 3. appel API
@@ -559,33 +616,69 @@ function downloadXML(xmlContent) {
   URL.revokeObjectURL(url);
 }
 
-document
-  .getElementById("search-button")
-  .addEventListener("click", async function () {
-    try {
-      // Désactivation du bouton pendant la génération
-      const downloadBtn = document.getElementById("download-xml");
-      downloadBtn.disabled = true;
-      downloadBtn.textContent = "Génération en cours...";
-      // apport ici
-      if (!universityData) {
-        await loadDataAndInitUI();
-      }
-      // 2. Génère le XML
-      const xml = await generateCompleteTimetabling();
+// Fonction pour télécharger le JSON (nouvelle fonction)
+function downloadJSON(jsonData) {
+  const blob = new Blob([JSON.stringify(jsonData, null, 2)], { type: "application/json" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "emploi_du_temps.json";
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
 
-      // 3. Active le bouton de téléchargement
-      downloadBtn.disabled = false;
-      downloadBtn.textContent = "Visualiser le XML";
 
-      // 4. Stocke le XML pour téléchargement
-      downloadBtn.onclick = () => downloadXML(xml);
-    } catch (error) {
-      console.error("Erreur:", error);
-      document.getElementById("download-xml").textContent =
-        "Erreur de génération";
+  // Stocker les données générées pour les téléchargements
+let generatedData = {
+  xml: null,
+  json: null
+};
+
+document.getElementById("search-button").addEventListener("click", async function () {
+  try {
+    const downloadBtn = document.getElementById("download-btn");
+    downloadBtn.disabled = true;
+    downloadBtn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Génération...';
+    
+    if (!universityData) {
+      await loadDataAndInitUI();
     }
-  });
+    
+    // Génère le XML et stocke les données
+    generatedData.xml = await generateCompleteTimetabling();
+    generatedData.json = universityData; 
+    
+    // Active le bouton de téléchargement
+    downloadBtn.disabled = false;
+    downloadBtn.textContent = "Visualiser";
+    
+  } catch (error) {
+    console.error("Erreur:", error);
+    document.getElementById("download-btn").textContent = "Erreur";
+  }
+});
+
+// Gestionnaire pour le téléchargement XML
+document.getElementById("download-xml").addEventListener("click", function(e) {
+  e.preventDefault();
+  if (generatedData.xml) {
+    downloadXML(generatedData.xml);
+  } else {
+    alert("Aucune donnée XML à télécharger. Veuillez d'abord lancer la recherche.");
+  }
+});
+
+// Gestionnaire pour le téléchargement JSON
+document.getElementById("download-json").addEventListener("click", function(e) {
+  e.preventDefault();
+  if (generatedData.json) {
+    downloadJSON(generatedData.json);
+  } else {
+    alert("Aucune donnée JSON à télécharger. Veuillez d'abord lancer la recherche.");
+  }
+});
 
 /* PARCOURS DES REGLES ET FILTRAGE */
 
@@ -1226,14 +1319,4 @@ function resetManualSelection() {
   renderRulesDetails(universityData);
 }
 
-// Écouteurs d'événements
-/*
-document
-  .getElementById("deactivate-rules")
-  .addEventListener("keypress", (e) => {
-    if (e.key === "Enter") {
-      applyManualSelection();
-    }
-  });
-*/
 /* === FIN PARTIE SAISIE MANUELLE === */

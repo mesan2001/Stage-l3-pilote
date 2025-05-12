@@ -42,7 +42,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  initializeExistingStrategies();
+
 
   // Bouton pour ajouter une nouvelle stratégie
   const addStrategyBtn = document.getElementById("add-strategy");
@@ -118,10 +118,6 @@ document.addEventListener("DOMContentLoaded", function () {
     return strategies;
   }
 
-
-  function initializeExistingStrategies() {
-
-  }
 
   // Fonction pour ajouter une nouvelle stratégie
   function addNewStrategy() {
@@ -238,7 +234,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
   // ici :
-  // En haut de votre fichier (déclarations globales)
+  //  (déclarations globales)
   const saveConfigButtons = [
     document.getElementById("save-config"),
     document.getElementById("save-config-btn")
@@ -458,68 +454,129 @@ document.addEventListener("DOMContentLoaded", function () {
 
  // const startSolverBtn = document.getElementById("start-solver");
 // Gestionnaire pour le bouton "Lancer le solveur"
-if (startSolverBtn) {
-  startSolverBtn.addEventListener("click", function (e) {
-    if (!handleButtonAction(e)) return; // Bloquer si erreurs
+  if (startSolverBtn) {
+    startSolverBtn.addEventListener("click", function (e) {
+      if (!handleButtonAction(e)) return; // Bloquer si erreurs
 
-    // Activer l'onglet Résultats en utilisant Bootstrap Tab
-    const resultsTab = document.getElementById('results-tab');
-    if (resultsTab) {
-      const tab = new bootstrap.Tab(resultsTab);
-      tab.show();
-    }
-
-    // Afficher la section résultats
-    const resultsContent = document.getElementById("results-content");
-    if (resultsContent) {
-      resultsContent.classList.add('show', 'active');
-    }
-
-    // Afficher le panneau de résumé de la solution
-    const resultsContentPanel = document.getElementById("results-content-panel");
-    if (resultsContentPanel) {
-      resultsContentPanel.style.display = "block";
-    }
-
-    // Mettre à jour le statut
-    const solverStatus = document.getElementById("solver-status");
-    if (solverStatus) {
-      solverStatus.textContent = "En cours...";
-      solverStatus.className = "badge bg-warning";
-    }
-
-    // Réinitialiser la barre de progression
-    const progressBar = document.getElementById("solver-progress");
-    if (progressBar) {
-      progressBar.style.width = "0%";
-      progressBar.setAttribute("aria-valuenow", "0");
-    }
-
-    // Appeler le solveur avec délai simulé
-    setTimeout(() => {
-      if (typeof chargerResultatSolveur === "function") {
-        chargerResultatSolveur();
-      } else {
-        console.error("La fonction chargerResultatSolveur() n'est pas disponible.");
+      // Activer l'onglet Résultats en utilisant Bootstrap Tab
+      const resultsTab = document.getElementById('results-tab');
+      if (resultsTab) {
+        const tab = new bootstrap.Tab(resultsTab);
+        tab.show();
       }
-    }, 3000);
-  });
-}
 
-  
-  // Mettre à jour le compteur d'instances sélectionnées
-  function updateSelectedInstancesCount() {
-    const selectedCount = document.querySelectorAll(
-      ".instance-checkbox:checked"
-    ).length;
-    const countDisplay = document.getElementById("selected-instances-count");
-    const infoDiv = document.getElementById("selected-instances-info");
-
-    if (countDisplay && infoDiv) {
-      countDisplay.textContent = selectedCount;
-      infoDiv.style.display = selectedCount > 0 ? "block" : "none";
-    }
+      // Mettre à jour le statut
+      const solverStatus = document.getElementById("solver-status");
+      if (solverStatus) {
+        solverStatus.textContent = "En cours...";
+        solverStatus.className = "badge bg-warning";
+      }
+    });
   }
+
 });
 
 
+
+
+///////////////////////////// AMÉLIORATIONS /////////////////////////////
+/*
+document.addEventListener("DOMContentLoaded", function () {
+  // 1. Déclarations des constantes et variables globales au script
+  const advancedModeToggle = document.getElementById("advanced-mode-toggle");
+  const advancedModeSection = document.getElementById("advanced-mode-section");
+  const startSolverBtn = document.getElementById("start-solver");
+  const saveConfigButtons = [
+    document.getElementById("save-config"),
+    document.getElementById("save-config-btn")
+  ].filter(btn => btn);
+  
+  // 2. Fonctions utilitaires (génériques, réutilisables)
+  function setupCollapseToggle() {
+    // Gestion des collapses et toggles
+    document.querySelectorAll('[data-bs-toggle="collapse"]').forEach((button) => {
+      // ... code existant ...
+    });
+  }
+
+  function validateInputs() {
+    // Logique de validation centralisée
+    const errors = document.querySelectorAll(".is-invalid");
+    return errors.length === 0;
+  }
+
+  // 3. Fonctions liées aux stratégies
+  function setupStrategies() {
+    // Initialisation des stratégies
+    const addStrategyBtn = document.getElementById("add-strategy");
+    if (addStrategyBtn) addStrategyBtn.addEventListener("click", addNewStrategy);
+  }
+
+  function addNewStrategy() {
+    // ... code existant ...
+  }
+
+  function getVarsStrategies() {
+    // ... code existant ...
+  }
+
+  // 4. Fonctions liées à la configuration
+  function setupConfigHandling() {
+    // Gestion du chargement/sauvegarde
+    setupSaveConfig();
+    setupLoadConfig();
+  }
+
+  function setupSaveConfig() {
+    // ... logique de sauvegarde ...
+  }
+
+  function setupLoadConfig() {
+    // ... logique de chargement ...
+  }
+
+  function generateConfigJSON() {
+    // ... code existant ...
+  }
+
+  function loadConfigIntoForm(config) {
+    // ... code existant ...
+  }
+
+  // 5. Fonctions liées à l'interface
+  function setupSearch() {
+    // Recherche dans les contraintes
+    const userConstraintsSearch = document.getElementById("user-constraints-search");
+    if (userConstraintsSearch) {
+      // ... code existant ...
+    }
+  }
+
+  function setupAdvancedMode() {
+    // Mode avancé
+    if (advancedModeToggle && advancedModeSection) {
+      // ... code existant ...
+    }
+  }
+
+  function setupSolverButton() {
+    // Bouton solveur
+    if (startSolverBtn) {
+      // ... code existant ...
+    }
+  }
+
+  // 6. Initialisation
+  function initialize() {
+    setupCollapseToggle();
+    setupAdvancedMode();
+    setupStrategies();
+    setupConfigHandling();
+    setupSearch();
+    setupSolverButton();
+  }
+
+  // Lancement de l'initialisation
+  initialize();
+});
+*/

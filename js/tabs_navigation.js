@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function() {
     // Gestion de la navigation entre les onglets
-    document.querySelectorAll('.next-tab').forEach(button => {
+    document.querySelectorAll('.next-tab:not(#filtering-next-btn)').forEach(button => {
       button.addEventListener('click', function() {
         const nextTabId = this.getAttribute('data-next');
         const nextTab = document.getElementById(nextTabId);
@@ -184,3 +184,66 @@ document.addEventListener("DOMContentLoaded", function() {
     initTabFromUrl();
     
   });
+
+//////////////////////////////////////// PRODUCTION DE LA LISTE DES CONTRAINTES UTILISATEUR et autres codes pour remplir la page ////
+
+// Liste des contraintes fondamentales
+const coreConstraints = [
+  "implicite_sequenced_sessions", "teacher_service", "disjunctive_teacher",
+  "disjunctive_group", "disjunctive_room", "size_of_multiroom", 
+  "bench_class_equilibrate"
+];
+
+const core_container = document.getElementById('core-constraints-list');
+
+coreConstraints.forEach(constraint => {
+  const div = document.createElement('div');
+  div.className = 'constraint-item';
+  
+  const input = document.createElement('input');
+  input.type = 'checkbox';
+  input.id = `core-${constraint}`;
+  input.name = 'core_constraint[]';
+  input.value = constraint;
+  input.checked = true;
+  
+  const label = document.createElement('label');
+  label.htmlFor = `core-${constraint}`;
+  label.textContent = constraint;
+  
+  div.appendChild(input);
+  div.appendChild(label);
+  core_container.appendChild(div);
+});
+
+
+// liste des contraintes utilisateur
+const constraints = [
+    "sameRooms", "sameTeachers", "allowedPeriod", "forbiddenPeriod", 
+    "weekly", "sameWeek", "assignRoom", "forbiddenRooms", 
+    "sameWeekDay", "differentWeekDay", "differentSlots", 
+    "disjunct", "sameWeeklySlot", "differentWeek", 
+    "sameSlot", "sameSlots", "periodic", "sequenced"
+];
+
+const user_container = document.getElementById('user-constraints-list');
+
+constraints.forEach(constraint => {
+    const div = document.createElement('div');
+    div.className = 'constraint-item';
+    
+    const input = document.createElement('input');
+    input.type = 'checkbox';
+    input.id = `user-${constraint}`;
+    input.name = 'user_constraint[]';
+    input.value = constraint;
+    input.checked = true;
+    
+    const label = document.createElement('label');
+    label.htmlFor = `user-${constraint}`;
+    label.textContent = constraint;
+    
+    div.appendChild(input);
+    div.appendChild(label);
+    user_container.appendChild(div);
+});
