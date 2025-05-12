@@ -20,17 +20,23 @@ async function initUIWithData(data) {
 
 // DOM
 document.addEventListener("DOMContentLoaded", function () {
-  //  Seulement préparer les listeners, NE RIEN EXÉCUTER DIRECTEMENT
+  //   préparer les listeners
   prepareEventListeners();
 });
-function prepareEventListeners() {
+
+async function prepareEventListeners() {
   initializeRulesState();
-  // Au démarrage les formations sont chargées en premier
-  //charger les formations
-  fetchFormations();
-  transformSelectWithSearch();
+  
   // Désactiver le bouton au chargement initial
   document.getElementById("search-button").disabled = true;
+  try {
+    // attnedre le chargement complet du de la liste des formations
+    await fetchFormations();
+    //  le select
+    transformSelectWithSearch();
+  } catch (error) {
+    console.error("Erreur lors du chargement des formations:", error);
+  }
 }
 
 //PARTIE 1 à modifier apres la mise à jour de l'API par mr SIMON
@@ -60,8 +66,6 @@ async function fetchFormations() {
         <option value="${formation.id}">${formation.name}</option>
       `).join('')}
     `;
-
-    // Transforme le select en select avec recherche
     //transformSelectWithSearch();
   } catch (error) {
     console.error("Erreur :", error);
