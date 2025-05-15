@@ -1,3 +1,6 @@
+
+// variblable globale pour stocker les données de l'université
+// périmètre recuu de l'API
 let universityData = null;
 
 async function initUIWithData(data) {
@@ -6,7 +9,7 @@ async function initUIWithData(data) {
     handleApiData(data);
     console.log("Données chargées avec succès !");
 
-    // Activer l'onglet des règles
+    // l'onglet des règles
     const rulesTab = document.getElementById("rules-tab");
     if (rulesTab) {
       const tabTrigger = new bootstrap.Tab(rulesTab);
@@ -18,9 +21,8 @@ async function initUIWithData(data) {
   }
 }
 
-// DOM
+// Au chargement du DOM
 document.addEventListener("DOMContentLoaded", function () {
-  //   préparer les listeners
   prepareEventListeners();
 });
 
@@ -30,16 +32,14 @@ async function prepareEventListeners() {
   // Désactiver le bouton au chargement initial
   document.getElementById("search-button").disabled = true;
   try {
-    // attnedre le chargement complet du de la liste des formations
     await fetchFormations();
-    //  le select
+    
     transformSelectWithSearch();
   } catch (error) {
     console.error("Erreur lors du chargement des formations:", error);
   }
 }
 
-//PARTIE 1 à modifier apres la mise à jour de l'API par mr SIMON
 /* Gestion de la complétion des textes et le chargement des formations depuis l'API*/
 
 const apiBaseUrl = "http://localhost:8080/api";
@@ -51,6 +51,8 @@ const selectAllButton = document.getElementById("select-all");
 let formationsList = [];
 
 // Fonction pour récupérer les formations depuis l'API
+// On va faire une requete sur l'endpoint /api/formations/
+// et on va remplir le select avec les formations
 async function fetchFormations() {
   try {
     const response = await fetch(`${apiBaseUrl}/formations/`);
@@ -66,7 +68,7 @@ async function fetchFormations() {
         <option value="${formation.id}">${formation.name}</option>
       `).join('')}
     `;
-    //transformSelectWithSearch();
+    
   } catch (error) {
     console.error("Erreur :", error);
   }
@@ -74,7 +76,6 @@ async function fetchFormations() {
 
 // Transforme le select en select avec recherche intégrée
 function transformSelectWithSearch() {
-  // Crée un conteneur pour notre faux select
   const selectContainer = document.createElement('div');
   selectContainer.className = 'select-with-search-container';
   selectContainer.style.position = 'relative';
@@ -85,7 +86,7 @@ function transformSelectWithSearch() {
   selectButton.textContent = 'Sélectionner une formation...';
   selectButton.style.cursor = 'pointer';
   
-  // Crée le dropdown (qui contiendra la recherche et les options)
+  // le dropdown (qui contiendra la recherche et les options)
   const dropdown = document.createElement('div');
   dropdown.className = 'select-dropdown bg-white border rounded mt-1 p-2';
   dropdown.style.position = 'absolute';
@@ -95,30 +96,27 @@ function transformSelectWithSearch() {
   dropdown.style.maxHeight = '120px';
   dropdown.style.overflowY = 'auto';
   
-  // Ajoute le champ de recherche
+  //  le champ de recherche
   const searchInput = document.createElement('input');
   searchInput.type = 'text';
   searchInput.placeholder = 'Rechercher...';
   searchInput.className = 'form-control form-control-sm mb-2';
   
-  // Ajoute la liste des options
+  // liste des options
   const optionsList = document.createElement('div');
   optionsList.className = 'options-list';
   
-  // Remplit les options initiales
+  //  les options initiales
   updateOptionsList(optionsList, '');
   
-  // Assemble les éléments
   dropdown.appendChild(searchInput);
   dropdown.appendChild(optionsList);
   selectContainer.appendChild(selectButton);
   selectContainer.appendChild(dropdown);
   
-  // Remplace le select original par notre construction
   instanceSelect.parentNode.insertBefore(selectContainer, instanceSelect);
   instanceSelect.style.display = 'none';
   
-  // Gestion des événements
   selectButton.addEventListener('click', function(e) {
     e.stopPropagation();
     dropdown.style.display = dropdown.style.display === 'none' ? 'block' : 'none';
@@ -128,7 +126,7 @@ function transformSelectWithSearch() {
     updateOptionsList(optionsList, this.value);
   });
   
-  // Ferme le dropdown quand on clique ailleurs
+  //  le dropdown quand on clique ailleurs
   document.addEventListener('click', function() {
     dropdown.style.display = 'none';
   });
@@ -176,7 +174,6 @@ function updateOptionsList(container, filter) {
   });
 }
 
-// Le reste du code reste inchangé
 async function fetchPeriods(formationId) {
   try {
     const response = await fetch(`${apiBaseUrl}/steps/formation/${formationId}`);
@@ -226,7 +223,6 @@ selectAllButton.addEventListener("click", function() {
 
 let allSelections = []; // Stocke toutes les sélections {formation, periods}
 
-// Événement quand on change la sélection des périodes
 // Affiche le bouton de confirmation si au moins une période est sélectionnée
 document
   .getElementById("period-select")
@@ -234,7 +230,7 @@ document
     const hasSelection = this.selectedOptions.length > 0;
     document.getElementById("confirmation-container").style.display =
       hasSelection ? "inline-block" : "none";
-  });
+});
 
 // Confirmation de la sélection
 document
@@ -249,7 +245,7 @@ document
       document.getElementById("period-select").selectedOptions
     ).map((option) => ({
       id: option.value, // L'ID de la période
-      code: option.text, // Le code (P1, P2, etc.)
+      code: option.text, // Le code (P1, P2, etc...)
     }));
 
     const isEdit = this.hasAttribute("data-edit-index");
@@ -266,7 +262,7 @@ document
     //console.log("test :", JSON.stringify(allSelections, null, 2));
     updateSummaryDisplay();
     resetSelectionInterface();
-  });
+});
 
 /* desactiver le bouton "lancer la recherche  ( si aucune période n'a été selectionnée ) */
 function checkSelections() {
@@ -279,14 +275,16 @@ function checkSelections() {
   }
 }
 
-
+/*
 // Gestion STRICTE du bouton "Suivant" vers filtering-tab
+// On ne peut pas naviguer vers le tab filtering si on n'a pas chargé le périmètre
+// et si on n'a pas sélectionné de périodes
+// On utilise la phase de capture pour s'assurer que cet événement est traité en premier
+*/
 document.getElementById('filtering-next-btn')?.addEventListener('click', function(e) {
-  // 1. Bloquer TOUJOURS la navigation par défaut
   e.preventDefault();
-  e.stopImmediatePropagation(); // Empêche les autres listeners de s'exécuter
+  e.stopImmediatePropagation();
 
-  // 2. Vérification stricte des données
   if (!universityData) {
     alert("Action bloquée : Vous devez d'abord chaarger le périmètre.");
     return;
@@ -298,7 +296,7 @@ document.getElementById('filtering-next-btn')?.addEventListener('click', functio
     new bootstrap.Tab(nextTab).show();
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
-}, true); // Capture phase pour s'exécuter en premier
+}, true);
 
 
 
@@ -386,8 +384,8 @@ document
     resetSelectionInterface();
   });
 
+  
 //                 LES DATA DU PÉRIMETRE :
-
 // 1.  universityData une variable globale qui contient les données du périmetres initialisé à nul au debut
 
 async function fetchPerimetersData() {
@@ -397,12 +395,10 @@ async function fetchPerimetersData() {
     // à la fin de cette variable allPeriodIds contient bien toutes les ids des périodes sélectionnées
     const allPeriodIds = allSelections.flatMap((selection) =>
       selection.periods.map((period) => period.id).filter((id) => id)
-    ); // Filtrer les IDs vides si nécessaire
+    ); 
 
     // 2. Construire l'URL avec les paramètres
     // On va faire une requete sur l'endpoint /api/perimeters/?steps=1&steps=2&steps=3 etc...
-    /*const queryParams = allPeriodIds.map((id) => `steps=${id}`).join("&");
-    const url = `${apiBaseUrl}/perimeters/?${queryParams}`;*/
     const queryParams = `steps=${allPeriodIds.join(",")}`;
     const url = `${apiBaseUrl}/perimeters/?${queryParams}`;
 
@@ -428,7 +424,7 @@ async function loadDataAndInitUI() {
       throw new Error("Données reçues invalides");
     }
 
-    // Utiliser la fonction commune
+    //  l'interface utilisateur avec les données
     await initUIWithData(data);
   } catch (error) {
     console.error("Erreur:", error);
@@ -446,168 +442,214 @@ async function handleApiData(apiData) {
   }
 }
 
-// génération du  XML
-async function generateCompleteTimetabling() {
-  //const universityData = await fetchPerimetersData();
-  //console.log(universityData)
-  if (!universityData || !universityData.timetabling.rules) {
-    await loadDataAndInitUI();
-  }
+  // génération du  XML
+  async function generateCompleteTimetabling() {
+    if (!universityData || !universityData.timetabling.rules) {
+      await loadDataAndInitUI();
+    }
 
-  const xmlHeader = `<?xml version="1.0" encoding="UTF-8"?>`;
-  /*const rootOpen = `<timetabling xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-      xsi:schemaLocation="usp_timetabling_v0_2.xsd">`*/ // à effacer apres
-  const rootOpen = `<timetabling 
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="usp_timetabling_v0_2.xsd"
-    name="${universityData.timetabling.name}"
-    nrWeeks="${universityData.timetabling.nrWeeks}"
-    nrDaysPerWeek="${universityData.timetabling.nrDaysPerWeek}"
-    nrSlotsPerDay="${universityData.timetabling.nrSlotsPerDay}">`;
-
-  const roomsXml = universityData.timetabling.rooms
+    const xmlHeader = `<?xml version="1.0" encoding="UTF-8"?>`;
+    const rootOpen = `<timetabling 
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="usp_timetabling_v0_2.xsd"
+      name="${universityData.timetabling.name}"
+      nrWeeks="${universityData.timetabling.nrWeeks}"
+      nrDaysPerWeek="${universityData.timetabling.nrDaysPerWeek}"
+      nrSlotsPerDay="${universityData.timetabling.nrSlotsPerDay}">`;
+      const calendarXml = `
+      <calendar startingWeek="36" year="2023">
+          <!-- -->
+          <weeks nr="34" sequence="1,2,4,5,7-3999"/>
+          <!-- -->
+          <days nr="5" sequence="1,2,3,4,5"/>
+          <!-- Correspond à Lundi mardi mercredi jeudi vendredi (format iso dimanche=0 , lundi=1 ,... -->
+          <slots nr="1440"/>
+      </calendar>`;
+    const roomsXml = universityData.timetabling.rooms
     .map((room) => {
-      return `        <room id="${room.id}" capacity="${room.capacity}" label="${room.label}" />`;
+      // Échapper les caractères spéciaux XML dans le label
+      const escapedLabel = room.label
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&apos;');
+      
+      return `        <room id="${room.id}" capacity="${room.capacity}" label="${escapedLabel}" />`;
     })
     .join("\n");
 
-  const teachersXml = universityData.timetabling.teachers
-    .map((teacher) => {
-      return `        <teacher  label="${teacher.label}" id="${teacher.id}" />`;
-    })
-    .join("\n");
-  // coursesXml
-  const coursesXml = universityData.timetabling.courses
-    .map((course) => {
-      const partsXml = course.parts
-        .map((part) => {
-          const classesXml = part.classes.items
-            .map(
-              (cls) =>
-                `                <class id="${cls.id}" ${
-                  cls.label ? `label="${cls.label}"` : ""
-                } />`
-            )
-            .join("\n");
+    const teachersXml = universityData.timetabling.teachers
+      .map((teacher) => {
+        return `        <teacher  label="${teacher.label}" id="${teacher.id}" />`;
+      })
+      .join("\n");
+    // coursesXml
+    const coursesXml = universityData.timetabling.courses
+      .map((course) => {
+        const partsXml = course.parts
+          .map((part) => {
+            const classesXml = part.classes.items
+              .map(
+                (cls) =>
+                  `                <class id="${cls.id}" ${
+                    cls.label ? `label="${cls.label}"` : ""
+                  } />`
+              )
+              .join("\n");
 
-          const allowedRoomsXml = part.allowedRooms.rooms
-            .map((room) => `                <room refId="${room}" />`)
-            .join("\n");
+            const allowedRoomsXml = part.allowedRooms.rooms
+              .map((room) => `                <room refId="${room}" />`)
+              .join("\n");
 
-          const allowedTeachersXml = part.allowedTeachers.teachers
-            .map(
-              (teacher) =>
-                `                <teacher refId="${teacher.id}" nrSessions="${teacher.nrSessions}" />`
-            )
-            .join("\n");
+            const allowedTeachersXml = part.allowedTeachers.teachers
+              .map(
+                (teacher) =>
+                  `                <teacher refId="${teacher.id}" nrSessions="${teacher.nrSessions}" />`
+              )
+              .join("\n");
 
-          return `
-            <part id="${part.id}" nrSessions="${part.nrSessions}" label="${part.label}">
-                <classes maxHeadCount="${part.classes.maxHeadCount}">
-    ${classesXml}
-                </classes>
-                <allowedSlots sessionLength="${part.allowedSlots.sessionLength}">
-                    <dailySlots>${part.allowedSlots.dailySlots}</dailySlots>
-                    <days>${part.allowedSlots.days}</days>
-                    <weeks>${part.allowedSlots.weeks}</weeks>
-                </allowedSlots>
-                <allowedRooms sessionRooms="${part.allowedRooms.sessionRooms}">
-    ${allowedRoomsXml}
-                </allowedRooms>
-                <allowedTeachers sessionTeachers="${part.allowedTeachers.sessionTeachers}">
-    ${allowedTeachersXml}
-                </allowedTeachers>
-            </part>`;
-        })
-        .join("\n");
+            return `
+              <part id="${part.id}" nrSessions="${part.nrSessions}" label="${part.label}">
+                  <classes maxHeadCount="${part.classes.maxHeadCount}">
+      ${classesXml}
+                  </classes>
+                  <allowedSlots sessionLength="${part.allowedSlots.sessionLength}">
+                      <dailySlots>${part.allowedSlots.dailySlots}</dailySlots>
+                      <days>${part.allowedSlots.days}</days>
+                      <weeks>${part.allowedSlots.weeks}</weeks>
+                  </allowedSlots>
+                  <allowedRooms sessionRooms="${part.allowedRooms.sessionRooms}">
+      ${allowedRoomsXml}
+                  </allowedRooms>
+                  <allowedTeachers sessionTeachers="${part.allowedTeachers.sessionTeachers}">
+      ${allowedTeachersXml}
+                  </allowedTeachers>
+              </part>`;
+          })
+          .join("\n");
 
-      return `
-        <course id="${course.id}" label="${course.label}">
-    ${partsXml}
-        </course>`;
-    })
-    .join("\n");
-
-  const studentsXml = ""; // à revoir
-  // studentsXml
-  /*const studentsXml = universityData.students.map(student => {
-        const coursesXml = student.courses.map(courseId => 
-            `        <course refId="${courseId}" />`
-        ).join("\n");
-    
         return `
-        <student id="${student.id}" label="${student.label}">
-            <courses>
-    ${coursesXml}
-            </courses>
-        </student>`;
-    }).join("\n");*/
+          <course id="${course.id}" label="${course.label}">
+      ${partsXml}
+          </course>`;
+      })
+      .join("\n");
 
-  // rulesXmt
-  const rulesXml = universityData.timetabling.rules
-    .map((rule) => {
-      const selectorsXml = rule.selector
-        .map(
-          (sel) =>
-            `        <selector generator="${sel.generator}" filters="${sel.filter}" />`
+    
+    // studentsXml
+    const studentsXml = universityData.timetabling.students.map(student => {
+          const coursesXml = student.courses.map(courseId => 
+              `        <course refId="${courseId}" />`
+          ).join("\n");
+      
+          return `
+          <student id="${student.id}" label="${student.label}">
+              <courses>
+      ${coursesXml}
+              </courses>
+          </student>`;
+      }).join("\n");
+
+    // rulesXmt
+    const rulesXml = universityData.timetabling.rules
+      .map((rule) => {
+        const selectorsXml = rule.selector
+          .map(
+            (sel) =>
+              `        <selector generator="${sel.generator}" filters="${sel.filter}" />`
+          )
+          .join("\n");
+
+        const parametersXml = rule.constraint.parameters
+          ? rule.constraint.parameters
+              .map(
+                (paramGroup) =>
+                  `            <parameters>
+      ${paramGroup
+        .map((param) =>
+          param.value
+            ? `                <parameter name="${param.type}">${param.value}</parameter>`
+            : `                <parameter name="${param.type}"/>`
         )
-        .join("\n");
+        .join("\n")}
+                  </parameters>`
+              )
+              .join("\n")
+          : "";
 
-      const parametersXml = rule.constraint.parameters
-        ? rule.constraint.parameters
-            .map(
-              (paramGroup) =>
-                `            <parameters>
-    ${paramGroup
-      .map((param) =>
-        param.value
-          ? `                <parameter name="${param.type}">${param.value}</parameter>`
-          : `                <parameter name="${param.type}"/>`
-      )
-      .join("\n")}
-                </parameters>`
-            )
+        const constraintContent = parametersXml
+          ? `>
+      ${parametersXml}
+              </constraint>`
+          : "/>";
+
+        return `
+          <rule>
+      ${selectorsXml}
+              <constraint name="${rule.constraint.name}" type="${rule.constraint.type}"${constraintContent}
+          </rule>`;
+      })
+      .join("\n");
+
+      // solution
+      const solutionXml = universityData.timetabling.solution.groups
+    .map(group => {
+      // Génération des étudiants
+      const studentsXml = group.students
+        .map(studentId => `                <student refId="student-${studentId}" />`)
+        .join("\n");
+      
+      // Génération des classes (si elles existent dans le groupe)
+      const classesXml = group.classes
+        ? group.classes
+            .map(classId => `                <class refId="${classId}" />`)
             .join("\n")
         : "";
-
-      const constraintContent = parametersXml
-        ? `>
-    ${parametersXml}
-            </constraint>`
-        : "/>";
-
+      
       return `
-        <rule>
-    ${selectorsXml}
-            <constraint name="${rule.constraint.name}" type="${rule.constraint.type}"${constraintContent}
-        </rule>`;
+              <group id="${group.id}" headCount="${group.headcount}">
+                  <students>
+  ${studentsXml}
+                  </students>
+                  ${group.classes ? `
+                  <classes>
+  ${classesXml}
+                  </classes>` : ''}
+              </group>`;
     })
     .join("\n");
 
-  const rootClose = `</timetabling>`;
+    const rootClose = `</timetabling>`;
 
-  return `
-  ${xmlHeader}
-  ${rootOpen}
-      <rooms>
-  ${roomsXml}
-      </rooms>
-      <teachers>
-  ${teachersXml}
-      </teachers>
-      <courses>
-  ${coursesXml}
-      </courses>
-      <students>
-  ${studentsXml}
-      </students>
-      <rules>
-  ${rulesXml}
-      </rules>
-  ${rootClose}`.trim();
-}
+    return `
+    ${xmlHeader}
+    ${rootOpen}
+    ${calendarXml}
+        <rooms>
+    ${roomsXml}
+        </rooms>
+        <teachers>
+    ${teachersXml}
+        </teachers>
+        <courses>
+    ${coursesXml}
+        </courses>
+        <students>
+    ${studentsXml}
+        </students>
+        <rules>
+    ${rulesXml}
+        </rules>
+        <solution>
+            <groups>
+    ${solutionXml}
+            </groups>
+        </solution>
+    ${rootClose}`.trim();
+  }
 
-// téléchargement du fichier
+// téléchargement XML du fichier
 function downloadXML(xmlContent) {
   const blob = new Blob([xmlContent], { type: "application/xml" });
   const url = URL.createObjectURL(blob);
@@ -620,7 +662,7 @@ function downloadXML(xmlContent) {
   URL.revokeObjectURL(url);
 }
 
-// Fonction pour télécharger le JSON (nouvelle fonction)
+// télécharger JSON du fichier 
 function downloadJSON(jsonData) {
   const blob = new Blob([JSON.stringify(jsonData, null, 2)], { type: "application/json" });
   const url = URL.createObjectURL(blob);
@@ -634,7 +676,7 @@ function downloadJSON(jsonData) {
 }
 
 
-  // Stocker les données générées pour les téléchargements
+  //  les données générées pour les téléchargements
 let generatedData = {
   xml: null,
   json: null
@@ -643,14 +685,13 @@ let generatedData = {
 document.getElementById("search-button").addEventListener("click", async function () {
   try {
     const downloadBtn = document.getElementById("download-btn");
-    downloadBtn.disabled = true;
     downloadBtn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Génération...';
     
-    if (!universityData) {
-      await loadDataAndInitUI();
-    }
     
-    // Génère le XML et stocke les données
+    await loadDataAndInitUI();
+    
+    // Vérifier si les données sont prêtes
+    // Si les données ne sont pas prêtes, on les charge    
     generatedData.xml = await generateCompleteTimetabling();
     generatedData.json = universityData; 
     
@@ -686,15 +727,12 @@ document.getElementById("download-json").addEventListener("click", function(e) {
 
 /* PARCOURS DES REGLES ET FILTRAGE */
 
-// Joseph , Kenny ,  j'ai ajouté cette partie
 // Initialise l'état des règles au chargement de la page
 function initializeRulesState() {
   // définir toutes les cases à cocher comme cochées
   document.querySelectorAll(".rule-checkbox").forEach((checkbox) => {
     checkbox.checked = true;
-
-    // mettre à jour le badge d'état en "Actif" avec la couleur verte
-
+    // Mettre à jour le badge de statut 
     const row = checkbox.closest("tr");
     if (row) {
       const badge = row.querySelector(".badge");
@@ -713,22 +751,20 @@ function initializeRulesState() {
     selectAllCheckbox.checked = true;
   }
 
-  // Mettre à jour le compteur de règles actives
+  // Mise à jour le compteur de règles actives
   const totalRules = document.querySelectorAll(".rule-checkbox").length;
   const activeRulesCount = document.getElementById("active-rules-count");
   const totalRulesCount = document.getElementById("total-rules-count");
   if (activeRulesCount) activeRulesCount.textContent = totalRules;
   if (totalRulesCount) totalRulesCount.textContent = totalRules;
 
-  // Vider le champ de saisie manuelle
+  // Vide le champ de saisie manuelle
   const manualInput = document.getElementById("deactivate-rules");
   if (manualInput) {
     manualInput.value = "";
   }
 }
 
-// Exécuter l'initialisation au chargement du DOM
-// attention source d'erreur ligne 635
 
 const selectedRuleIds = new Set(); // id des regles sélectionnées
 
@@ -753,28 +789,28 @@ function initSorting() {
         currentSortColumn = sortField;
       }
 
-      //réinitialiser les classes de tri pour tous les en-têtes
+      // les classes de tri pour tous les en-têtes
       sortableHeaders.forEach((th) => {
         th.classList.remove("asc", "desc");
       });
 
-      // ajouter la classe de direction appropriée à l'en-tête actuel
+      //  la classe de direction appropriée à l'en-tête actuel
       this.classList.add(currentSortDirection);
 
-      // effectuer le tri
+      //  le tri
       sortRulesTable(sortField, currentSortDirection);
     });
   });
 }
 
-// Fonction améliorée pour trier le tableau des règles
+// pour trier le tableau des règles
 function sortRulesTable(field, direction) {
   const tbody = document.querySelector("#rules-list");
   if (!tbody) return;
 
   const rows = Array.from(tbody.querySelectorAll("tr"));
 
-  // stocker l'ordre initial pour conserver l'ordre en cas d'égalité
+  //l'ordre initial pour conserver l'ordre en cas d'égalité
   const originalOrder = rows.map((row, index) => ({ row, index }));
 
   rows.sort((a, b) => {
@@ -828,7 +864,7 @@ function sortRulesTable(field, direction) {
     } else {
       if (valueA < valueB) return direction === "asc" ? -1 : 1;
       if (valueA > valueB) return direction === "asc" ? 1 : -1;
-      // En cas d'égalité, maintenir l'ordre original
+      // En cas d'égalité, on maintient l'ordre original
       return (
         originalOrder.find((item) => item.row === a).index -
         originalOrder.find((item) => item.row === b).index
@@ -840,10 +876,9 @@ function sortRulesTable(field, direction) {
   rows.forEach((row) => tbody.appendChild(row));
 }
 
-// Mise à jour de la fonction renderRulesDetails pour inclure les icônes de tri
 // data = universityData
 // data.timetabling.rules = les regles
-//@THI VI regarde tres bien ici et la maniere dont tu fais l'appel à la ligne
+// data.timetabling.rules[0].selector = le générateur de la règle
 function renderRulesDetails(data) {
   if (!data || !data.timetabling.rules) {
     console.error("Données invalides pour le rendu des règles");
@@ -899,7 +934,7 @@ function renderRulesDetails(data) {
           </td>
       `;
 
-    // Ajouter les écouteurs d'événements
+    // écouteurs 
     const checkbox = row.querySelector(".rule-checkbox");
     const badge = row.querySelector(".badge");
 
@@ -939,7 +974,7 @@ function renderRulesDetails(data) {
 
 
 
-// Nouvelle fonction pour ajouter une règle à la saisie manuelle
+// fonction pour ajouter une règle à la saisie manuelle
 function addToManualInput(ruleId) {
   const manualInput = document.getElementById("deactivate-rules");
   if (!manualInput) return;
@@ -955,10 +990,7 @@ function addToManualInput(ruleId) {
   }
 }
 
-// Nouvelle fonction pour retirer une règle de la saisie manuelle
-
-
-
+// fonction pour retirer une règle de la saisie manuelle
 function removeFromManualInput(ruleId) {
   const manualInput = document.getElementById("deactivate-rules");
   if (!manualInput) return;
@@ -976,7 +1008,7 @@ function removeFromManualInput(ruleId) {
 }
 
 
-// Nouvelle fonction pour mettre à jour le compteur de règles
+//  fonction pour mettre à jour le compteur de règles
 function updateRulesCounter(activeCount, totalCount) {
   const activeRulesCount = document.getElementById("active-rules-count");
   const totalRulesCount = document.getElementById("total-rules-count");
@@ -995,10 +1027,10 @@ document.getElementById("select-all-rules-checkbox")?.addEventListener("change",
 
   checkboxes.forEach((checkbox) => {
     checkbox.checked = isChecked;
-    checkbox.dispatchEvent(new Event("change")); // Pour déclencher les éventuels effets liés à "change"
+    checkbox.dispatchEvent(new Event("change")); 
   });
 
-  // Mettre à jour le compteur selon le cas
+  // Mise  à jour du compteur selon le cas
   const selectedCount = isChecked ? totalRules : 0;
   updateRulesCounter(selectedCount, totalRules);
 });
@@ -1166,8 +1198,6 @@ function applyAdvancedFilters() {
 // Affiche les résultats filtrés
 // filteredRules est un tableau d'objets de règles
 // qui correspondent aux critères de filtrage
-// @THI VI fais tres attention ici dans cette fonction , renderRulesDetails attends les data entier , pas seulement les regles
-// donc cherche une autre solution pour afficher les regles filtrées
 function renderFilteredResults(filteredRules) {
   const rulesContainer = document.getElementById("rules-list");
   rulesContainer.innerHTML = "";
@@ -1178,9 +1208,6 @@ function renderFilteredResults(filteredRules) {
     return;
   }
 
-  // Réutilise la même fonction de rendu mais avec les données filtrées
-  // @THI VI regarde bien ici et la maniere dont tu fais l'appel
-  // renderRulesDetails attends les données de universityData
   const filteredData = {
     timetabling: {
       ...universityData.timetabling,
@@ -1188,7 +1215,6 @@ function renderFilteredResults(filteredRules) {
     },
   };
 
-  // Utiliser la structure complète pour le rendu
   renderRulesDetails(filteredData);
 
   // Affiche le nombre de résultats
@@ -1198,7 +1224,6 @@ function renderFilteredResults(filteredRules) {
   rulesContainer.prepend(countElement);
 }
 
-// Réinitialise les filtres
 function resetFilters() {
   // Réinitialise les champs
   document.getElementById("filter-constraint-type").value = "";
@@ -1212,8 +1237,6 @@ function resetFilters() {
   document.getElementById("filter-parameter").value = "";
   document.getElementById("deactivate-rules").value = "";
   
-
-  // Réaffiche toutes les règles
   renderRulesDetails(universityData);
 }
 
@@ -1253,27 +1276,6 @@ function parseRuleInput(input) {
   return Array.from(ids);
 }
 
-// Applique la sélection manuelle
-/*function applyManualSelection() {
-  const input = document.getElementById("deactivate-rules").value;
-  const ruleIds = parseRuleInput(input);
-
-  if (ruleIds.length === 0) {
-    alert("Veuillez entrer au moins un numéro de règle");
-    return;
-  }
-
-  // Filtre les règles correspondantes
-  const filteredRules = universityData.timetabling.rules.filter(
-    (rule, index) => {
-      // Note: index+1 car l'affichage commence à 1 // ATTENTION ICI , CA POURRAIT ETRE LES ID
-      return ruleIds.includes(index + 1);
-    }
-  );
-
-  // Affiche les résultats
-  renderManualSelectionResults(filteredRules, ruleIds);
-}*/
 
 // Affiche les résultats de la sélection manuelle
 function renderManualSelectionResults(filteredRules, selectedIds) {

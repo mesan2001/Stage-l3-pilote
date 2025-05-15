@@ -4,7 +4,8 @@ document.addEventListener("DOMContentLoaded", function () {
     const targetId = button.getAttribute("data-bs-target");
     const targetElement = document.querySelector(targetId);
 
-    // Mettre à jour l'icône initiale en fonction de l'état
+    // mise à jour de l'icône initiale en fonction de l'état
+    
     const updateIcon = (isExpanded) => {
       const icon = button.querySelector(".expand-icon");
       if (icon) {
@@ -12,11 +13,9 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     };
 
-    // Initialiser l'icône au chargement
+    //  l'icône au chargement
     if (targetElement) {
       updateIcon(targetElement.classList.contains("show"));
-
-      //Observer les changements d'état du collapse
       targetElement.addEventListener("show.bs.collapse", () =>
         updateIcon(true)
       );
@@ -26,7 +25,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
-  //Gestion du mode avancé 
+  //mode avancé 
   const advancedModeToggle = document.getElementById("advanced-mode-toggle");
   const advancedModeSection = document.getElementById("advanced-mode-section");
 
@@ -34,7 +33,6 @@ document.addEventListener("DOMContentLoaded", function () {
     advancedModeToggle.addEventListener("change", function () {
       if (this.checked) {
         advancedModeSection.style.display = "block";
-        // Générer le JSON à partir du formulaire actuel
         generateConfigJSON();
       } else {
         advancedModeSection.style.display = "none";
@@ -51,7 +49,6 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   // Fonction pour générer le JSON de configuration 
-  //window.generateConfigJSON = function(){} rend la fonction accessible de maniere global
   window.generateConfigJSON = function() {
     const config = {
       time_out: document.getElementById("time-out").value + "s",
@@ -66,14 +63,14 @@ document.addEventListener("DOMContentLoaded", function () {
       .querySelectorAll('#core-constraints-list input[type="checkbox"]:checked')
       .forEach((checkbox) => {
         config.core_constraint.push(checkbox.value);
-      });
+    });
 
     // Récupérer les contraintes métier cochées
     document
       .querySelectorAll('#user-constraints-list input[type="checkbox"]:checked')
       .forEach((checkbox) => {
         config.user_constraint.push(checkbox.value);
-      });
+    });
 
     // Récupérer les règles désactivées
     const deactivateRulesInput = document.getElementById("deactivate-rules");
@@ -84,15 +81,15 @@ document.addEventListener("DOMContentLoaded", function () {
       });
     }
 
-    // Mettre à jour le textarea JSON
+    // Mise à jour du textarea JSON
     const jsonTextarea = document.getElementById("advanced-config-json");
     if (jsonTextarea) {
       jsonTextarea.value = JSON.stringify(config, null, 2);
     }
     
-    return config;
+      return config;
   }
-  // Fonction pour récupérer les stratégies des variables
+  // récupération des stratégies des variables
   function getVarsStrategies() {
     const strategies = [];
     const strategyContainers = document.querySelectorAll(".strategy-container");
@@ -231,10 +228,7 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     });
   }
-
-
-  // ici :
-  //  (déclarations globales)
+  
   const saveConfigButtons = [
     document.getElementById("save-config"),
     document.getElementById("save-config-btn")
@@ -242,7 +236,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
   const startSolverBtn = document.getElementById("start-solver");
 
-  // Plus bas dans votre fichier
   function setupActionButtons() {
     const allButtons = [...saveConfigButtons, startSolverBtn].filter(btn => btn);
     allButtons.forEach(btn => btn.addEventListener("click", handleButtonAction));
@@ -255,14 +248,14 @@ document.addEventListener("DOMContentLoaded", function () {
       e.stopPropagation();
       alert("Corrigez les erreurs avant de continuer");
       errors[0].scrollIntoView({ behavior: "smooth" });
-      return false; // Important: indique qu'il y a des erreurs
+      return false;
     }
     return true; // Aucune erreur
   }
 
 
-// Initialisation au chargement
-  document.addEventListener("DOMContentLoaded", setupActionButtons); // fin
+  setupActionButtons(); // les boutons d'action au chargement de la page
+  //document.addEventListener("DOMContentLoaded", setupActionButtons); 
   
   saveConfigButtons.forEach((btn) => {
     if (btn) {
@@ -287,7 +280,7 @@ document.addEventListener("DOMContentLoaded", function () {
           }
         }
   
-        // Créer un nom de fichier avec date
+        // un nom de fichier avec date
         const now = new Date();
         const fileName = `solver-config-${now.getFullYear()}${(now.getMonth() + 1)
           .toString()
@@ -297,7 +290,7 @@ document.addEventListener("DOMContentLoaded", function () {
           .toString()
           .padStart(2, "0")}.json`;
   
-        // Créer le lien de téléchargement
+        //  le lien de téléchargement
         const dataStr = JSON.stringify(configData, null, 2);
         const dataUri =
           "data:application/json;charset=utf-8," + encodeURIComponent(dataStr);
@@ -314,7 +307,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
-  //gestion du chargement de configuration 
+  //le chargement de configuration 
   const loadConfigBtn = document.getElementById("load-config-btn");
   const configFileInput = document.getElementById("config-file-input");
 
@@ -429,7 +422,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
       });
 
-      // qfficher un message si aucun résultat
+      // Afficher un message si aucun résultat
       let noResultsMessage = document.getElementById("no-results-message");
       if (!hasVisibleItems) {
         if (!noResultsMessage) {
@@ -452,7 +445,6 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
- // const startSolverBtn = document.getElementById("start-solver");
 // Gestionnaire pour le bouton "Lancer le solveur"
   if (startSolverBtn) {
     startSolverBtn.addEventListener("click", function (e) {
@@ -476,309 +468,3 @@ document.addEventListener("DOMContentLoaded", function () {
 
 });
 
-
-
-
-///////////////////////////// AMÉLIORATIONS /////////////////////////////
-/*
-document.addEventListener("DOMContentLoaded", function () {
-  // 1. Déclarations des constantes et variables globales au script
-  const advancedModeToggle = document.getElementById("advanced-mode-toggle");
-  const advancedModeSection = document.getElementById("advanced-mode-section");
-  const startSolverBtn = document.getElementById("start-solver");
-  const saveConfigButtons = [
-    document.getElementById("save-config"),
-    document.getElementById("save-config-btn")
-  ].filter(btn => btn);
-  
-  // 2. Fonctions utilitaires (génériques, réutilisables)
-  function setupCollapseToggle() {
-    // Gestion des collapses et toggles
-    document.querySelectorAll('[data-bs-toggle="collapse"]').forEach((button) => {
-      // ... code existant ...
-      const targetId = button.getAttribute("data-bs-target");
-      const targetElement = document.querySelector(targetId);
-  
-      // Mettre à jour l'icône initiale en fonction de l'état
-      const updateIcon = (isExpanded) => {
-        const icon = button.querySelector(".expand-icon");
-        if (icon) {
-          icon.textContent = isExpanded ? "▲" : "▼";
-        }
-      };
-  
-      // Initialiser l'icône au chargement
-      if (targetElement) {
-        updateIcon(targetElement.classList.contains("show"));
-  
-        //Observer les changements d'état du collapse
-        targetElement.addEventListener("show.bs.collapse", () =>
-          updateIcon(true)
-        );
-        targetElement.addEventListener("hide.bs.collapse", () =>
-          updateIcon(false)
-        );
-      }
-
-
-
-    });
-  }
-
-  function validateInputs() {
-    // Logique de validation centralisée
-    const errors = document.querySelectorAll(".is-invalid");
-    return errors.length === 0;
-  }
-
-  // 3. Fonctions liées aux stratégies
-  function setupStrategies() {
-    // Initialisation des stratégies
-    const addStrategyBtn = document.getElementById("add-strategy");
-    if (addStrategyBtn) addStrategyBtn.addEventListener("click", addNewStrategy);
-  }
-
-  function addNewStrategy() {
-    // ... code existant ...
-    const container = document.createElement("div");
-    container.className = "strategy-container";
-
-    // Créer le contenu de la stratégie
-    container.innerHTML = `
-      <div class="strategy-header">
-        <h5>Stratégie de variable</h5>
-        <button type="button" class="btn btn-sm btn-danger remove-strategy">Supprimer</button>
-      </div>
-      <div class="strategy-fields">
-        <div class="mb-2">
-          <label class="form-label">Type de variable:</label>
-          <select class="form-select variable-type">
-            <option value="x_room">x_room</option>
-            <option value="x_rooms">x_rooms</option>
-            <option value="x_teacher">x_teacher</option>
-            <option value="x_teachers">x_teachers</option>
-            <option value="x_slot">x_slot</option>
-          </select>
-        </div>
-        <div class="mb-2">
-          <label class="form-label">Type de sélecteur:</label>
-          <select class="form-select selector-type">
-            <option value="rank">rank</option>
-            <option value="label">label</option>
-            <option value="id">id</option>
-          </select>
-        </div>
-        <div class="mb-2">
-          <label class="form-label">Valeur du sélecteur:</label>
-          <input type="text" class="form-control selector-value" placeholder="ex: *, 1-5, L1" value="*">
-        </div>
-        <div class="mb-2">
-          <label class="form-label">Stratégie d'ordre:</label>
-          <select class="form-select order-strategy">
-            <option value="input_order">input_order</option>
-            <option value="first_fail">first_fail</option>
-            <option value="anti_first_fail">anti_first_fail</option>
-            <option value="dom_w_deg">dom_w_deg</option>
-            <option value="activity_based">activity_based</option>
-            <option value="max_regret">max_regret</option>
-            <option value="conflict_history">conflict_history</option>
-          </select>
-        </div>
-        <div class="mb-2">
-          <label class="form-label">Stratégie de parcours:</label>
-          <select class="form-select domain-strategy">
-            <option value="indomain_min">indomain_min</option>
-            <option value="indomain_max">indomain_max</option>
-            <option value="indomain_random">indomain_random</option>
-            <option value="indomain_median">indomain_median</option>
-            <option value="indomain_middle">indomain_middle</option>
-          </select>
-        </div>
-      </div>
-    `;
-
-    // Ajouter au conteneur principal
-    const varsStrategies = document.getElementById("vars-strategies");
-    if (varsStrategies) {
-      varsStrategies.appendChild(container);
-    }
-
-    // Gestionnaire pour le bouton de suppression
-    const removeButton = container.querySelector(".remove-strategy");
-    if (removeButton) {
-      removeButton.addEventListener("click", function () {
-        container.remove();
-      });
-    }
-
-
-
-    const selectorValueInput = container.querySelector(".selector-value");
-    selectorValueInput.value = "*"; // Valeur par défaut
-
-    // Ajouter un élément pour afficher les erreurs
-    const errorDisplay = document.createElement("div");
-    errorDisplay.className = "text-danger mt-1 error-feedback";
-    container.querySelector(".strategy-fields").appendChild(errorDisplay);
-    const selectorTypeSelect = container.querySelector(".selector-type");
-
-    selectorValueInput.addEventListener("input", function() {
-        if (selectorTypeSelect.value === "rank") {
-            const value = this.value.trim();
-            const rankRegex = /^(\*|\d+(-\d+)?(,\d+(-\d+)?)*)$/;
-            
-            if (!rankRegex.test(value)) {
-                this.classList.add("is-invalid");
-                errorDisplay.textContent = "Format invalide. Exemples : *, 1-5, 1,3-5,8";
-            } else {
-                this.classList.remove("is-invalid");
-                errorDisplay.textContent = "";
-            }
-        }
-    });
-
-    // Changement du type de sélecteur
-    selectorTypeSelect.addEventListener("change", function() {
-      if (this.value === "rank") {
-        selectorValueInput.placeholder = "ex: *, 1-5, 1,2-5,8";
-        // Réappliquer la validation si nécessaire
-        const event = new Event("input");
-        selectorValueInput.dispatchEvent(event);
-      } else {
-        selectorValueInput.placeholder = "ex: *, L1, ID123";
-        selectorValueInput.setCustomValidity("");
-      }
-    });
-
-  }
-
-  function getVarsStrategies() {
-    // ... code existant ...
-
-    const strategies = [];
-    const strategyContainers = document.querySelectorAll(".strategy-container");
-
-    strategyContainers.forEach((container) => {
-      const variableType = container.querySelector(".variable-type").value;
-      const selectorType = container.querySelector(".selector-type").value;
-      const selectorValue = container.querySelector(".selector-value").value;
-      const orderStrategy = container.querySelector(".order-strategy").value;
-      const domainStrategy = container.querySelector(".domain-strategy").value;
-
-      // Créer l'objet stratégie
-      const strategyObj = {};
-      strategyObj[variableType] = [
-        { [selectorType]: selectorValue },
-        orderStrategy,
-        domainStrategy,
-      ];
-
-      strategies.push(strategyObj);
-    });
-
-    return strategies;
-  }
-
-  // 4. Fonctions liées à la configuration
-  function setupConfigHandling() {
-    // Gestion du chargement/sauvegarde
-    setupSaveConfig();
-    setupLoadConfig();
-  }
-
-  function setupSaveConfig() {
-    // ... logique de sauvegarde ...
-  }
-
-  function setupLoadConfig() {
-    // ... logique de chargement ...
-  }
-
-  //function generateConfigJSON() {
-    // ... code existant ...
-
-  window.generateConfigJSON = function() {
-      // ... code existant ...
-
-    const config = {
-      time_out: document.getElementById("time-out").value + "s",
-      vars: getVarsStrategies(),
-      core_constraint: [],
-      user_constraint: [],
-      deactivate_rules: [],
-    };
-
-    // Récupérer les contraintes fondamentales cochées
-    document
-      .querySelectorAll('#core-constraints-list input[type="checkbox"]:checked')
-      .forEach((checkbox) => {
-        config.core_constraint.push(checkbox.value);
-      });
-
-    // Récupérer les contraintes métier cochées
-    document
-      .querySelectorAll('#user-constraints-list input[type="checkbox"]:checked')
-      .forEach((checkbox) => {
-        config.user_constraint.push(checkbox.value);
-      });
-
-    // Récupérer les règles désactivées
-    const deactivateRulesInput = document.getElementById("deactivate-rules");
-    if (deactivateRulesInput && deactivateRulesInput.value) {
-      config.deactivate_rules.push({
-        rules: deactivateRulesInput.value,
-        comment: "Règles désactivées par l'utilisateur",
-      });
-    }
-
-    // Mettre à jour le textarea JSON
-    const jsonTextarea = document.getElementById("advanced-config-json");
-    if (jsonTextarea) {
-      jsonTextarea.value = JSON.stringify(config, null, 2);
-    }
-    
-    return config;
-  
-  }
-
-  function loadConfigIntoForm(config) {
-    // ... code existant ...
-  }
-
-  // 5. Fonctions liées à l'interface
-  function setupSearch() {
-    // Recherche dans les contraintes
-    const userConstraintsSearch = document.getElementById("user-constraints-search");
-    if (userConstraintsSearch) {
-      // ... code existant ...
-    }
-  }
-
-  function setupAdvancedMode() {
-    // Mode avancé
-    if (advancedModeToggle && advancedModeSection) {
-      // ... code existant ...
-    }
-  }
-
-  function setupSolverButton() {
-    // Bouton solveur
-    if (startSolverBtn) {
-      // ... code existant ...
-    }
-  }
-
-  // 6. Initialisation
-  function initialize() {
-    setupCollapseToggle();
-    setupAdvancedMode();
-    setupStrategies();
-    setupConfigHandling();
-    setupSearch();
-    setupSolverButton();
-  }
-
-  // Lancement de l'initialisation
-  initialize();
-});
-*/

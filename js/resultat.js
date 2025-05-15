@@ -1,162 +1,187 @@
+
+
 let instance_id = null;
 
-// ==== Gestion des boutons ====
-
+// ==== Démmarer le solveur ( avec l'id = start-solver) ==== 
 document.getElementById("start-solver").addEventListener("click", async () => {
   try {
+    //  la barre de progression avec l'état "PARSING"
+    updateProgressBar("PARSING");
+
     const { instance, strategy } = await chargerInstanceEtStrategie();
     const creationResponse = await fetch("http://localhost:8080/solver/new", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ instance, strategy })
+      body: JSON.stringify({ instance, strategy }),
     });
     const creationJson = await creationResponse.json();
-    //console.log("Réponse de création :", creationJson); // Ajoute ce log
-    if (!creationJson.success) throw new Error("Erreur de création de l'instance.");
+    if (!creationJson.success)
+      throw new Error("Erreur de création de l'instance.");
 
     instance_id = creationJson.controller.id;
-    console.log(`Instance créée avec ID : ${instance_id}`);
-
     enableStopButton(true);
-    await attendreEtat("READY");
-
-    const startResponse = await fetch(`http://localhost:8080/solver/${instance_id}/start`, {
-      method: "POST"
-    });
-    if (!startResponse.ok) throw new Error("Erreur lors du démarrage du solveur.");
-
-    //console.log("Solveur démarré.");
     
+    await attendreEtat("READY");
+    updateProgressBar("SOLVING");
+
+    const startResponse = await fetch(
+      `http://localhost:8080/solver/${instance_id}/start`,
+      { method: "POST" }
+    );
+    if (!startResponse.ok)
+      throw new Error("Erreur lors du démarrage du solveur.");
+
     await attendreEtat("FINISHED");
     enableStopButton(false);
-
     await chargerResultatSolveur(instance_id);
-
+    
   } catch (error) {
     console.error("Erreur :", error);
+    updateProgressBar("FAILED");
     alert(error.message);
   }
 });
 
-  
-
-
-
-// Référence au bouton
+// ARRETER LE SOLVEUR //
 const stopSolverBtn = document.getElementById("stop-solver");
-
-// Fonction pour activer/désactiver le bouton
 function setStopButtonState(active) {
   stopSolverBtn.disabled = !active;
-  stopSolverBtn.innerHTML = active 
-    ? '<i class="bi bi-stop-circle"></i> Arrêter le solveur' 
+  stopSolverBtn.innerHTML = active
+    ? '<i class="bi bi-stop-circle"></i> Arrêter le solveur'
     : '<i class="bi bi-hourglass"></i> Arrêt en cours...';
 }
-
-// Gestionnaire d'arrêt du solveur
 stopSolverBtn.addEventListener("click", async () => {
   if (!instance_id) {
     alert("Aucune instance active.");
     return;
   }
+  setStopButtonState(false);
 
-  setStopButtonState(false); // Désactive le bouton pendant la requête
-  
   try {
-    const response = await fetch(`http://localhost:8080/solver/${instance_id}/stop`, {
-      method: "POST"
-    });
+    const response = await fetch(
+      `http://localhost:8080/solver/${instance_id}/stop`,
+      {
+        method: "POST",
+      }
+    );
 
     if (!response.ok) {
-      throw new Error(response.status === 404 
-        ? "Instance introuvable" 
-        : "Erreur lors de l'arrêt du solveur");
+      throw new Error(
+        response.status === 404
+          ? "Instance introuvable"
+          : "Erreur lors de l'arrêt du solveur"
+      );
     }
 
     // Mise à jour de l'interface
     document.getElementById("solver-status").textContent = "Arrêté";
     document.getElementById("solver-status").className = "badge bg-warning";
     console.log("Solveur arrêté avec succès");
-
   } catch (error) {
     console.error("Erreur :", error);
     alert(`Échec de l'arrêt : ${error.message}`);
-    
-    // Réactive le bouton en cas d'erreur
+
+    // Le bouton arreter le solveur est reactivé en cas d'erreur
     setStopButtonState(true);
   }
 });
 
-// Exposer cette fonction pour pouvoir l'utiliser ailleurs
 function enableStopButton(enable) {
   if (enable) {
-    stopSolverBtn.style.display = 'block'; // Change de 'hidden' à 'block'
+    stopSolverBtn.style.display = "block"; // affiche l'élément
     setStopButtonState(true);
   } else {
-    stopSolverBtn.style.display = 'none'; // Cache complètement l'élément
+    stopSolverBtn.style.display = "none"; // Cache l'élément
   }
 }
 
+// La barre de progression
+// Cette partie gère la barre de progression et les états du solveur
+// Les états possibles du solveur
+// sont définis dans l'objet SOLVER_STATES
+const SOLVER_STATES = {
+  PARSING: { percent: 10, label: "Analyse des données..." },
+  READY: { percent: 30, label: "Prêt à démarrer..." },
+  SOLVING: { percent: 60, label: "Résolution en cours..." },
+  FINISHED: { percent: 100, label: "Terminé avec succès!" },
+  FAILED: { percent: 100, label: "Échec de la résolution", error: true }
+};
 
-/*
-document.getElementById("clear-instance").addEventListener("click", async () => {
-  if (!instance_id) {
-    alert("Aucune instance à supprimer.");
-    return;
+function updateProgressBar(state) {
+  const progressBar = document.getElementById("solver-progress");
+  const progressInfo = SOLVER_STATES[state] || { percent: 0, label: "" };
+  
+  // Mise à jour visuelle
+  progressBar.style.width = `${progressInfo.percent}%`;
+  progressBar.textContent = progressInfo.label;
+  
+  // Changement de couleur selon l'état
+  if (progressInfo.error) {
+    progressBar.classList.remove("bg-success", "bg-info");
+    progressBar.classList.add("bg-danger");
+  } else if (state === "FINISHED") {
+    progressBar.classList.remove("bg-info");
+    progressBar.classList.add("bg-success");
+  } else {
+    progressBar.classList.remove("bg-success", "bg-danger");
+    progressBar.classList.add("bg-info");
   }
-
-  if (!confirm("Veux-tu vraiment supprimer l'instance ?")) return;
-
-  try {
-    const response = await fetch(`http://localhost:8080/solver/${instance_id}/clear`, {
-      method: "POST"
-    });
-    if (response.ok) {
-      console.log("Instance supprimée.");
-      instance_id = null;
-      activerBoutonsAction(false);
-    } else {
-      throw new Error("Erreur lors de la suppression de l'instance.");
-    }
-  } catch (error) {
-    console.error("Erreur :", error);
-    alert(error.message);
+  
+  // Mise à jour du statut dans l'interface
+  const solverStatus = document.getElementById("solver-status");
+  if (solverStatus) {
+    solverStatus.textContent = state;
+    solverStatus.className = progressInfo.error 
+      ? "badge bg-danger" 
+      : state === "FINISHED" 
+        ? "badge bg-success" 
+        : "badge bg-primary";
   }
-});
-*/
-// ==== Fonctions principales ====
-
-// Fonction pour attendre un état spécifique du solveur
+}
 
 async function attendreEtat(etatVise) {
+  // Initialiser la barre de progression avec l'état "PARSING"
+  updateProgressBar("PARSING");
+  
   while (true) {
-    const statusResponse = await fetch(`http://localhost:8080/solver/${instance_id}/status`);
-    const statusJson = await statusResponse.json();
-    const etatActuel = statusJson.controller?.status; // Sois précis ici
+    try {
+      const statusResponse = await fetch(
+        `http://localhost:8080/solver/${instance_id}/status`
+      );
+      const statusJson = await statusResponse.json();
+      const etatActuel = statusJson.controller?.status;
 
-    console.log(`État actuel : ${etatActuel}`);
-    // ici prévoir une affichage sur le front pour l'état actuel
-    if (etatActuel === etatVise) {
-      return;
-    } else if (etatActuel === "FAILED") {
-      // Si le solveur échoue, on arrête la boucle
-      throw new Error("Problème dans la résolution / parsing .");
+      // Mettre à jour la barre de progression selon l'état actuel
+      if (SOLVER_STATES[etatActuel]) {
+        updateProgressBar(etatActuel);
+      }
+
+      if (etatActuel === etatVise) {
+        return;
+      } else if (etatActuel === "FAILED") {
+        throw new Error("Problème dans la résolution / parsing.");
+      }
+      
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+    } catch (error) {
+      updateProgressBar("FAILED");
+      throw error;
     }
-    //console.log(`Attente de l'état : ${etatVise}...`);
-    // On attend un peu avant de vérifier à nouveau
-    await new Promise(resolve => setTimeout(resolve, 1000));
   }
 }
 
-// Fonction pour récupérer le résultat du solveur
+/* Fonction pour récupérer le résultat du solveur ( avec endpoint = /solver/{id}/result)
+// id est l'ID de l'instance du solveur
+// La fonction renvoie un objet contenant la solution et les statistiques
+// La fonction gère également les erreurs de parsing 
+*/
 async function recupererResultatSolveur(id) {
   if (!id) throw new Error("ID d'instance manquant");
-
   const response = await fetch(`http://localhost:8080/solver/${id}/result`);
   const json = await response.json();
-  console.log("Contenu de la réponse du solveur:", JSON.stringify(json, null, 2));
+  //console.log("Contenu de la réponse du solveur:", JSON.stringify(json, null, 2));
 
-  let solution = json.solution || json; 
+  let solution = json.solution || json;
   let statistics = json.statistics || json;
 
   if (typeof solution === "string") {
@@ -170,7 +195,7 @@ async function recupererResultatSolveur(id) {
   if (typeof statistics === "string") {
     try {
       statistics = parseStatistics(statistics);
-      console.log("statistique 2 :", statistics);
+      //console.log("statistique  :", statistics);
     } catch (e) {
       throw new Error("Les statistiques sont invalides (mal formées).");
     }
@@ -179,8 +204,14 @@ async function recupererResultatSolveur(id) {
   return { solution, statistics };
 }
 
-
-function afficherResultatsSolveur(solution, statistics) {
+/* Fonction pour afficher les résultats du solveur
+// solution est l'objet contenant la solution du solveur
+// statistics est l'objet contenant les statistiques du solveur
+// Cette fonction met à jour l'interface utilisateur avec les résultats
+// et les statistiques
+// Elle affiche également un message de succès ou d'échec selon le statut du solveur
+*/
+async function afficherResultatsSolveur(solution, statistics) {
   afficherStatsSolution(solution, statistics);
 
   const solverStatus = document.getElementById("solver-status");
@@ -194,7 +225,12 @@ function afficherResultatsSolveur(solution, statistics) {
   const exportBtn = document.getElementById("export-solution");
   if (exportBtn) {
     exportBtn.disabled = false;
-    exportBtn.onclick = () => exporterSolutionJSON(solution); 
+    const xmlBase = await generateCompleteTimetabling();
+    const solutionWithSessions = exporterSolutionXML(xmlBase, solution);
+
+    exportBtn.onclick = () => downloadXML(solutionWithSessions);
+    // dans le cas où on veut exporter en JSON ( à décider plus tard par les chercheurs de LERIA)
+    //exportBtn.onclick = () => exporterSolutionJSON(solution);
   }
 }
 
@@ -204,7 +240,6 @@ async function chargerResultatSolveur(id) {
   try {
     const { solution, statistics } = await recupererResultatSolveur(id);
     afficherResultatsSolveur(solution, statistics);
-
   } catch (error) {
     console.error("Erreur lors du chargement du résultat :", error);
 
@@ -216,31 +251,8 @@ async function chargerResultatSolveur(id) {
   }
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// dans le cas où on veut exporter en JSON ( à décider plus tard par les chercheurs de LERIA)
+/*
 function exporterSolutionJSON(data) {
   const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
   const url = URL.createObjectURL(blob);
@@ -251,62 +263,122 @@ function exporterSolutionJSON(data) {
   a.click();
   document.body.removeChild(a);
   URL.revokeObjectURL(url);
-}
-/*
-function activerBoutonsAction(active) {
-  document.getElementById("stop-solver").disabled = !active;
-  document.getElementById("clear-instance").disabled = !active;
 }*/
 
-// ==== Simulateur d'instance / stratégie ====
+function downloadXML(xmlContent) {
+  const blob = new Blob([xmlContent], { type: "application/xml" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "emploi_du_temps.xml";
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
 
+/*
+// Fonction pour générer le XML complet
+// avec les data du périmètre + les sessions de la solution
+// la fonction prend en entrée une chaîne XML de base ( renvoyée par generateCompleteTimetabling)
+// et qui contenait avec les toues les données sauf la partie <sessions> de la solution
+// cette fonction va générer le bloc <sessions> à partir de data.sessions
+// et l'insérer dans le XML de base
+// En sortie, elle renvoie le XML complet(ce qui pourra etre téléchargé par l'utilisateur pour visionnage )
+*/
+function exporterSolutionXML(xmlString, data) {
+  // Génération du bloc <sessions> à partir de data.sessions
+  const sessionsXml = data.sessions
+    .map((session) => {
+      const roomsXml = session.rooms
+        .map((roomId) => `        <room refId="${roomId}" />`)
+        .join("\n");
+
+      const teachersXml = session.teachers
+        .map((teacherId) => `        <teacher refId="${teacherId}" />`)
+        .join("\n");
+
+      const startingSlot = session.startingSlot;
+
+      return `    <session num="${session.num}" rank="${session.rank}" class="${session.class}">
+        <startingSlot slot="${startingSlot.slot}" dailySlot="${startingSlot.dailySlot}" day="${startingSlot.day}" week="${startingSlot.week}" />
+        <rooms>
+${roomsXml}
+        </rooms>
+        <teachers>
+${teachersXml}
+        </teachers>
+    </session>`;
+    })
+    .join("\n");
+
+  const sessionsBlock = `    <sessions>\n${sessionsXml}\n    </sessions>`;
+
+  // Insertion du bloc <sessions> dans la balise <solution> après </groups>
+  const updatedXml = xmlString.replace(/(<\/groups>)/, `$1\n${sessionsBlock}`);
+
+  return updatedXml;
+}
+
+// cette fonction récupere le JSON de configuration ( périmètre + stratégie)
 async function chargerInstanceEtStrategie() {
   if (!universityData) {
-    throw new Error("Données d'instance non chargées. Vérifie ton JS ou l'étape de sélection.");
+    throw new Error(
+      "Données d'instance non chargées. Vérifie ton JS ou l'étape de sélection."
+    );
   }
   const instance = universityData;
   const strategy = generateConfigJSON();
-
-  //console.log("test! ce que je recois :", JSON.stringify(strategy, null, 2));
-
   return { instance, strategy };
 }
+
+/*
 // Fonction pour parser les statistiques
-// de la réponse brute du solveur
-// en un objet JavaScript
+// de la réponse brute du solveur puisque le solveur renvoie les statistiques en format brut
+// (chaîne de caractères) et on doit les parser pour les convertir
+// en un objet JavaScript ( plus facile à manipuler)
+*/
 function parseStatistics(raw) {
   const stats = {};
-  raw.split("\n").forEach(line => {
+  raw.split("\n").forEach((line) => {
     const parts = line.split(";");
     if (parts.length === 2) {
       const key = parts[0].trim().replace(/\u200B/g, ""); // supprime ZWSP
       const value = parts[1].trim();
-      // Convertir les nombres si possible
       stats[key] = isNaN(value) ? value : parseFloat(value);
     }
   });
   return stats;
 }
 
-// ==== Fonctions d'affichage ====
-
+// Cette fonction affiche les statistiques de la solution
 function afficherStatsSolution(solution, statistics) {
   const statsContainer = document.getElementById("solution-stats");
-  statsContainer.innerHTML = '';
+  statsContainer.innerHTML = "";
 
   // Calcul des statistiques
   const nbSessions = solution.sessions?.length || 0;
-  //const nbGroupes = solution.groups?.length || 0;
-  //const totalGroups = universityData.timetabling.solution.groups.length;
-  const nbGroupes = universityData.timetabling.solution.groups.length || 0 ;
-  const nbClasses = new Set(solution.sessions?.map(s => s.class)).size || 0;
-  const nbTeachers = new Set(solution.sessions?.flatMap(s => s.teachers)).size || 0;
-  const nbRooms = new Set(solution.sessions?.flatMap(s => s.rooms)).size || 0;
+  const nbGroupes = universityData.timetabling.solution.groups.length || 0;
+  const nbClasses = new Set(solution.sessions?.map((s) => s.class)).size || 0;
+  const nbTeachers =
+    new Set(solution.sessions?.flatMap((s) => s.teachers)).size || 0;
+  const nbRooms = new Set(solution.sessions?.flatMap((s) => s.rooms)).size || 0;
 
-  const resolutionTime = parseFloat(statistics.getResolutionTime || 0).toFixed(3);
-  const creationTime = parseFloat(statistics.getCreationTime?.toString().trim().replace(/[^\d.-]/g, '') || 0).toFixed(3);
-  const totalTime = (parseFloat(resolutionTime) + parseFloat(creationTime)).toFixed(3);
-  const efficiencyRatio = ((statistics.getNodeCount / statistics.getDecisionCount) || 0 ).toFixed(2);
+  const resolutionTime = parseFloat(statistics.getResolutionTime || 0).toFixed(
+    3
+  );
+  const creationTime = parseFloat(
+    statistics.getCreationTime
+      ?.toString()
+      .trim()
+      .replace(/[^\d.-]/g, "") || 0
+  ).toFixed(3);
+  const totalTime = (
+    parseFloat(resolutionTime) + parseFloat(creationTime)
+  ).toFixed(3);
+  const efficiencyRatio = (
+    statistics.getNodeCount / statistics.getDecisionCount || 0
+  ).toFixed(2);
 
   statsContainer.innerHTML = `
     <div class="stats-wrapper">
@@ -317,12 +389,39 @@ function afficherStatsSolution(solution, statistics) {
         </h3>
         <div class="stats-grid">
           ${[
-            { label: "Séances planifiées", value: nbSessions, icon: "bi-calendar-event", color: "primary" },
-            { label: "Groupes constitués", value: nbGroupes, icon: "bi-people", color: "success" },
-            { label: "Classes", value: nbClasses, icon: "bi-journal-bookmark", color: "info" },
-            { label: "Enseignants", value: nbTeachers, icon: "bi-person-badge", color: "warning" },
-            { label: "Salles utilisées", value: nbRooms, icon: "bi-building", color: "danger" }
-          ].map(stat => `
+            {
+              label: "Séances planifiées",
+              value: nbSessions,
+              icon: "bi-calendar-event",
+              color: "primary",
+            },
+            {
+              label: "Groupes constitués",
+              value: nbGroupes,
+              icon: "bi-people",
+              color: "success",
+            },
+            {
+              label: "Classes",
+              value: nbClasses,
+              icon: "bi-journal-bookmark",
+              color: "info",
+            },
+            {
+              label: "Enseignants",
+              value: nbTeachers,
+              icon: "bi-person-badge",
+              color: "warning",
+            },
+            {
+              label: "Salles utilisées",
+              value: nbRooms,
+              icon: "bi-building",
+              color: "danger",
+            },
+          ]
+            .map(
+              (stat) => `
             <div class="stat-item bg-${stat.color}-subtle">
               <i class="bi ${stat.icon}"></i>
               <div class="stat-content">
@@ -330,7 +429,9 @@ function afficherStatsSolution(solution, statistics) {
                 <span class="label">${stat.label}</span>
               </div>
             </div>
-          `).join('')}
+          `
+            )
+            .join("")}
         </div>
       </div>
 
@@ -354,12 +455,14 @@ function afficherStatsSolution(solution, statistics) {
             </div>
           </div>
           
-          <!-- Nouvelle ligne pour les indicateurs clés -->
+          <!--les indicateurs clés -->
           <div class="key-indicators">
             <div class="indicator success">
               <i class="bi bi-check-circle"></i>
               <div>
-                <div class="indicator-value">${statistics.getNrSolutions || 0}</div>
+                <div class="indicator-value">${
+                  statistics.getNrSolutions || 0
+                }</div>
                 <div class="indicator-label">Solutions</div>
               </div>
             </div>
@@ -376,7 +479,9 @@ function afficherStatsSolution(solution, statistics) {
             <div class="indicator purity">
               <i class="bi bi-filter-circle"></i>
               <div>
-                <div class="indicator-value">${statistics.getFailCount || 0}</div>
+                <div class="indicator-value">${
+                  statistics.getFailCount || 0
+                }</div>
                 <div class="indicator-label">Échecs</div>
               </div>
             </div>
@@ -387,14 +492,18 @@ function afficherStatsSolution(solution, statistics) {
               <div>
                 <div class="metric-value">${statistics.getNodeCount || 0}</div>
                 <div class="metric-label">Nœuds</div>
-                <div class="metric-detail">Profondeur: ${statistics.getCurrentDepth || 0}</div>
+                <div class="metric-detail">Profondeur: ${
+                  statistics.getCurrentDepth || 0
+                }</div>
               </div>
             </div>
             
             <div class="metric-card">
               <i class="bi bi-arrow-left-right"></i>
               <div>
-                <div class="metric-value">${statistics.getDecisionCount || 0}</div>
+                <div class="metric-value">${
+                  statistics.getDecisionCount || 0
+                }</div>
                 <div class="metric-label">Décisions</div>
               </div>
             </div>
@@ -412,7 +521,9 @@ function afficherStatsSolution(solution, statistics) {
               <div>
                 <div class="metric-value">${statistics.getNbVars || 0}</div>
                 <div class="metric-label">Variables</div>
-                <div class="metric-detail">${statistics.getNbIntVar || 0} int, ${statistics.getNbBoolVar || 0} bool</div>
+                <div class="metric-detail">${
+                  statistics.getNbIntVar || 0
+                } int, ${statistics.getNbBoolVar || 0} bool</div>
               </div>
             </div>
           </div>
@@ -422,66 +533,72 @@ function afficherStatsSolution(solution, statistics) {
   `;
 }
 
-
-
-// Partie sauvegarde de la solution
+/*
+// Cette partie se charge de la sauvegarde de la solution
+// Vérifie si l'instance_id est défini
+// et si le bouton "Enregistrer" est cliqué
+// et envoie une requête POST à l'API pour sauvegarder la solution
+// et renommer l'instance
+*/
 const saveButton = document.getElementById("save-solution");
 const solutionNameInput = document.getElementById("solution-name");
-
-// Gestionnaire pour le bouton "Enregistrer"
 if (saveButton) {
-    saveButton.addEventListener("click", async function() {
-        try {
-            const solutionName = solutionNameInput.value.trim();
-            
-            // vérifier si un nom a été saisi
-            if (!solutionName) {
-                alert("Veuillez saisir un nom pour la solution");
-                solutionNameInput.focus();
-                return;
-            }
+  saveButton.addEventListener("click", async function () {
+    try {
+      const solutionName = solutionNameInput.value.trim();
 
-            // vérifier si l'instance_id existe
-            if (!instance_id) {
-                alert("Aucune instance de solution active");
-                return;
-            }
+      // vérifier si un nom a été saisi
+      if (!solutionName) {
+        alert("Veuillez saisir un nom pour la solution");
+        solutionNameInput.focus();
+        return;
+      }
 
-            //afficher un indicateur de chargement
-            saveButton.disabled = true;
-            saveButton.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Sauvegarde...';
+      // vérifier si l'instance_id existe
+      if (!instance_id) {
+        alert("Aucune instance de solution active");
+        return;
+      }
 
+      //afficher un indicateur de chargement
+      saveButton.disabled = true;
+      saveButton.innerHTML =
+        '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Sauvegarde...';
 
-            const requestData = {
-                name: solutionName,
-            };
+      const requestData = {
+        name: solutionName,
+      };
 
-            // Utiliser l'endpoint pour renommer l'instance
-            const response = await fetch(`http://localhost:8080/solver/${instance_id}/rename`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(requestData)
-            });
-
-            if (!response.ok) {
-                throw new Error(`Erreur lors de la sauvegarde: ${response.status} ${response.statusText}`);
-            }
-
-            const result = await response.json();
-            console.log("Résultat de la sauvegarde:", result);
-            
-            // Afficher un message de succès
-            alert("Solution sauvegardée avec succès sous le nom: " + solutionName);
-            
-        } catch (error) {
-            console.error("Erreur lors de la sauvegarde:", error);
-            alert("Erreur lors de la sauvegarde: " + error.message);
-        } finally {
-            // Réactiver le bouton
-            saveButton.disabled = false;
-            saveButton.innerHTML = '<i class="bi bi-save"></i> Enregistrer';
+      //l'endpoint de renommage de l'instance
+      const response = await fetch(
+        `http://localhost:8080/solver/${instance_id}/rename`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(requestData),
         }
-    });
+      );
+
+      if (!response.ok) {
+        throw new Error(
+          `Erreur lors de la sauvegarde: ${response.status} ${response.statusText}`
+        );
+      }
+
+      const result = await response.json();
+      //console.log("Résultat de la sauvegarde:", result);
+
+      // un message de succès ! bingo!!!!!
+      alert("Solution sauvegardée avec succès sous le nom: " + solutionName);
+    } catch (error) {
+      console.error("Erreur lors de la sauvegarde:", error);
+      alert("Erreur lors de la sauvegarde: " + error.message);
+    } finally {
+      // Réactiver le bouton
+      saveButton.disabled = false;
+      saveButton.innerHTML = '<i class="bi bi-save"></i> Enregistrer';
+    }
+  });
 }

@@ -123,4 +123,4 @@ document.addEventListener("DOMContentLoaded", function() {
     
     // Initialiser l'état des onglets au chargement
     initTabsFromUrl();
-  });
+});
